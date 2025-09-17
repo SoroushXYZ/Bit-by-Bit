@@ -231,8 +231,8 @@ models/
 *.pt
 *.pth
 
-# Jupyter notebook outputs
-*.ipynb
+# Jupyter notebook checkpoints (but keep the notebooks themselves)
+.ipynb_checkpoints/
 
 # OS generated files
 .DS_Store?
