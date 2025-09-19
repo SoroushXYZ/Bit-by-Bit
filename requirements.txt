@@ -15,3 +15,7 @@ jupyter
 feedparser
 requests
 tqdm
+
+# Deduplication and NLP
+sentence-transformers
+scikit-learn
