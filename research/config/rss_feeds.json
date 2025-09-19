@@ -1,0 +1,283 @@
+{
+  "feeds": [
+    {
+      "name": "Google The Keyword",
+      "url": "https://blog.google/rss/",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "Google's official blog"
+    },
+    {
+      "name": "Google Research",
+      "url": "https://research.google/blog/rss/",
+      "enabled": true,
+      "category": "research",
+      "description": "Google Research blog"
+    },
+    {
+      "name": "Microsoft Official Blog",
+      "url": "https://blogs.microsoft.com/feed/",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "Microsoft's official blog"
+    },
+    {
+      "name": "Microsoft Developer Blog",
+      "url": "https://devblogs.microsoft.com/feed/",
+      "enabled": true,
+      "category": "development",
+      "description": "Microsoft Developer blog"
+    },
+    {
+      "name": "Azure Blog",
+      "url": "https://azure.microsoft.com/en-us/blog/feed/",
+      "enabled": true,
+      "category": "cloud",
+      "description": "Azure cloud platform blog"
+    },
+    {
+      "name": "Amazon AWS News",
+      "url": "https://aws.amazon.com/blogs/aws/feed/",
+      "enabled": true,
+      "category": "cloud",
+      "description": "Amazon Web Services blog"
+    },
+    {
+      "name": "OpenAI",
+      "url": "https://openai.com/blog/rss.xml",
+      "enabled": true,
+      "category": "ai",
+      "description": "OpenAI official blog"
+    },
+    {
+      "name": "Meta Engineering",
+      "url": "https://engineering.fb.com/feed/",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "Meta (Facebook) Engineering blog"
+    },
+    {
+      "name": "Dropbox Tech Blog",
+      "url": "https://dropbox.tech/feed",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "Dropbox Technology blog"
+    },
+    {
+      "name": "GitHub Engineering",
+      "url": "https://githubengineering.com/atom.xml",
+      "enabled": true,
+      "category": "development",
+      "description": "GitHub Engineering blog"
+    },
+    {
+      "name": "Cloudflare Blog",
+      "url": "https://blog.cloudflare.com/rss/",
+      "enabled": true,
+      "category": "infrastructure",
+      "description": "Cloudflare blog"
+    },
+    {
+      "name": "Stripe Blog",
+      "url": "https://stripe.com/blog/feed.rss",
+      "enabled": true,
+      "category": "fintech",
+      "description": "Stripe payments blog"
+    },
+    {
+      "name": "Mozilla Blog",
+      "url": "https://blog.mozilla.org/feed/",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "Mozilla official blog"
+    },
+    {
+      "name": "Kubernetes Blog",
+      "url": "https://kubernetes.io/feed.xml",
+      "enabled": true,
+      "category": "infrastructure",
+      "description": "Kubernetes container orchestration blog"
+    },
+    {
+      "name": "JetBrains Blog",
+      "url": "https://blog.jetbrains.com/feed/",
+      "enabled": true,
+      "category": "development",
+      "description": "JetBrains developer tools blog"
+    },
+    {
+      "name": "Slack Engineering",
+      "url": "https://slack.engineering/feed/",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "Slack Engineering blog"
+    },
+    {
+      "name": "LinkedIn Engineering",
+      "url": "https://engineering.linkedin.com/blog.rss",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "LinkedIn Engineering blog"
+    },
+    {
+      "name": "Pinterest Engineering",
+      "url": "https://medium.com/feed/@Pinterest_Engineering",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "Pinterest Engineering blog"
+    },
+    {
+      "name": "Airbnb Engineering",
+      "url": "https://medium.com/feed/airbnb-engineering",
+      "enabled": true,
+      "category": "company_blog",
+      "description": "Airbnb Engineering blog"
+    },
+    {
+      "name": "Ars Technica",
+      "url": "http://feeds.arstechnica.com/arstechnica/index",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "Technology news, analysis, and reviews"
+    },
+    {
+      "name": "TechCrunch",
+      "url": "http://feeds.feedburner.com/TechCrunch/",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "Latest technology news and startup information"
+    },
+    {
+      "name": "The Verge",
+      "url": "https://www.theverge.com/rss/index.xml",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "Technology, science, art, and culture"
+    },
+    {
+      "name": "Engadget",
+      "url": "https://www.engadget.com/rss.xml",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "Consumer electronics and technology news"
+    },
+    {
+      "name": "ZDNet",
+      "url": "https://www.zdnet.com/news/rss.xml",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "Business technology news"
+    },
+    {
+      "name": "The Register",
+      "url": "https://www.theregister.com/headlines.atom",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "IT news and analysis"
+    },
+    {
+      "name": "InfoQ",
+      "url": "https://feed.infoq.com/",
+      "enabled": true,
+      "category": "development",
+      "description": "Software development news and articles"
+    },
+    {
+      "name": "TechRepublic",
+      "url": "https://www.techrepublic.com/rssfeeds/articles/",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "Business technology news"
+    },
+    {
+      "name": "Interesting Engineering",
+      "url": "https://interestingengineering.com/rss",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "Engineering and technology news"
+    },
+    {
+      "name": "arXiv AI",
+      "url": "https://arxiv.org/rss/cs.AI",
+      "enabled": true,
+      "category": "research",
+      "description": "AI research papers from arXiv"
+    },
+    {
+      "name": "arXiv Machine Learning",
+      "url": "https://arxiv.org/rss/cs.LG",
+      "enabled": true,
+      "category": "research",
+      "description": "Machine learning research papers from arXiv"
+    },
+    {
+      "name": "Hacker News Front Page",
+      "url": "https://hnrss.org/frontpage",
+      "enabled": true,
+      "category": "development",
+      "description": "Hacker News top stories"
+    },
+    {
+      "name": "Hacker News Newest",
+      "url": "https://hnrss.org/newest",
+      "enabled": true,
+      "category": "development",
+      "description": "Hacker News newest stories"
+    },
+    {
+      "name": "GitHub Changelog",
+      "url": "https://github.blog/changelog/feed/",
+      "enabled": true,
+      "category": "development",
+      "description": "GitHub product updates and changelog"
+    },
+    {
+      "name": "Docker Blog",
+      "url": "https://www.docker.com/blog/feed/",
+      "enabled": true,
+      "category": "infrastructure",
+      "description": "Docker containerization blog"
+    },
+    {
+      "name": "Kaggle Blog",
+      "url": "https://medium.com/feed/kaggle-blog",
+      "enabled": true,
+      "category": "ai",
+      "description": "Kaggle data science and ML blog"
+    },
+    {
+      "name": "Percona Database Blog",
+      "url": "https://www.percona.com/blog/feed/",
+      "enabled": true,
+      "category": "infrastructure",
+      "description": "Database performance and optimization blog"
+    },
+    {
+      "name": "Elastic Blog",
+      "url": "https://www.elastic.co/blog/feed",
+      "enabled": true,
+      "category": "infrastructure",
+      "description": "Elasticsearch and ELK stack blog"
+    },
+    {
+      "name": "NYT Technology",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "New York Times technology news"
+    },
+    {
+      "name": "BBC Technology",
+      "url": "http://feeds.bbci.co.uk/news/technology/rss.xml",
+      "enabled": true,
+      "category": "tech_news",
+      "description": "BBC technology news"
+    }
+  ],
+  "settings": {
+    "max_age_hours": 24,
+    "max_items_per_feed": 30,
+    "timeout_seconds": 30,
+    "retry_attempts": 3
+  }
+}

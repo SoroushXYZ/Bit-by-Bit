@@ -10,3 +10,8 @@ lxml
 pandas
 matplotlib
 jupyter
+
+# RSS and web scraping
+feedparser
+requests
+tqdm
