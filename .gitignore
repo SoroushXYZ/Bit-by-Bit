@@ -187,15 +187,9 @@ local.properties
 *~
 
 # Project specific
-# Data directories
-data/raw/*
-data/processed/*
-data/generated/*
-data/cache/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!data/generated/.gitkeep
-!data/cache/.gitkeep
+# Data directories (exclude all data from version control)
+research/data/*
+!research/data/.gitkeep
 
 # API keys and secrets
 .env.local
