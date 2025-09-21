@@ -19,3 +19,10 @@ tqdm
 # Deduplication and NLP
 sentence-transformers
 scikit-learn
+
+# Content filtering and processing
+transformers
+torch
+nltk
+langdetect
+protobuf
