@@ -9,6 +9,7 @@ lxml
 # Research and analysis
 pandas
 matplotlib
+seaborn
 jupyter
 
 # RSS and web scraping

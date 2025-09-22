@@ -487,6 +487,134 @@
       "category": "Tech Blog",
       "description": "Apple and technology commentary",
       "score": 0.7
+    },
+    {
+      "name": "The Hacker News",
+      "url": "https://feeds.feedburner.com/TheHackersNews",
+      "enabled": true,
+      "category": "Cybersecurity",
+      "description": "Most trusted, widely-read independent cybersecurity news source",
+      "score": 0.9
+    },
+    {
+      "name": "BleepingComputer",
+      "url": "https://www.bleepingcomputer.com/feed/",
+      "enabled": true,
+      "category": "Cybersecurity",
+      "description": "Cybersecurity news, malware analysis, and technology coverage",
+      "score": 0.9
+    },
+    {
+      "name": "Microsoft Security Response Center",
+      "url": "https://msrc.microsoft.com/blog/feed",
+      "enabled": true,
+      "category": "Cybersecurity",
+      "description": "Official Microsoft security updates, vulnerability disclosures, and security research",
+      "score": 0.95
+    },
+    {
+      "name": "Cloudflare Blog",
+      "url": "https://blog.cloudflare.com/rss/",
+      "enabled": true,
+      "category": "Developer / Security / Networking",
+      "description": "Cloudflare insights on web performance, security, and networking",
+      "score": 0.85
+    },
+    {
+      "name": "Netflix Tech Blog",
+      "url": "https://netflixtechblog.com/rss",
+      "enabled": true,
+      "category": "Engineering / System Design",
+      "description": "Netflix engineering insights and system design",
+      "score": 0.8
+    },
+    {
+      "name": "Datafloq",
+      "url": "https://datafloq.com/feed",
+      "enabled": true,
+      "category": "Data Science / Big Data / Emerging Tech",
+      "description": "Trends and commentary at intersection of big data, AI, blockchain",
+      "score": 0.75
+    },
+    {
+      "name": "Xtract.io Blog",
+      "url": "https://xtract.io/blog/feed",
+      "enabled": true,
+      "category": "Data Science",
+      "description": "Data extraction and processing insights",
+      "score": 0.7
+    },
+    {
+      "name": "Silicon Valley Journals",
+      "url": "https://siliconvalleyjournals.com/feed",
+      "enabled": true,
+      "category": "Tech News",
+      "description": "Silicon Valley technology news and insights",
+      "score": 0.75
+    },
+    {
+      "name": "TechSpot",
+      "url": "https://www.techspot.com/backend.xml",
+      "enabled": true,
+      "category": "Tech News",
+      "description": "Technology news, reviews, and analysis",
+      "score": 0.8
+    },
+    {
+      "name": "AppleInsider",
+      "url": "https://appleinsider.com/rss/news",
+      "enabled": true,
+      "category": "Apple News",
+      "description": "Apple news, rumors, and analysis",
+      "score": 0.8
+    },
+    {
+      "name": "gHacks",
+      "url": "https://www.ghacks.net/feed",
+      "enabled": true,
+      "category": "Tech News",
+      "description": "Technology news, software reviews, and tips",
+      "score": 0.75
+    },
+    {
+      "name": "eWeek",
+      "url": "https://www.eweek.com/feed",
+      "enabled": true,
+      "category": "Enterprise Tech",
+      "description": "Enterprise technology news and analysis",
+      "score": 0.8
+    },
+    {
+      "name": "Droid Life",
+      "url": "https://www.droid-life.com/feed",
+      "enabled": true,
+      "category": "Android News",
+      "description": "Android news, reviews, and community",
+      "score": 0.75
+    },
+    {
+      "name": "TechJuice",
+      "url": "https://www.techjuice.pk/feed",
+      "enabled": true,
+      "category": "Tech News",
+      "description": "Technology news and insights",
+      "score": 0.7
+    },
+    {
+      "name": "Developer Tech News",
+      "url": "https://developer-tech.com/feed",
+      "enabled": true,
+      "category": "Developer",
+      "description": "Developer-focused technology news",
+      "score": 0.75
+    },
+    {
+      "name": "TechPlugged",
+      "url": "https://www.techplugged.com/feed",
+      "enabled": true,
+      "category": "Tech News",
+      "description": "Technology news and reviews",
+      "score": 0.7
     }
   ],
   "settings": {
