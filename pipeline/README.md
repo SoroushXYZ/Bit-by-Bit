@@ -45,11 +45,13 @@ python pipeline/run_pipeline.py
 ### Run specific step:
 ```bash
 python pipeline/run_pipeline.py --step rss_gathering
+python pipeline/run_pipeline.py --step content_filtering
 ```
 
-### Test RSS gathering step:
+### Test individual steps:
 ```bash
 python pipeline/tests/test_rss_gathering.py
+python pipeline/tests/test_content_filtering.py
 ```
 
 ### Verbose logging:
@@ -64,6 +66,13 @@ python pipeline/run_pipeline.py --verbose
 - Handles errors gracefully with retry logic
 - Supports parallel processing for better performance
 - Saves raw data in JSON format with metadata
+
+### Step 2: Content Filtering
+- Filters articles by minimum word count (100 words)
+- Language detection (English only)
+- Basic quality checks (title length, URL presence)
+- Excludes articles with poor content quality
+- Provides detailed filtering statistics
 
 ## Features
 

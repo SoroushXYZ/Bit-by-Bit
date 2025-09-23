@@ -24,6 +24,12 @@
       "order": 1,
       "description": "Gather RSS feed data",
       "config_file": "pipeline/config/rss_gathering_config.json"
+    },
+    "content_filtering": {
+      "enabled": true,
+      "order": 2,
+      "description": "Basic content filtering (length and language)",
+      "config_file": "pipeline/config/content_filtering_config.json"
     }
   }
 }
