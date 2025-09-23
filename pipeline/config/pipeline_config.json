@@ -42,6 +42,12 @@
       "order": 4,
       "description": "LLM-based content quality scoring using Ollama",
       "config_file": "pipeline/config/llm_quality_scoring_config.json"
+    },
+    "deduplication": {
+      "enabled": true,
+      "order": 5,
+      "description": "Deduplication using sentence transformers to find similar articles",
+      "config_file": "pipeline/config/deduplication_config.json"
     }
   }
 }

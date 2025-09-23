@@ -12,7 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from utils import initialize_logger, load_pipeline_config
-from steps import RSSGatheringStep, ContentFilteringStep, AdDetectionStep, LLMQualityScoringStep
+from steps import RSSGatheringStep, ContentFilteringStep, AdDetectionStep, LLMQualityScoringStep, DeduplicationStep
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description='Run Bit-by-Bit Newsletter Pipeline')
     parser.add_argument('--config', default='pipeline/config/pipeline_config.json',
                        help='Path to pipeline configuration file')
-    parser.add_argument('--step', choices=['rss_gathering', 'content_filtering', 'ad_detection', 'llm_quality_scoring', 'all'], default='all',
+    parser.add_argument('--step', choices=['rss_gathering', 'content_filtering', 'ad_detection', 'llm_quality_scoring', 'deduplication', 'all'], default='all',
                        help='Specific step to run or all steps')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
@@ -86,6 +86,19 @@ def main():
                 logger.info(f"Processing time: {result['processing_time']:.1f} seconds")
             else:
                 logger.error(f"Quality scoring failed: {result.get('error', 'Unknown error')}")
+                return 1
+        
+        if args.step == 'all' or args.step == 'deduplication':
+            logger.info("Executing deduplication step")
+            deduplication_step = DeduplicationStep(config_loader)
+            result = deduplication_step.execute()
+            
+            if result['success']:
+                logger.info(f"Deduplication completed successfully: {result['articles_passed']}/{result['articles_input']} articles selected ({result['selection_rate']:.1f}%)")
+                logger.info(f"Duplicates removed: {result['duplicates_removed']}, Unique articles: {result['unique_articles']}")
+                logger.info(f"Processing time: {result['processing_time']:.1f} seconds")
+            else:
+                logger.error(f"Deduplication failed: {result.get('error', 'Unknown error')}")
                 return 1
         
         logger.info("Pipeline execution completed")

@@ -48,6 +48,7 @@ python pipeline/run_pipeline.py --step rss_gathering
 python pipeline/run_pipeline.py --step content_filtering
 python pipeline/run_pipeline.py --step ad_detection
 python pipeline/run_pipeline.py --step llm_quality_scoring
+python pipeline/run_pipeline.py --step deduplication
 ```
 
 ### Test individual steps:
@@ -55,6 +56,7 @@ python pipeline/run_pipeline.py --step llm_quality_scoring
 python pipeline/tests/test_rss_gathering.py
 python pipeline/tests/test_content_filtering.py
 python pipeline/tests/test_ad_detection.py
+python pipeline/tests/test_llm_quality_scoring.py
 ```
 
 ### Verbose logging:
@@ -93,6 +95,14 @@ python pipeline/run_pipeline.py --verbose
 - Detailed quality metrics and content classification
 - Local LLM processing for privacy and speed
 
+### Step 5: Deduplication
+- Uses sentence transformers (all-MiniLM-L6-v2) for semantic similarity detection
+- Finds similar articles using cosine similarity on embeddings
+- Selects highest quality article from each duplicate group
+- Limits output to top 20 unique articles
+- Provides detailed analysis of duplicate groups and competing articles
+- Configurable similarity thresholds and selection criteria
+
 ## Features
 
 - **Modular Design**: Each step is independent and configurable
@@ -109,6 +119,8 @@ python pipeline/run_pipeline.py --verbose
 - transformers (for ad detection)
 - torch (for transformers)
 - ollama (for LLM quality scoring)
+- sentence-transformers (for deduplication)
+- scikit-learn (for cosine similarity)
 - Standard Python libraries
 
 ## Next Steps

@@ -1,0 +1,72 @@
+{
+  "step_name": "deduplication",
+  "description": "Deduplication using sentence transformers to find similar articles",
+  "enabled": true,
+  "order": 5,
+  
+  "input": {
+    "source_step": "llm_quality_scoring",
+    "filename_prefix": "quality_scored_content",
+    "description": "Input from LLM quality scoring step"
+  },
+  
+  "output": {
+    "filename_prefix": "deduplicated_content",
+    "save_format": "json",
+    "description": "Top unique articles after deduplication"
+  },
+  
+  "embeddings": {
+    "model_name": "all-MiniLM-L6-v2",
+    "similarity_threshold": 0.6,
+    "batch_size": 50,
+    "description": "Embedding model configuration for similarity detection"
+  },
+  
+  "deduplication": {
+    "max_articles": 20,
+    "quality_priority": true,
+    "description": "Deduplication parameters and article selection"
+  },
+  
+  "text_processing": {
+    "combine_title_content": true,
+    "clean_html": true,
+    "normalize_whitespace": true,
+    "description": "Text preprocessing for embedding generation"
+  },
+  
+  "similarity_detection": {
+    "method": "cosine_similarity",
+    "threshold_explanation": "Articles with similarity > 0.6 are considered duplicates",
+    "description": "Similarity detection configuration"
+  },
+  
+  "selection_criteria": {
+    "primary": "quality_score",
+    "fallback": "similarity_score",
+    "description": "Criteria for selecting best article from duplicate group"
+  },
+  
+  "output_analysis": {
+    "include_similar_groups": true,
+    "include_competing_articles": true,
+    "include_similarity_scores": true,
+    "description": "What analysis data to include in output"
+  },
+  
+  "error_handling": {
+    "continue_on_embedding_error": true,
+    "continue_on_similarity_error": true,
+    "log_processing_errors": true,
+    "description": "Error handling configuration"
+  },
+  
+  "logging": {
+    "log_duplicate_groups": true,
+    "log_top_articles": true,
+    "log_similarity_matrix": false,
+    "max_examples_to_log": 5,
+    "description": "Logging configuration for deduplication results"
+  }
+}

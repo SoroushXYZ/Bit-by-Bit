@@ -30,3 +30,7 @@ protobuf
 
 # LLM integration
 ollama
+
+# Embeddings and Similarity
+sentence-transformers
+scikit-learn
