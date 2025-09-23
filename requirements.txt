@@ -27,3 +27,6 @@ torch
 nltk
 langdetect
 protobuf
+
+# LLM integration
+ollama

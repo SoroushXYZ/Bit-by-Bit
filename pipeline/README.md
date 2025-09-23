@@ -47,6 +47,7 @@ python pipeline/run_pipeline.py
 python pipeline/run_pipeline.py --step rss_gathering
 python pipeline/run_pipeline.py --step content_filtering
 python pipeline/run_pipeline.py --step ad_detection
+python pipeline/run_pipeline.py --step llm_quality_scoring
 ```
 
 ### Test individual steps:
@@ -84,6 +85,14 @@ python pipeline/run_pipeline.py --verbose
 - Configurable confidence thresholds
 - Model: SoroushXYZ/distilbert-rss-ad-detection
 
+### Step 4: LLM Quality Scoring
+- Uses Ollama with llama3.2:3b for content quality assessment
+- Multi-criteria scoring: technical depth, news value, clarity, impact, originality
+- Clean content preprocessing with HTML removal and truncation
+- Configurable quality thresholds and scoring weights
+- Detailed quality metrics and content classification
+- Local LLM processing for privacy and speed
+
 ## Features
 
 - **Modular Design**: Each step is independent and configurable
@@ -99,6 +108,7 @@ python pipeline/run_pipeline.py --verbose
 - requests
 - transformers (for ad detection)
 - torch (for transformers)
+- ollama (for LLM quality scoring)
 - Standard Python libraries
 
 ## Next Steps

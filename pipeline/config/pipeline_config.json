@@ -36,6 +36,12 @@
       "order": 3,
       "description": "Advertisement detection using custom DistilBERT model",
       "config_file": "pipeline/config/ad_detection_config.json"
+    },
+    "llm_quality_scoring": {
+      "enabled": true,
+      "order": 4,
+      "description": "LLM-based content quality scoring using Ollama",
+      "config_file": "pipeline/config/llm_quality_scoring_config.json"
     }
   }
 }
