@@ -11,7 +11,7 @@
     "word_count": {
       "enabled": true,
       "min_words": 100,
-      "check_fields": ["title", "content", "summary"],
+      "check_fields": ["title", "content"],
       "combined_check": true
     },
     "language_detection": {
