@@ -1,0 +1,29 @@
+{
+  "pipeline": {
+    "name": "Bit-by-Bit Newsletter Pipeline",
+    "version": "1.0.0",
+    "description": "Automated tech newsletter content pipeline",
+    "author": "Bit-by-Bit Team"
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": "pipeline/logs/pipeline.log",
+    "max_size_mb": 100,
+    "backup_count": 5
+  },
+  "data": {
+    "base_path": "pipeline/data",
+    "raw_data_path": "pipeline/data/raw",
+    "processed_data_path": "pipeline/data/processed",
+    "output_data_path": "pipeline/data/output"
+  },
+  "steps": {
+    "rss_gathering": {
+      "enabled": true,
+      "order": 1,
+      "description": "Gather RSS feed data",
+      "config_file": "pipeline/config/rss_gathering_config.json"
+    }
+  }
+}

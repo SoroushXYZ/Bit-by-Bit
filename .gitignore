@@ -191,6 +191,10 @@ local.properties
 research/data/*
 !research/data/.gitkeep
 
+# Pipeline data and logs
+pipeline/data/
+pipeline/logs/
+
 # API keys and secrets
 .env.local
 .env.production
