@@ -46,12 +46,14 @@ python pipeline/run_pipeline.py
 ```bash
 python pipeline/run_pipeline.py --step rss_gathering
 python pipeline/run_pipeline.py --step content_filtering
+python pipeline/run_pipeline.py --step ad_detection
 ```
 
 ### Test individual steps:
 ```bash
 python pipeline/tests/test_rss_gathering.py
 python pipeline/tests/test_content_filtering.py
+python pipeline/tests/test_ad_detection.py
 ```
 
 ### Verbose logging:
@@ -74,6 +76,14 @@ python pipeline/run_pipeline.py --verbose
 - Excludes articles with poor content quality
 - Provides detailed filtering statistics
 
+### Step 3: Advertisement Detection
+- Uses custom DistilBERT model for ad detection
+- Binary classification: news vs advertisement
+- Filters out detected advertisements
+- Provides detailed ad statistics by feed
+- Configurable confidence thresholds
+- Model: SoroushXYZ/distilbert-rss-ad-detection
+
 ## Features
 
 - **Modular Design**: Each step is independent and configurable
@@ -87,6 +97,8 @@ python pipeline/run_pipeline.py --verbose
 
 - feedparser
 - requests
+- transformers (for ad detection)
+- torch (for transformers)
 - Standard Python libraries
 
 ## Next Steps

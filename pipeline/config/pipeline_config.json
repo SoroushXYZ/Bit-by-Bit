@@ -30,6 +30,12 @@
       "order": 2,
       "description": "Basic content filtering (length and language)",
       "config_file": "pipeline/config/content_filtering_config.json"
+    },
+    "ad_detection": {
+      "enabled": true,
+      "order": 3,
+      "description": "Advertisement detection using custom DistilBERT model",
+      "config_file": "pipeline/config/ad_detection_config.json"
     }
   }
 }

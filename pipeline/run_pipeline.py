@@ -12,7 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from utils import initialize_logger, load_pipeline_config
-from steps import RSSGatheringStep, ContentFilteringStep
+from steps import RSSGatheringStep, ContentFilteringStep, AdDetectionStep
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description='Run Bit-by-Bit Newsletter Pipeline')
     parser.add_argument('--config', default='pipeline/config/pipeline_config.json',
                        help='Path to pipeline configuration file')
-    parser.add_argument('--step', choices=['rss_gathering', 'content_filtering', 'all'], default='all',
+    parser.add_argument('--step', choices=['rss_gathering', 'content_filtering', 'ad_detection', 'all'], default='all',
                        help='Specific step to run or all steps')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
@@ -62,6 +62,18 @@ def main():
                 logger.info(f"Content filtering completed successfully: {result['articles_passed']}/{result['articles_input']} articles passed ({result['pass_rate']:.1f}%)")
             else:
                 logger.error(f"Content filtering failed: {result.get('error', 'Unknown error')}")
+                return 1
+        
+        if args.step == 'all' or args.step == 'ad_detection':
+            logger.info("Executing advertisement detection step")
+            ad_detection_step = AdDetectionStep(config_loader)
+            result = ad_detection_step.execute()
+            
+            if result['success']:
+                logger.info(f"Ad detection completed successfully: {result['articles_passed']}/{result['articles_input']} articles passed ({result['pass_rate']:.1f}%)")
+                logger.info(f"Ad statistics: {result['ad_statistics']['ad_percentage']:.1f}% ads, {result['ad_statistics']['news_percentage']:.1f}% news")
+            else:
+                logger.error(f"Ad detection failed: {result.get('error', 'Unknown error')}")
                 return 1
         
         logger.info("Pipeline execution completed")

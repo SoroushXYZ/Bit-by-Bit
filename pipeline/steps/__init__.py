@@ -8,8 +8,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from steps.rss_gathering import RSSGatheringStep
 from steps.content_filtering import ContentFilteringStep
+from steps.ad_detection import AdDetectionStep
 
 __all__ = [
     'RSSGatheringStep',
-    'ContentFilteringStep'
+    'ContentFilteringStep',
+    'AdDetectionStep'
 ]
