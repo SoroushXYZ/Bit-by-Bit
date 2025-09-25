@@ -15,6 +15,7 @@ from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
 from typing import Dict, List, Any, Optional, Tuple
+from tqdm import tqdm
 
 import sys
 from pathlib import Path
@@ -219,11 +220,14 @@ Focus on content that would be valuable for tech professionals, entrepreneurs, a
             try:
                 self.logger.debug(f"Making LLM request (attempt {attempt + 1}/{self.max_retries})")
                 
-                response = requests.post(
-                    f"{self.url}/api/generate",
-                    json=payload,
-                    timeout=120
-                )
+                # Add a small progress indicator for LLM request
+                with tqdm(total=1, desc="🤖 LLM processing", leave=False, bar_format="{desc}: {elapsed}") as llm_progress:
+                    response = requests.post(
+                        f"{self.url}/api/generate",
+                        json=payload,
+                        timeout=120
+                    )
+                    llm_progress.update(1)
                 
                 if response.status_code == 200:
                     result = response.json()
@@ -342,14 +346,37 @@ Focus on content that would be valuable for tech professionals, entrepreneurs, a
         content_types = defaultdict(int)
         tech_relevance = defaultdict(int)
         
-        for i, article in enumerate(articles):
+        # Initialize counters for progress tracking
+        llm_success_count = 0
+        llm_error_count = 0
+        
+        # Create progress bar for article processing
+        progress_bar = tqdm(
+            articles, 
+            desc="🔍 Analyzing articles with LLM", 
+            unit="article",
+            bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]"
+        )
+        
+        for i, article in enumerate(progress_bar):
             try:
-                self.logger.debug(f"Analyzing article {i+1}/{len(articles)}: {article.get('title', 'Unknown')[:50]}...")
+                # Update progress bar with current article info
+                article_title = article.get('title', 'Unknown')[:50]
+                progress_bar.set_postfix({
+                    'current': article_title,
+                    'passed': len(passed_articles),
+                    'filtered': len(filtered_articles),
+                    'llm_ok': llm_success_count,
+                    'llm_err': llm_error_count
+                })
+                
+                self.logger.debug(f"Analyzing article {i+1}/{len(articles)}: {article_title}...")
                 
                 # Analyze content with LLM
                 llm_result = self._analyze_content_with_llm(article)
                 
                 if llm_result['success']:
+                    llm_success_count += 1
                     analysis = llm_result['analysis']
                     metrics = self._calculate_quality_metrics(analysis)
                     
@@ -384,16 +411,28 @@ Focus on content that would be valuable for tech professionals, entrepreneurs, a
                             'quality_metrics': metrics
                         })
                 else:
+                    llm_error_count += 1
                     self.logger.error(f"LLM analysis failed for article {i}")
                     # Include article by default if LLM analysis fails
                     passed_articles.append(article)
                 
             except Exception as e:
+                llm_error_count += 1
                 self.logger.error(f"❌ Error processing article {i}: {e}")
                 # Include article by default if processing fails
                 passed_articles.append(article)
         
         processing_time = time.time() - start_time
+        
+        # Close progress bar and show final summary
+        progress_bar.close()
+        
+        # Show final progress summary
+        self.logger.info(f"📊 Final Progress Summary:")
+        self.logger.info(f"   ✅ LLM Success: {llm_success_count}/{len(articles)}")
+        self.logger.info(f"   ❌ LLM Errors: {llm_error_count}/{len(articles)}")
+        self.logger.info(f"   📈 Articles Passed: {len(passed_articles)}")
+        self.logger.info(f"   📉 Articles Filtered: {len(filtered_articles)}")
         
         # Save results
         output_data = {

@@ -17,7 +17,7 @@
   },
   
   "llm": {
-    "server_url": "http://192.168.2.13:11434",
+    "server_url": "http://localhost:11434",
     "model": "llama3.2:3b",
     "temperature": 0.3,
     "seed": 42,
