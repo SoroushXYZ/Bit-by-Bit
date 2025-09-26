@@ -36,6 +36,10 @@
   },
   "fallback_strategy": {
     "if_llm_fails": "use_quality_score_ranking",
-    "if_insufficient_articles": "reduce_targets_proportionally"
+    "if_insufficient_articles": "reduce_targets_proportionally",
+    "enable_fallback": true,
+    "fallback_logging": true,
+    "deduplication_weight": 1,
+    "use_deduplication_weight": true
   }
 }

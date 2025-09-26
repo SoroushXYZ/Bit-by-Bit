@@ -114,6 +114,118 @@ class ArticlePrioritizationStep:
         
         return preview + "..."
     
+    def _categorize_articles_fallback(self, articles: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+        """Fallback categorization using quality scores when LLM fails."""
+        self.logger.warning("🔄 Using quality-score-based fallback categorization")
+        
+        # Get fallback configuration
+        fallback_config = self.config.get('fallback_strategy', {})
+        use_dedup_weight = fallback_config.get('use_deduplication_weight', True)
+        dedup_weight = fallback_config.get('deduplication_weight', 2.0)
+        
+        if use_dedup_weight:
+            self.logger.info(f"🔄 Using deduplication weighting (weight={dedup_weight})")
+        else:
+            self.logger.info("🔄 Using quality scores only (deduplication weighting disabled)")
+        
+        # Sort articles by composite score (quality + deduplication bonus)
+        articles_with_scores = []
+        for article in articles:
+            quality_score = article.get('quality_score', 0)
+            composite_score = quality_score
+            
+            # Add deduplication weight if enabled and available
+            if use_dedup_weight:
+                dedup_info = article.get('deduplication_info', {})
+                group_size = dedup_info.get('group_size', 1)
+                if group_size > 1:  # Only add bonus for articles that were part of duplicate groups
+                    dedup_bonus = (group_size - 1) * dedup_weight
+                    composite_score += dedup_bonus
+                    self.logger.debug(f"Article '{article.get('title', 'Unknown')[:50]}...' gets +{dedup_bonus:.1f} bonus for group_size={group_size}")
+            
+            articles_with_scores.append((composite_score, article))
+        
+        # Sort by composite score (descending)
+        articles_with_scores.sort(key=lambda x: x[0], reverse=True)
+        sorted_articles = [article for _, article in articles_with_scores]
+        
+        # Categorize based on quality scores
+        headlines = []
+        secondary = []
+        optional = []
+        
+        # Headlines: Top articles with highest composite scores
+        headlines = sorted_articles[:self.headlines_count]
+        for i, article in enumerate(headlines):
+            article_copy = article.copy()
+            quality_score = article.get('quality_score', 0)
+            dedup_info = article.get('deduplication_info', {})
+            group_size = dedup_info.get('group_size', 1)
+            
+            if use_dedup_weight and group_size > 1:
+                dedup_bonus = (group_size - 1) * dedup_weight
+                article_copy['category_reason'] = f'Fallback: Top {i+1} by composite score ({quality_score:.1f} + {dedup_bonus:.1f} dedup bonus, group_size={group_size})'
+            else:
+                article_copy['category_reason'] = f'Fallback: Top {i+1} by quality score ({quality_score:.1f})'
+            
+            article_copy['category'] = 'headline'
+            article_copy['ranking_score'] = quality_score
+            headlines[i] = article_copy
+        
+        # Secondary: Next batch of articles
+        secondary_start = self.headlines_count
+        secondary_end = secondary_start + self.secondary_count
+        secondary_articles = sorted_articles[secondary_start:secondary_end]
+        for i, article in enumerate(secondary_articles):
+            article_copy = article.copy()
+            quality_score = article.get('quality_score', 0)
+            dedup_info = article.get('deduplication_info', {})
+            group_size = dedup_info.get('group_size', 1)
+            
+            if use_dedup_weight and group_size > 1:
+                dedup_bonus = (group_size - 1) * dedup_weight
+                article_copy['category_reason'] = f'Fallback: Secondary by composite score ({quality_score:.1f} + {dedup_bonus:.1f} dedup bonus, group_size={group_size})'
+            else:
+                article_copy['category_reason'] = f'Fallback: Secondary by quality score ({quality_score:.1f})'
+            
+            article_copy['category'] = 'secondary'
+            article_copy['ranking_score'] = quality_score
+            secondary.append(article_copy)
+        
+        # Optional: Remaining articles
+        optional_articles = sorted_articles[secondary_end:]
+        for i, article in enumerate(optional_articles):
+            article_copy = article.copy()
+            quality_score = article.get('quality_score', 0)
+            dedup_info = article.get('deduplication_info', {})
+            group_size = dedup_info.get('group_size', 1)
+            
+            if use_dedup_weight and group_size > 1:
+                dedup_bonus = (group_size - 1) * dedup_weight
+                article_copy['category_reason'] = f'Fallback: Optional by composite score ({quality_score:.1f} + {dedup_bonus:.1f} dedup bonus, group_size={group_size})'
+            else:
+                article_copy['category_reason'] = f'Fallback: Optional by quality score ({quality_score:.1f})'
+            
+            article_copy['category'] = 'optional'
+            article_copy['ranking_score'] = quality_score
+            optional.append(article_copy)
+        
+        return {
+            'headlines': headlines,
+            'secondary': secondary,
+            'optional': optional,
+            'reasoning': {
+                'headlines': f'Fallback: Selected top {len(headlines)} articles by quality score',
+                'secondary': f'Fallback: Selected next {len(secondary)} articles by quality score',
+                'optional': f'Fallback: Remaining {len(optional)} articles by quality score'
+            },
+            'rankings': {
+                'headlines': {str(i+1): article.get('quality_score', 0) for i, article in enumerate(headlines)},
+                'secondary': {str(i+1): article.get('quality_score', 0) for i, article in enumerate(secondary)},
+                'optional': {str(i+1): article.get('quality_score', 0) for i, article in enumerate(optional)}
+            }
+        }
+    
     def _create_prioritization_prompt(self, articles: List[Dict[str, Any]]) -> str:
         """Create prompt for LLM to prioritize articles."""
         
@@ -215,7 +327,7 @@ Return only the JSON response, no additional text."""
         return prompt
     
     def _call_llm(self, prompt: str) -> Dict[str, Any]:
-        """Call Ollama LLM for article prioritization."""
+        """Call Ollama LLM for article prioritization with fallback support."""
         try:
             self.logger.info(f"🤖 Calling LLM for article prioritization...")
             
@@ -229,6 +341,10 @@ Return only the JSON response, no additional text."""
                     "max_tokens": 2000
                 }
             }
+            
+            # Simulate LLM failure for testing fallback system
+            # Uncomment the line below to test fallback:
+            # raise Exception("Simulated LLM failure for testing fallback system")
             
             response = requests.post(
                 f"{self.ollama_endpoint}/api/generate",
@@ -265,7 +381,8 @@ Return only the JSON response, no additional text."""
                 
         except Exception as e:
             self.logger.error(f"❌ LLM call failed: {e}")
-            raise
+            # Return None to indicate LLM failure - will trigger fallback
+            return None
     
     def _categorize_articles(self, articles: List[Dict[str, Any]], llm_response: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
         """Categorize and rank articles based on LLM response."""
@@ -413,8 +530,21 @@ Return only the JSON response, no additional text."""
             # Call LLM for prioritization
             llm_response = self._call_llm(prompt)
             
-            # Categorize articles based on LLM response
-            categorization = self._categorize_articles(articles, llm_response)
+            # Categorize articles based on LLM response or fallback
+            if llm_response is not None:
+                # LLM succeeded - use LLM categorization
+                categorization = self._categorize_articles(articles, llm_response)
+                self.logger.info("✅ Using LLM-based categorization")
+            else:
+                # LLM failed - check if fallback is enabled
+                fallback_config = self.config.get('fallback_strategy', {})
+                if fallback_config.get('enable_fallback', True):
+                    # Use quality-score fallback
+                    categorization = self._categorize_articles_fallback(articles)
+                    self.logger.warning("⚠️ Using quality-score fallback categorization")
+                else:
+                    # Fallback disabled - raise error
+                    raise Exception("LLM failed and fallback is disabled in configuration")
             
             processing_time = time.time() - start_time
             
@@ -432,7 +562,9 @@ Return only the JSON response, no additional text."""
                     'processing_time_seconds': processing_time,
                     'articles_processed': len(articles),
                     'llm_model': self.model_name,
-                    'content_preview_tokens': self.content_preview_tokens
+                    'content_preview_tokens': self.content_preview_tokens,
+                    'llm_success': llm_response is not None,
+                    'fallback_used': llm_response is None
                 },
                 'categorization': categorization,
                 'statistics': {
@@ -447,7 +579,7 @@ Return only the JSON response, no additional text."""
                     'headlines_target_achieved': headlines_count >= self.headlines_count,
                     'secondary_target_achieved': secondary_count >= self.secondary_count
                 },
-                'llm_reasoning': llm_response.get('reasoning', {})
+                'llm_reasoning': llm_response.get('reasoning', {}) if llm_response else {}
             }
             
             # Save to file
@@ -456,6 +588,10 @@ Return only the JSON response, no additional text."""
             # Log results
             self.logger.info(f"⏱️  Processing time: {processing_time:.2f} seconds")
             self.logger.info(f"📊 Prioritization results:")
+            if llm_response is not None:
+                self.logger.info(f"   🤖 Method: LLM-based categorization")
+            else:
+                self.logger.info(f"   🔄 Method: Quality-score fallback categorization")
             self.logger.info(f"   📰 Headlines: {headlines_count}/{self.headlines_count} target")
             self.logger.info(f"   📋 Secondary: {secondary_count}/{self.secondary_count} target")
             self.logger.info(f"   📄 Optional: {optional_count}")
@@ -475,9 +611,13 @@ Return only the JSON response, no additional text."""
                     self.logger.info(f"   {i}. {article['title'][:60]}... (score: {score})")
             
             # Show LLM reasoning
-            if llm_response.get('reasoning'):
+            if llm_response and llm_response.get('reasoning'):
                 self.logger.info(f"🤖 LLM Reasoning:")
                 for category, reason in llm_response['reasoning'].items():
+                    self.logger.info(f"   {category.title()}: {reason}")
+            elif llm_response is None:
+                self.logger.info(f"🤖 Fallback Reasoning:")
+                for category, reason in categorization.get('reasoning', {}).items():
                     self.logger.info(f"   {category.title()}: {reason}")
             
             return output_data
