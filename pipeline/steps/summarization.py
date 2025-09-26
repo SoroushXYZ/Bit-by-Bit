@@ -46,12 +46,12 @@ class SummarizationStep:
         
         # LLM configuration
         self.llm_config = self.config['llm']
-        self.ollama_endpoint = self.llm_config['endpoint']
-        self.model_name = self.llm_config['model_name']
+        self.ollama_endpoint = self.llm_config['server_url']
+        self.model_name = self.llm_config['model']
         
         # Summarization configuration
         self.summarization_config = self.config['summarization']
-        self.max_content_tokens = self.summarization_config['max_content_tokens']
+        self.max_content_tokens = self.config.get('text_processing', {}).get('max_content_tokens', 2000)
         self.fallback_summary_tokens = self.summarization_config['fallback_summary_tokens']
         
     def _load_input_data(self) -> Dict[str, Any]:

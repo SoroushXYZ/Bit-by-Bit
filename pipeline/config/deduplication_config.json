@@ -19,8 +19,7 @@
   "embeddings": {
     "model_name": "all-MiniLM-L6-v2",
     "similarity_threshold": 0.6,
-    "batch_size": 50,
-    "description": "Embedding model configuration for similarity detection"
+    "description": "Embedding model configuration for similarity detection (inherits batch_size from global config)"
   },
   
   "deduplication": {
@@ -31,9 +30,7 @@
   
   "text_processing": {
     "combine_title_content": true,
-    "clean_html": true,
-    "normalize_whitespace": true,
-    "description": "Text preprocessing for embedding generation"
+    "description": "Text preprocessing for embedding generation (inherits common settings from global config)"
   },
   
   "similarity_detection": {
@@ -59,14 +56,13 @@
     "continue_on_embedding_error": true,
     "continue_on_similarity_error": true,
     "log_processing_errors": true,
-    "description": "Error handling configuration"
+    "description": "Error handling configuration (inherits common settings from global config)"
   },
   
   "logging": {
     "log_duplicate_groups": true,
     "log_top_articles": true,
     "log_similarity_matrix": false,
-    "max_examples_to_log": 5,
-    "description": "Logging configuration for deduplication results"
+    "description": "Logging configuration for deduplication results (inherits common settings from global config)"
   }
 }

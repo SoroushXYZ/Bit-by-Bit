@@ -12,9 +12,12 @@ from pathlib import Path
 class ConfigLoader:
     """Utility class for loading and managing pipeline configurations."""
     
-    def __init__(self, base_config_path: str = "pipeline/config/pipeline_config.json"):
+    def __init__(self, base_config_path: str = "pipeline/config/pipeline_config.json", 
+                 global_config_path: str = "pipeline/config/global_config.json"):
         self.base_config_path = base_config_path
+        self.global_config_path = global_config_path
         self.base_config = self._load_config(base_config_path)
+        self.global_config = self._load_global_config()
     
     def _load_config(self, config_path: str) -> Dict[str, Any]:
         """Load JSON configuration file with error handling."""
@@ -31,8 +34,112 @@ class ConfigLoader:
         except Exception as e:
             raise RuntimeError(f"Failed to load configuration from {config_path}: {e}")
     
+    def _load_global_config(self) -> Dict[str, Any]:
+        """Load global configuration file with error handling."""
+        try:
+            if not os.path.exists(self.global_config_path):
+                # Return empty dict if global config doesn't exist
+                return {}
+            
+            with open(self.global_config_path, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+            
+            return config
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON in global configuration file {self.global_config_path}: {e}")
+        except Exception as e:
+            raise RuntimeError(f"Failed to load global configuration from {self.global_config_path}: {e}")
+    
+    def _merge_global_config(self, step_config: Dict[str, Any], step_name: str) -> Dict[str, Any]:
+        """Merge global configuration with step-specific configuration."""
+        if not self.global_config:
+            return step_config
+        
+        # Create a deep copy of step config to avoid modifying original
+        merged_config = self._deep_merge({}, step_config)
+        
+        # Merge global settings based on step name
+        global_settings = self.global_config.get('global', {})
+        
+        # Merge LLM settings if step uses LLM
+        if step_name in ['llm_quality_scoring', 'article_prioritization', 'summarization']:
+            llm_default = self.global_config.get('llm', {}).get('default', {})
+            llm_specific = self.global_config.get('llm', {}).get(step_name, {})
+            
+            # Merge LLM config into step config
+            if 'llm' not in merged_config:
+                merged_config['llm'] = {}
+            
+            # Apply default LLM settings first, then step-specific overrides
+            merged_config['llm'] = self._deep_merge(llm_default, merged_config['llm'])
+            merged_config['llm'] = self._deep_merge(merged_config['llm'], llm_specific)
+        
+        # Merge output settings
+        output_default = self.global_config.get('output', {}).get('default', {})
+        if 'output' in merged_config:
+            merged_config['output'] = self._deep_merge(output_default, merged_config['output'])
+        
+        # Merge error handling settings
+        error_default = self.global_config.get('error_handling', {}).get('default', {})
+        error_specific = self.global_config.get('error_handling', {}).get(step_name, {})
+        if 'error_handling' in merged_config:
+            merged_config['error_handling'] = self._deep_merge(error_default, merged_config['error_handling'])
+            merged_config['error_handling'] = self._deep_merge(merged_config['error_handling'], error_specific)
+        
+        # Merge logging settings
+        logging_default = self.global_config.get('logging', {}).get('default', {})
+        logging_specific = self.global_config.get('logging', {}).get(step_name, {})
+        if 'logging' in merged_config:
+            merged_config['logging'] = self._deep_merge(logging_default, merged_config['logging'])
+            merged_config['logging'] = self._deep_merge(merged_config['logging'], logging_specific)
+        
+        # Merge text processing settings
+        text_default = self.global_config.get('text_processing', {}).get('default', {})
+        if 'text_processing' in merged_config:
+            merged_config['text_processing'] = self._deep_merge(text_default, merged_config['text_processing'])
+        elif step_name in ['llm_quality_scoring', 'summarization', 'deduplication']:
+            # Add text processing config for steps that need it
+            merged_config['text_processing'] = text_default
+        
+        # Merge performance settings
+        perf_default = self.global_config.get('performance', {}).get('default', {})
+        perf_specific = self.global_config.get('performance', {}).get(step_name, {})
+        if 'performance' in merged_config:
+            merged_config['performance'] = self._deep_merge(perf_default, merged_config['performance'])
+            merged_config['performance'] = self._deep_merge(merged_config['performance'], perf_specific)
+        
+        # Merge quality settings for quality scoring step
+        if step_name == 'llm_quality_scoring':
+            quality_levels = self.global_config.get('quality', {}).get('levels', {})
+            quality_criteria = self.global_config.get('quality', {}).get('criteria', {})
+            if 'quality_levels' not in merged_config and quality_levels:
+                merged_config['quality_levels'] = quality_levels
+            if 'quality_criteria' not in merged_config and quality_criteria:
+                merged_config['quality_criteria'] = quality_criteria
+        
+        # Merge fallback strategy settings
+        fallback_default = self.global_config.get('fallback_strategy', {}).get('default', {})
+        fallback_specific = self.global_config.get('fallback_strategy', {}).get(step_name, {})
+        if 'fallback_strategy' in merged_config:
+            merged_config['fallback_strategy'] = self._deep_merge(fallback_default, merged_config['fallback_strategy'])
+            merged_config['fallback_strategy'] = self._deep_merge(merged_config['fallback_strategy'], fallback_specific)
+        
+        return merged_config
+    
+    def _deep_merge(self, base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]:
+        """Deep merge two dictionaries, with override values taking precedence."""
+        result = base.copy()
+        
+        for key, value in override.items():
+            if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+                result[key] = self._deep_merge(result[key], value)
+            else:
+                result[key] = value
+        
+        return result
+    
     def get_step_config(self, step_name: str) -> Dict[str, Any]:
-        """Get configuration for a specific pipeline step."""
+        """Get configuration for a specific pipeline step with global config merging."""
         if 'steps' not in self.base_config:
             raise ValueError("No steps configuration found in base config")
         
@@ -48,7 +155,9 @@ class ConfigLoader:
         config_file = step_info.get('config_file')
         if config_file and os.path.exists(config_file):
             step_config = self._load_config(config_file)
-            return step_config
+            # Merge with global configuration
+            merged_config = self._merge_global_config(step_config, step_name)
+            return merged_config
         else:
             # Return basic step info if no specific config file
             return step_info

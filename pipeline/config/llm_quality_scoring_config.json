@@ -17,14 +17,7 @@
   },
   
   "llm": {
-    "server_url": "http://localhost:11434",
-    "model": "llama3.2:3b",
-    "temperature": 0.3,
-    "seed": 42,
-    "max_tokens": 2000,
-    "max_retries": 3,
-    "timeout_seconds": 120,
-    "description": "LLM configuration for content analysis"
+    "description": "LLM configuration for content analysis (inherits from global config)"
   },
   
   "scoring": {
@@ -33,71 +26,27 @@
   },
   
   "content_processing": {
-    "max_content_tokens": 2000,
-    "clean_html": true,
-    "normalize_whitespace": true,
-    "description": "Content preprocessing settings"
+    "description": "Content preprocessing settings (inherits from global config)"
   },
   
   "quality_criteria": {
-    "technical_depth": {
-      "weight": 1.0,
-      "description": "How technically informative and detailed is the content"
-    },
-    "news_value": {
-      "weight": 1.0,
-      "description": "How newsworthy and timely is the information"
-    },
-    "clarity_readability": {
-      "weight": 1.0,
-      "description": "How clear, well-structured, and readable is the writing"
-    },
-    "impact_relevance": {
-      "weight": 1.0,
-      "description": "How significant is this for tech professionals"
-    },
-    "originality": {
-      "weight": 1.0,
-      "description": "How original and insightful vs generic information"
-    }
+    "description": "Quality criteria weights (inherits from global config)"
   },
   
   "quality_levels": {
-    "excellent": {
-      "min_score": 85,
-      "description": "Exceptional quality, must-read content"
-    },
-    "high": {
-      "min_score": 75,
-      "description": "High quality, very valuable"
-    },
-    "good": {
-      "min_score": 65,
-      "description": "Good quality, worth reading"
-    },
-    "fair": {
-      "min_score": 55,
-      "description": "Acceptable quality, decent content"
-    },
-    "poor": {
-      "max_score": 54,
-      "description": "Poor quality, not suitable"
-    }
+    "description": "Quality level thresholds (inherits from global config)"
   },
   
   "error_handling": {
     "continue_on_article_error": true,
     "include_on_llm_error": true,
-    "log_llm_errors": true,
-    "retry_delay_seconds": 2,
-    "description": "Error handling configuration"
+    "description": "Error handling configuration (inherits common settings from global config)"
   },
   
   "logging": {
     "log_high_quality_articles": true,
     "log_quality_statistics": true,
     "log_llm_responses": false,
-    "max_examples_to_log": 3,
-    "description": "Logging configuration for quality scoring"
+    "description": "Logging configuration for quality scoring (inherits common settings from global config)"
   }
 }

@@ -10,10 +10,7 @@
     "filename_template": "prioritized_content_{timestamp}.json"
   },
   "llm": {
-    "endpoint": "http://172.22.128.1:11434",
-    "model_name": "llama3.2:3b",
-    "timeout_seconds": 120,
-    "max_retries": 3
+    "description": "LLM configuration (inherits from global config)"
   },
   "prioritization": {
     "headlines_count": 5,
@@ -37,9 +34,6 @@
   "fallback_strategy": {
     "if_llm_fails": "use_quality_score_ranking",
     "if_insufficient_articles": "reduce_targets_proportionally",
-    "enable_fallback": true,
-    "fallback_logging": true,
-    "deduplication_weight": 1,
-    "use_deduplication_weight": true
+    "description": "Fallback strategy (inherits common settings from global config)"
   }
 }

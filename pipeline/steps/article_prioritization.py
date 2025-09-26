@@ -47,8 +47,8 @@ class ArticlePrioritizationStep:
         
         # LLM configuration
         self.llm_config = self.config['llm']
-        self.ollama_endpoint = self.llm_config['endpoint']
-        self.model_name = self.llm_config['model_name']
+        self.ollama_endpoint = self.llm_config['server_url']
+        self.model_name = self.llm_config['model']
         
         # Prioritization configuration
         self.prioritization_config = self.config['prioritization']
