@@ -60,6 +60,12 @@
       "order": 7,
       "description": "Article summarization for newsletter generation with category-based length requirements",
       "config_file": "pipeline/config/summarization_config.json"
+    },
+    "newsletter_generation": {
+      "enabled": true,
+      "order": 8,
+      "description": "Generate clean newsletter output with pipeline visualization data",
+      "config_file": "pipeline/config/newsletter_generation_config.json"
     }
   }
 }

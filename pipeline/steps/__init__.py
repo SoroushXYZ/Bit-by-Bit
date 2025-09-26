@@ -13,6 +13,7 @@ from steps.llm_quality_scoring import LLMQualityScoringStep
 from steps.deduplication import DeduplicationStep
 from steps.article_prioritization import ArticlePrioritizationStep
 from steps.summarization import SummarizationStep
+from steps.newsletter_generation import NewsletterGenerationStep
 
 __all__ = [
     'RSSGatheringStep',
@@ -21,5 +22,6 @@ __all__ = [
     'LLMQualityScoringStep',
     'DeduplicationStep',
     'ArticlePrioritizationStep',
-    'SummarizationStep'
+    'SummarizationStep',
+    'NewsletterGenerationStep'
 ]
