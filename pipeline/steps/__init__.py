@@ -12,6 +12,7 @@ from steps.ad_detection import AdDetectionStep
 from steps.llm_quality_scoring import LLMQualityScoringStep
 from steps.deduplication import DeduplicationStep
 from steps.article_prioritization import ArticlePrioritizationStep
+from steps.summarization import SummarizationStep
 
 __all__ = [
     'RSSGatheringStep',
@@ -19,5 +20,6 @@ __all__ = [
     'AdDetectionStep',
     'LLMQualityScoringStep',
     'DeduplicationStep',
-    'ArticlePrioritizationStep'
+    'ArticlePrioritizationStep',
+    'SummarizationStep'
 ]

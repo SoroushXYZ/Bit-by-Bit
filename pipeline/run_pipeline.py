@@ -12,7 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from utils import initialize_logger, load_pipeline_config
-from steps import RSSGatheringStep, ContentFilteringStep, AdDetectionStep, LLMQualityScoringStep, DeduplicationStep, ArticlePrioritizationStep
+from steps import RSSGatheringStep, ContentFilteringStep, AdDetectionStep, LLMQualityScoringStep, DeduplicationStep, ArticlePrioritizationStep, SummarizationStep
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description='Run Bit-by-Bit Newsletter Pipeline')
     parser.add_argument('--config', default='pipeline/config/pipeline_config.json',
                        help='Path to pipeline configuration file')
-    parser.add_argument('--step', choices=['rss_gathering', 'content_filtering', 'ad_detection', 'llm_quality_scoring', 'deduplication', 'article_prioritization', 'all'], default='all',
+    parser.add_argument('--step', choices=['rss_gathering', 'content_filtering', 'ad_detection', 'llm_quality_scoring', 'deduplication', 'article_prioritization', 'summarization', 'all'], default='all',
                        help='Specific step to run or all steps')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
@@ -116,6 +116,24 @@ def main():
                 logger.info(f"  ⏱️  Processing time: {result['metadata']['processing_time_seconds']:.1f} seconds")
             else:
                 logger.error(f"Article prioritization failed: {result.get('error', 'Unknown error')}")
+                return 1
+        
+        if args.step == 'all' or args.step == 'summarization':
+            logger.info("Executing summarization step")
+            summarization_step = SummarizationStep(config_loader)
+            result = summarization_step.execute()
+            
+            if result.get('statistics'):
+                stats = result['statistics']
+                logger.info(f"Summarization completed successfully:")
+                logger.info(f"  📰 Headlines: {stats['headlines_count']}")
+                logger.info(f"  📋 Secondary: {stats['secondary_count']}")
+                logger.info(f"  📄 Optional: {stats['optional_count']}")
+                logger.info(f"  ✅ LLM Success: {stats['llm_success_count']}/{stats['total_articles']}")
+                logger.info(f"  🔄 Fallback Used: {stats['fallback_count']}/{stats['total_articles']}")
+                logger.info(f"  ⏱️  Processing time: {result['metadata']['processing_time_seconds']:.1f} seconds")
+            else:
+                logger.error(f"Summarization failed: {result.get('error', 'Unknown error')}")
                 return 1
         
         logger.info("Pipeline execution completed")

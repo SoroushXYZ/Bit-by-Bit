@@ -1,0 +1,52 @@
+{
+  "step_name": "summarization",
+  "description": "Article summarization for newsletter generation with category-based length requirements",
+  "enabled": true,
+  "input": {
+    "source_step": "article_prioritization",
+    "filename_prefix": "prioritized_content"
+  },
+  "output": {
+    "filename_template": "summarized_content_{timestamp}.json"
+  },
+  "llm": {
+    "endpoint": "http://172.22.128.1:11434",
+    "model_name": "llama3.2:3b",
+    "timeout_seconds": 60,
+    "max_retries": 3
+  },
+  "summarization": {
+    "max_content_tokens": 2000,
+    "fallback_summary_tokens": 500,
+    "category_requirements": {
+      "headlines": {
+        "title_words": "8-12",
+        "title_chars": "60-80",
+        "summary_sentences": "2-3",
+        "summary_words": "45-60",
+        "description": "Include what happened + why it matters"
+      },
+      "secondary": {
+        "title_words": "8-12", 
+        "title_chars": "60-80",
+        "summary_sentences": "1",
+        "summary_words": "20-30",
+        "description": "Straight 'what happened'"
+      },
+      "optional": {
+        "title_words": "8-12",
+        "title_chars": "60-80", 
+        "summary_sentences": "1",
+        "summary_words": "15-25",
+        "description": "Short, descriptive sentence - more informative than title but very concise"
+      }
+    }
+  },
+  "fallback_strategy": {
+    "enable_fallback": true,
+    "fallback_logging": true,
+    "use_original_summary": true,
+    "truncate_fallback_summary": true,
+    "max_fallback_length": 200
+  }
+}

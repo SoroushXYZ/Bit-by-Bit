@@ -54,6 +54,12 @@
       "order": 6,
       "description": "LLM-based article prioritization to categorize articles into headlines, secondary, and optional",
       "config_file": "pipeline/config/article_prioritization_config.json"
+    },
+    "summarization": {
+      "enabled": true,
+      "order": 7,
+      "description": "Article summarization for newsletter generation with category-based length requirements",
+      "config_file": "pipeline/config/summarization_config.json"
     }
   }
 }
