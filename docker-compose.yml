@@ -1,0 +1,38 @@
+services:
+  bit-by-bit-pipeline:
+    build: .
+    container_name: bit-by-bit-newsletter
+    ports:
+      - "11434:11434"  # Ollama port
+    volumes:
+      - ./pipeline/data:/app/pipeline/data
+      - ./pipeline/logs:/app/pipeline/logs
+      - ./pipeline/config:/app/pipeline/config
+    environment:
+      - PYTHONPATH=/app
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks:
+      - newsletter-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  newsletter-network:
+    driver: bridge
+
+volumes:
+  pipeline-data:
+  pipeline-logs:
