@@ -12,7 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from utils import initialize_logger, load_pipeline_config
-from steps import RSSGatheringStep, ContentFilteringStep, AdDetectionStep, LLMQualityScoringStep, DeduplicationStep
+from steps import RSSGatheringStep, ContentFilteringStep, AdDetectionStep, LLMQualityScoringStep, DeduplicationStep, ArticlePrioritizationStep
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     parser = argparse.ArgumentParser(description='Run Bit-by-Bit Newsletter Pipeline')
     parser.add_argument('--config', default='pipeline/config/pipeline_config.json',
                        help='Path to pipeline configuration file')
-    parser.add_argument('--step', choices=['rss_gathering', 'content_filtering', 'ad_detection', 'llm_quality_scoring', 'deduplication', 'all'], default='all',
+    parser.add_argument('--step', choices=['rss_gathering', 'content_filtering', 'ad_detection', 'llm_quality_scoring', 'deduplication', 'article_prioritization', 'all'], default='all',
                        help='Specific step to run or all steps')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
@@ -99,6 +99,23 @@ def main():
                 logger.info(f"Processing time: {result['processing_time']:.1f} seconds")
             else:
                 logger.error(f"Deduplication failed: {result.get('error', 'Unknown error')}")
+                return 1
+        
+        if args.step == 'all' or args.step == 'article_prioritization':
+            logger.info("Executing article prioritization step")
+            prioritization_step = ArticlePrioritizationStep(config_loader)
+            result = prioritization_step.execute()
+            
+            if result.get('statistics'):
+                stats = result['statistics']
+                logger.info(f"Article prioritization completed successfully:")
+                logger.info(f"  📰 Headlines: {stats['headlines_count']}/{stats['target_headlines']} target")
+                logger.info(f"  📋 Secondary: {stats['secondary_count']}/{stats['target_secondary']} target") 
+                logger.info(f"  📄 Optional: {stats['optional_count']}")
+                logger.info(f"  ✅ Categorization success rate: {stats['categorization_success_rate']:.1f}%")
+                logger.info(f"  ⏱️  Processing time: {result['metadata']['processing_time_seconds']:.1f} seconds")
+            else:
+                logger.error(f"Article prioritization failed: {result.get('error', 'Unknown error')}")
                 return 1
         
         logger.info("Pipeline execution completed")

@@ -48,6 +48,12 @@
       "order": 5,
       "description": "Deduplication using sentence transformers to find similar articles",
       "config_file": "pipeline/config/deduplication_config.json"
+    },
+    "article_prioritization": {
+      "enabled": true,
+      "order": 6,
+      "description": "LLM-based article prioritization to categorize articles into headlines, secondary, and optional",
+      "config_file": "pipeline/config/article_prioritization_config.json"
     }
   }
 }

@@ -1,0 +1,41 @@
+{
+  "step_name": "article_prioritization",
+  "description": "LLM-based article prioritization to categorize articles into headlines, secondary, and optional",
+  "enabled": true,
+  "input": {
+    "source_step": "deduplication",
+    "filename_prefix": "deduplicated_content"
+  },
+  "output": {
+    "filename_template": "prioritized_content_{timestamp}.json"
+  },
+  "llm": {
+    "endpoint": "http://172.22.128.1:11434",
+    "model_name": "llama3.2:3b",
+    "timeout_seconds": 120,
+    "max_retries": 3
+  },
+  "prioritization": {
+    "headlines_count": 5,
+    "secondary_count": 10,
+    "content_preview_tokens": 50,
+    "impact_criteria": [
+      "Breaking news and major announcements",
+      "Significant industry developments", 
+      "Product launches and updates",
+      "Security vulnerabilities and fixes",
+      "AI/ML breakthroughs and applications",
+      "Funding rounds and acquisitions",
+      "Regulatory changes affecting tech",
+      "Developer tools and open source releases"
+    ]
+  },
+  "quality_thresholds": {
+    "minimum_quality_score": 60.0,
+    "prefer_higher_quality": true
+  },
+  "fallback_strategy": {
+    "if_llm_fails": "use_quality_score_ranking",
+    "if_insufficient_articles": "reduce_targets_proportionally"
+  }
+}

@@ -11,11 +11,13 @@ from steps.content_filtering import ContentFilteringStep
 from steps.ad_detection import AdDetectionStep
 from steps.llm_quality_scoring import LLMQualityScoringStep
 from steps.deduplication import DeduplicationStep
+from steps.article_prioritization import ArticlePrioritizationStep
 
 __all__ = [
     'RSSGatheringStep',
     'ContentFilteringStep',
     'AdDetectionStep',
     'LLMQualityScoringStep',
-    'DeduplicationStep'
+    'DeduplicationStep',
+    'ArticlePrioritizationStep'
 ]
