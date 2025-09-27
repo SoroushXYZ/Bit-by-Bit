@@ -26,14 +26,6 @@ export interface NewsletterData {
     pipeline_version: string;
   };
   content: NewsletterContent;
-  statistics: {
-    headlines_count: number;
-    secondary_count: number;
-    optional_count: number;
-    data_reduction_percentage: number;
-    average_quality_score: number;
-    high_quality_percentage: number;
-  };
 }
 
 export const mockNewsletters: NewsletterData[] = [
@@ -291,14 +283,6 @@ export const mockNewsletters: NewsletterData[] = [
           fallback_used: false
         }
       ]
-    },
-    statistics: {
-      headlines_count: 5,
-      secondary_count: 8,
-      optional_count: 7,
-      data_reduction_percentage: 96.3,
-      average_quality_score: 88.7,
-      high_quality_percentage: 85.0
     }
   },
   {
@@ -555,14 +539,6 @@ export const mockNewsletters: NewsletterData[] = [
           fallback_used: false
         }
       ]
-    },
-    statistics: {
-      headlines_count: 5,
-      secondary_count: 8,
-      optional_count: 7,
-      data_reduction_percentage: 95.8,
-      average_quality_score: 82.4,
-      high_quality_percentage: 78.5
     }
   }
 ];
@@ -587,10 +563,10 @@ export function getArchiveData() {
   return mockNewsletters.map(newsletter => ({
     date: newsletter.newsletter.date,
     title: newsletter.newsletter.title,
-    articles_count: newsletter.statistics.headlines_count + 
-                   newsletter.statistics.secondary_count + 
-                   newsletter.statistics.optional_count,
-    quality_score: newsletter.statistics.average_quality_score,
+    articles_count: newsletter.content.headlines.length + 
+                   newsletter.content.secondary.length + 
+                   newsletter.content.optional.length,
+    quality_score: 85.0, // Default quality score
     status: 'completed',
     file_size: '2.3 MB',
     generated_at: newsletter.newsletter.generated_at,

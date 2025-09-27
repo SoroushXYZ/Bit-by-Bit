@@ -157,27 +157,27 @@ export default function NewsletterViewer({ initialDate }: NewsletterViewerProps)
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">Articles Processed</CardTitle>
+                <CardTitle className="text-sm font-medium">Total Articles</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {(newsletterData.statistics?.headlines_count || 0) + 
-                   (newsletterData.statistics?.secondary_count || 0) + 
-                   (newsletterData.statistics?.optional_count || 0)}
+                  {(newsletterData.content?.headlines?.length || 0) + 
+                   (newsletterData.content?.secondary?.length || 0) + 
+                   (newsletterData.content?.optional?.length || 0)}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {newsletterData.statistics?.data_reduction_percentage || 0}% reduction from raw feeds
+                  Curated tech news
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">Average Quality</CardTitle>
+                <CardTitle className="text-sm font-medium">Top Headlines</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{newsletterData.statistics?.average_quality_score || 0}</div>
+                <div className="text-2xl font-bold">{newsletterData.content?.headlines?.length || 0}</div>
                 <p className="text-xs text-muted-foreground">
-                  {newsletterData.statistics?.high_quality_percentage || 0}% high quality articles
+                  Most important stories
                 </p>
               </CardContent>
             </Card>
