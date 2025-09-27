@@ -1,10 +1,11 @@
 import Layout from "@/components/layout/Layout";
-import ResponsiveLayout from "@/components/layout/ResponsiveLayout";
+import DynamicGridLayout from "@/components/layout/DynamicGridLayout";
+import { mockNewsletterLayout } from "@/data/mockLayout";
 
 export default function Home() {
   return (
     <Layout>
-      <ResponsiveLayout />
+      <DynamicGridLayout layout={mockNewsletterLayout} />
     </Layout>
   );
 }
