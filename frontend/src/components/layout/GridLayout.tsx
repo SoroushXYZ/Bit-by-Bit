@@ -26,20 +26,20 @@ export default function GridLayout() {
       <div className="max-w-5xl mx-auto">
         {/* US Letter sized grid container */}
         <div 
-          className="bg-card border rounded-lg shadow-lg p-6"
+          className="bg-card border rounded-lg shadow-lg p-5"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(10, minmax(0, 1fr))',
             gridTemplateRows: 'repeat(16, minmax(0, 1fr))',
-            gap: '0.75rem',
-            width: '800px',
-            height: '1280px',
+            gap: '0.6rem',
+            width: '700px',
+            height: '1120px',
             margin: '0 auto'
           }}
         >
           {/* BIT - 2x2 grid */}
           <GridBox 
-            className="bg-red-500 text-white text-6xl font-bold"
+            className="bg-red-500 text-white text-5xl font-bold"
             gridArea="1 / 1 / 3 / 3"
           >
             BIT
@@ -67,8 +67,8 @@ export default function GridLayout() {
             gridArea="1 / 3 / 3 / 6"
           >
             <div className="text-center">
-              <div className="text-sm font-semibold mb-2">HEADLINE</div>
-              <div className="text-lg">3x2 Grid</div>
+              <div className="text-sm font-semibold mb-1">HEADLINE</div>
+              <div className="text-base">3x2 Grid</div>
             </div>
           </GridBox>
 
@@ -78,8 +78,8 @@ export default function GridLayout() {
             gridArea="3 / 6 / 5 / 9"
           >
             <div className="text-center">
-              <div className="text-sm font-semibold mb-2">HEADLINE</div>
-              <div className="text-lg">3x2 Grid</div>
+              <div className="text-sm font-semibold mb-1">HEADLINE</div>
+              <div className="text-base">3x2 Grid</div>
             </div>
           </GridBox>
 
@@ -152,7 +152,7 @@ export default function GridLayout() {
           >
             <div className="text-center">
               <div className="text-sm font-semibold">QUICK LINKS</div>
-              <div className="text-xs">2x1 Grid</div>
+              <div className="text-sm">2x1 Grid</div>
             </div>
           </GridBox>
 
@@ -162,7 +162,7 @@ export default function GridLayout() {
             gridArea="9 / 1 / 11 / 4"
           >
             <div className="text-center">
-              <div className="text-sm font-semibold mb-2">CONTENT AREA</div>
+              <div className="text-sm font-semibold mb-1">CONTENT AREA</div>
               <div className="text-sm">3x2 Grid</div>
             </div>
           </GridBox>
@@ -172,7 +172,7 @@ export default function GridLayout() {
             gridArea="11 / 1 / 13 / 4"
           >
             <div className="text-center">
-              <div className="text-sm font-semibold mb-2">CONTENT AREA</div>
+              <div className="text-sm font-semibold mb-1">CONTENT AREA</div>
               <div className="text-sm">3x2 Grid</div>
             </div>
           </GridBox>
