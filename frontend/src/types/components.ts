@@ -34,7 +34,6 @@ export interface SecondaryComponent extends BaseComponent {
 export interface QuickLinkComponent extends BaseComponent {
   type: 'quickLink';
   title: string;
-  description?: string;
 }
 
 export interface BrandingComponent extends BaseComponent {

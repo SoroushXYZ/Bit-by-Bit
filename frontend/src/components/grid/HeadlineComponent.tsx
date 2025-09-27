@@ -14,17 +14,16 @@ export default function HeadlineComponent({ component }: Props) {
       component={component} 
       className="bg-red-50 border-red-200 hover:border-red-300"
     >
-      <h2 className="text-sm font-bold mb-1 line-clamp-2 flex-1">
+      <h2 className="text-sm font-bold mb-1 line-clamp-2">
         {title}
       </h2>
       
-      <p className="text-xs text-muted-foreground mb-2 line-clamp-3">
+      <p className="text-xs text-muted-foreground mb-2 line-clamp-3 flex-1 flex items-center">
         {description}
       </p>
       
-      <div className="flex items-center justify-between text-xs text-muted-foreground mt-auto">
+      <div className="flex items-center justify-end text-xs text-muted-foreground mt-auto">
         <span className="truncate">{source}</span>
-        <span className="text-xs">{new Date(publishedAt).toLocaleDateString()}</span>
       </div>
     </BaseGridComponent>
   );

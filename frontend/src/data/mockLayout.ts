@@ -21,7 +21,7 @@ export const mockNewsletterLayout: NewsletterLayout = {
     {
       id: 'headline-1',
       type: 'headline',
-      position: { row: 1, column: 3, width: 8, height: 3 },
+      position: { row: 1, column: 3, width: 6, height: 4 },
       clickable: true,
       url: 'https://example.com/headline-1',
       title: 'OpenAI Releases GPT-5 with Revolutionary Reasoning Capabilities',
@@ -35,7 +35,7 @@ export const mockNewsletterLayout: NewsletterLayout = {
     {
       id: 'by',
       type: 'branding',
-      position: { row: 4, column: 7, width: 2, height: 2 },
+      position: { row: 4, column: 10, width: 2, height: 2 },
       clickable: false,
       text: 'BY',
       variant: 'by'
@@ -45,11 +45,11 @@ export const mockNewsletterLayout: NewsletterLayout = {
     {
       id: 'secondary-1',
       type: 'secondary',
-      position: { row: 4, column: 1, width: 6, height: 2 },
+      position: { row: 5, column: 1, width: 6, height: 3 },
       clickable: true,
       url: 'https://example.com/secondary-1',
       title: 'Tesla Announces Fully Autonomous Driving Rollout',
-      description: 'Level 5 autonomy now available in major cities with regulatory approval.',
+      description: 'Level 5 autonomy now available in major cities w autonomy now available in major cities w autonomy now available in major cities w autonomy now available in major cities with regulatory approval.',
       source: 'Reuters',
       publishedAt: '2025-01-27T09:30:00Z',
       priority: 2
@@ -59,18 +59,17 @@ export const mockNewsletterLayout: NewsletterLayout = {
     {
       id: 'quicklink-1',
       type: 'quickLink',
-      position: { row: 6, column: 1, width: 4, height: 1 },
+      position: { row: 10, column: 1, width: 6, height: 1 },
       clickable: true,
       url: 'https://example.com/quicklink',
-      title: 'AI Research Papers',
-      description: 'Latest academic publications and research findings'
+      title: 'Hugging Face Releases Smol2Operator: GUI Training Pipeline'
     },
     
     // BIT (final) - 2x2 branding
     {
       id: 'bit-final',
       type: 'branding',
-      position: { row: 7, column: 7, width: 2, height: 2 },
+      position: { row: 10, column: 7, width: 2, height: 2 },
       clickable: false,
       text: 'BIT',
       variant: 'bit-final'
