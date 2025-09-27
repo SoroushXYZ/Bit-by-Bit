@@ -12,7 +12,7 @@ export default function SecondaryComponent({ component }: Props) {
   return (
     <BaseGridComponent 
       component={component} 
-      className="bg-blue-50 border-blue-200 hover:border-blue-300"
+      className="bg-gray-50 border-gray-200 hover:border-gray-300"
     >
       <h3 className="text-sm font-semibold mb-1 line-clamp-2">
         {title}

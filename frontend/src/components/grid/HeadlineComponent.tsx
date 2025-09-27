@@ -12,7 +12,7 @@ export default function HeadlineComponent({ component }: Props) {
   return (
     <BaseGridComponent 
       component={component} 
-      className="bg-red-50 border-red-200 hover:border-red-300"
+      className="bg-gray-50 border-gray-200 hover:border-gray-300"
     >
       <h2 className="text-sm font-bold mb-1 line-clamp-2">
         {title}

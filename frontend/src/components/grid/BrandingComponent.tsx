@@ -10,9 +10,9 @@ export default function BrandingComponent({ component }: Props) {
   const { text, variant } = component;
   
   const variantColors = {
-    bit: 'bg-red-500',
-    by: 'bg-blue-500',
-    'bit-final': 'bg-green-500'
+    bit: 'bg-gray-700',
+    by: 'bg-gray-700',
+    'bit-final': 'bg-gray-700'
   };
 
   return (
