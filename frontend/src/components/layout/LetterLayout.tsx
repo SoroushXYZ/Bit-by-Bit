@@ -54,10 +54,10 @@ export default function LetterLayout({
     <div className="min-h-screen bg-background">
       {/* US Letter Layout Container */}
       <div className="flex justify-center p-4">
-        <div className="flex gap-6 max-w-7xl w-full">
+        <div className="flex gap-2 max-w-none w-full px-4">
           
           {/* Left Sidebar */}
-          <div className="w-80 flex-shrink-0">
+          <div className="w-48 flex-shrink-0">
             {isFirstNewsletter ? (
               <Card className="h-fit sticky top-24">
                 <CardHeader>
@@ -130,14 +130,14 @@ export default function LetterLayout({
           </div>
 
           {/* Main Content - US Letter Size */}
-          <div className="flex-1 max-w-4xl">
+          <div className="flex-1 max-w-none">
             <div className="bg-card border rounded-lg shadow-lg p-8 min-h-[11in]">
               {children}
             </div>
           </div>
 
           {/* Right Sidebar */}
-          <div className="w-80 flex-shrink-0">
+          <div className="w-48 flex-shrink-0">
             {isCurrentDay ? (
               <Card className="h-fit sticky top-24">
                 <CardHeader>

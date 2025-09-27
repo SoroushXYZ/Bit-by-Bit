@@ -1,20 +1,10 @@
-import { GetServerSideProps } from "next";
-import NewsletterViewer from "@/components/newsletter/NewsletterViewer";
+import Layout from "@/components/layout/Layout";
+import GridLayout from "@/components/layout/GridLayout";
 
-interface HomeProps {
-  date?: string;
+export default function Home() {
+  return (
+    <Layout>
+      <GridLayout />
+    </Layout>
+  );
 }
-
-export default function Home({ date }: HomeProps) {
-  return <NewsletterViewer initialDate={date} />;
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { date } = context.query;
-  
-  return {
-    props: {
-      date: date || null,
-    },
-  };
-};
