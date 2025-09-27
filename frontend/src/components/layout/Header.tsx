@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export default function Header() {
   return (
@@ -53,6 +54,7 @@ export default function Header() {
         </NavigationMenu>
 
         <div className="flex items-center space-x-2">
+          <ThemeToggle />
           <Button variant="outline" size="sm">
             Subscribe
           </Button>
