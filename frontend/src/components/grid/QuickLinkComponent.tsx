@@ -14,9 +14,9 @@ export default function QuickLinkComponent({ component }: Props) {
       component={component} 
       className="bg-gray-50 border-gray-200 hover:border-gray-300"
     >
-      <h3 className="text-xs font-bold text-gray-800 line-clamp-2 flex-1 flex items-center">
-        {title}
-      </h3>
+         <h3 className="text-xs font-bold text-gray-800 line-clamp-2 flex-1 flex items-center justify-center text-center">
+           {title}
+         </h3>
     </BaseGridComponent>
   );
 }

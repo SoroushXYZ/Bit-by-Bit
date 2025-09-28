@@ -7,7 +7,7 @@ export interface GridPosition {
 
 export interface BaseComponent {
   id: string;
-  type: 'headline' | 'secondary' | 'quickLinks' | 'branding' | 'stock' | 'image' | 'icon';
+  type: 'headline' | 'secondary' | 'quickLink' | 'branding' | 'gitRepo' | 'stock' | 'image' | 'icon';
   position: GridPosition;
   clickable: boolean;
   url?: string;
@@ -42,6 +42,13 @@ export interface BrandingComponent extends BaseComponent {
   variant: 'bit' | 'by' | 'bit-final';
 }
 
+export interface GitRepoComponent extends BaseComponent {
+  type: 'gitRepo';
+  name: string;
+  stars: number;
+  description: string;
+}
+
 export interface StockComponent extends BaseComponent {
   type: 'stock';
   symbol: string;
@@ -70,6 +77,7 @@ export type Component =
   | SecondaryComponent 
   | QuickLinkComponent 
   | BrandingComponent
+  | GitRepoComponent
   | StockComponent
   | ImageComponent
   | IconComponent;

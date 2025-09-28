@@ -4,6 +4,7 @@ import HeadlineComponent from './HeadlineComponent';
 import SecondaryComponent from './SecondaryComponent';
 import QuickLinkComponent from './QuickLinkComponent';
 import BrandingComponent from './BrandingComponent';
+import GitRepoComponent from './GitRepoComponent';
 
 interface Props {
   component: Component;
@@ -22,6 +23,9 @@ export default function ComponentRenderer({ component }: Props) {
     
     case 'branding':
       return <BrandingComponent component={component} />;
+    
+    case 'gitRepo':
+      return <GitRepoComponent component={component} />;
     
     // Future component types will be added here
     case 'stock':
