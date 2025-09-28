@@ -1,0 +1,47 @@
+{
+  "grid_config": {
+    "columns": 12,
+    "rows": 16,
+    "cell_size": 48
+  },
+  "components": [
+    {
+      "name": "headline",
+      "width": 6,
+      "height": 4,
+      "count": 3,
+      "can_rotate": false,
+      "priority": 1,
+      "color": "#3B82F6"
+    },
+    {
+      "name": "secondary",
+      "width": 6,
+      "height": 3,
+      "count": 3,
+      "can_rotate": false,
+      "priority": 2,
+      "color": "#10B981"
+    },
+    {
+      "name": "branding",
+      "width": 2,
+      "height": 2,
+      "count": 3,
+      "can_rotate": false,
+      "priority": 3,
+      "color": "#8B5CF6"
+    },
+    {
+      "name": "quick_link",
+      "width": 6,
+      "height": 1,
+      "count": 3,
+      "can_rotate": false,
+      "priority": 4,
+      "color": "#F59E0B"
+    }
+  ],
+  "placement_strategy": "bottom_left_fill",
+  "optimization_goal": "minimize_wasted_space"
+}
