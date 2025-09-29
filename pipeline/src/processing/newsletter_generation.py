@@ -19,7 +19,7 @@ class NewsletterGenerationStep:
         self.step_name = "newsletter_generation"
         self.config = self.config_loader.get_step_config(self.step_name)
         self.data_paths = self.config_loader.get_data_paths()
-        self.output_dir = Path(self.data_paths['output'])
+        self.output_dir = Path(self.data_paths['processed'])
         self.output_dir.mkdir(exist_ok=True)
         
         # Setup logging

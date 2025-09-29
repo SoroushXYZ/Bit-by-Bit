@@ -587,21 +587,21 @@ Output: Plain text, 1–2 sentences."""
             str: Path to saved file or None if failed
         """
         try:
-            # Create output directory (final output for newsletter)
-            output_dir = Path('data/output')
-            output_dir.mkdir(parents=True, exist_ok=True)
+            # Create processed directory (intermediate processing)
+            processed_dir = Path('data/processed')
+            processed_dir.mkdir(parents=True, exist_ok=True)
             
             # Generate filename
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             filename = f"github_trending_{timestamp}.json"
             
-            output_path = output_dir / filename
+            output_path = processed_dir / filename
             
             # Save data
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
             
-            self.logger.info(f"💾 GitHub trending output saved to: {output_path}")
+            self.logger.info(f"💾 GitHub trending processed data saved to: {output_path}")
             return str(output_path)
             
         except Exception as e:
