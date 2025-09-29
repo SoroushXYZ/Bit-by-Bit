@@ -414,4 +414,4 @@ class StockDataCollector:
                 'success': False,
                 'error': str(e),
                 'collected_count': 0
-        }
+            }

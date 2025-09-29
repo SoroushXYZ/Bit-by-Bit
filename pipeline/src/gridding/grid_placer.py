@@ -125,8 +125,8 @@ class GriddingProcessor:
         self.data_paths = self.config_loader.get_data_paths()
         
         # Set random seed for reproducible results
-        random.seed(42)
-        self.logger.info("Gridding processor initialized with seed 42")
+        random.seed()
+        self.logger.info("Gridding processor initialized with random seed")
     
     def _create_components(self) -> Tuple[List[Component], List[FlexibleComponent]]:
         """Create component objects from configuration."""
@@ -164,6 +164,78 @@ class GriddingProcessor:
             for instance in component.instances:
                 instance['placed'] = False
                 instance['position'] = None
+    
+    def _load_fallback_layout(self) -> RetryGridPlacer:
+        """Load fallback grid layout from file."""
+        try:
+            fallback_path = Path(__file__).parent / 'fallback_grid_blueprint.json'
+            
+            if not fallback_path.exists():
+                self.logger.error(f"❌ Fallback layout file not found: {fallback_path}")
+                # Create a minimal fallback
+                return self._create_minimal_fallback()
+            
+            with open(fallback_path, 'r', encoding='utf-8') as f:
+                fallback_data = json.load(f)
+            
+            # Create a placer with the fallback grid dimensions
+            grid_config = fallback_data['metadata']['grid_config']
+            placer = RetryGridPlacer(grid_config['columns'], grid_config['rows'])
+            
+            # Load all components from fallback
+            for comp_data in fallback_data['components']:
+                position = comp_data['position']
+                placer.place_component(
+                    comp_data['id'],
+                    position['column'] - 1,  # Convert from 1-based to 0-based
+                    position['row'] - 1,
+                    position['width'],
+                    position['height'],
+                    comp_data['type'],
+                    comp_data.get('data', {})
+                )
+            
+            self.logger.info(f"✅ Loaded fallback layout with {len(placer.placements)} components")
+            return placer
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to load fallback layout: {e}")
+            return self._create_minimal_fallback()
+    
+    def _create_minimal_fallback(self) -> RetryGridPlacer:
+        """Create a minimal fallback layout if file loading fails."""
+        self.logger.warning("🔄 Creating minimal fallback layout...")
+        
+        # Create a basic 12x16 grid
+        placer = RetryGridPlacer(12, 16)
+        
+        # Place a few basic components
+        try:
+            # Place one branding
+            placer.place_component("branding_1", 0, 0, 2, 2, 'branding')
+            # Place one headline
+            placer.place_component("headline_1", 2, 0, 5, 4, 'headline')
+            # Place one quick link
+            placer.place_component("quick_link_1", 0, 2, 6, 1, 'quick_link')
+            
+            self.logger.info("✅ Created minimal fallback layout")
+        except Exception as e:
+            self.logger.error(f"❌ Failed to create minimal fallback: {e}")
+        
+        return placer
+    
+    def _update_fallback_layout(self, blueprint: dict):
+        """Update the fallback layout with a successful blueprint."""
+        try:
+            fallback_path = Path(__file__).parent / 'fallback_grid_blueprint.json'
+            
+            with open(fallback_path, 'w', encoding='utf-8') as f:
+                json.dump(blueprint, f, indent=2, ensure_ascii=False)
+            
+            self.logger.info(f"💾 Updated fallback layout: {fallback_path}")
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️  Failed to update fallback layout: {e}")
     
     def _retry_placement_algorithm(self, components: List[Component], flexible_components: List[FlexibleComponent], 
                                  grid_width: int, grid_height: int) -> RetryGridPlacer:
@@ -292,7 +364,8 @@ class GriddingProcessor:
                 continue
         else:
             self.logger.error(f"❌ Failed to place all components after {max_retries} attempts")
-            return placer
+            self.logger.info("🔄 Using fallback grid layout...")
+            return self._load_fallback_layout()
         
         # Final verification
         total_required = sum(len(c.instances) for c in components) + sum(fc.total_count for fc in flexible_components)
@@ -508,6 +581,9 @@ class GriddingProcessor:
                     'success': False,
                     'error': 'Failed to save grid blueprint'
                 }
+            
+            # Update fallback layout with this successful layout
+            self._update_fallback_layout(blueprint)
             
             self.logger.info("✅ Grid blueprint generation completed successfully")
             
