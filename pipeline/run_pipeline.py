@@ -18,6 +18,7 @@ from src.processing import (
     DeduplicationStep, ArticlePrioritizationStep, SummarizationStep, 
     NewsletterGenerationStep
 )
+from src.processing.github_trending_processing import GitHubTrendingProcessor
 from src.gridding import ComponentPlacer
 from src.database import DatabaseWriter
 
@@ -30,7 +31,8 @@ def main():
     parser.add_argument('--step', choices=[
         'data_collection', 'processing', 'gridding', 'database', 'all',
         'content_filtering', 'ad_detection', 'llm_quality_scoring', 
-        'deduplication', 'article_prioritization', 'summarization', 'newsletter_generation'
+        'deduplication', 'article_prioritization', 'summarization', 'newsletter_generation',
+        'github_trending_processing'
     ], default='all', help='Specific step to run or all steps')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
@@ -214,6 +216,15 @@ def main():
                 logger.error(f"❌ Newsletter generation failed: {newsletter_result.get('error')}")
                 return 1
             logger.info(f"✅ Newsletter generation: {newsletter_result.get('newsletter_created', False)} newsletter created")
+        
+        elif args.step == 'github_trending_processing':
+            logger.info("🐙 Running GitHub trending processing step only")
+            github_processor = GitHubTrendingProcessor(config_loader)
+            github_result = github_processor.process()
+            if not github_result['success']:
+                logger.error(f"❌ GitHub trending processing failed: {github_result.get('error')}")
+                return 1
+            logger.info(f"✅ GitHub trending processing: {github_result.get('processed_count', 0)} repositories processed")
         
         if args.step == 'all' or args.step == 'gridding':
             logger.info("🎯 Executing gridding step")
