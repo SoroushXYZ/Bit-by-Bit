@@ -1,0 +1,59 @@
+{
+  "step_name": "github_trending",
+  "description": "Collect trending GitHub repositories from OSS Insight API",
+  "enabled": true,
+  "api": {
+    "base_url": "https://api.ossinsight.io/v1/trends/repos/",
+    "timeout": 30,
+    "retry_attempts": 3,
+    "retry_delay": 1
+  },
+  "parameters": {
+    "period": "past_24_hours",
+    "language": "All",
+    "max_repositories": 100
+  },
+  "filtering": {
+    "english_only": true,
+    "min_stars": 10,
+    "exclude_patterns": [
+      "test",
+      "example",
+      "demo",
+      "sample"
+    ],
+    "required_fields": ["repo_name", "description", "primary_language"]
+  },
+  "readme": {
+    "enabled": true,
+    "max_repositories": 10,
+    "timeout": 10,
+    "retry_attempts": 2,
+    "variants": [
+      "README.md",
+      "readme.md", 
+      "README.rst",
+      "readme.rst"
+    ],
+    "branches": ["main", "master"],
+    "min_length": 50,
+    "max_length": 100000
+  },
+  "output": {
+    "format": "json",
+    "filename_template": "github_trending_{timestamp}.json",
+    "include_metadata": true,
+    "include_readme": true,
+    "compress": false
+  },
+  "error_handling": {
+    "continue_on_error": true,
+    "log_failures": true,
+    "fallback_on_api_failure": true
+  },
+  "performance": {
+    "batch_size": 10,
+    "delay_between_requests": 0.5,
+    "parallel_processing": false
+  }
+}
