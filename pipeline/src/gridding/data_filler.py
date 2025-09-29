@@ -75,8 +75,17 @@ class GridDataFiller:
     def _load_news_data(self) -> Dict[str, Any]:
         """Load processed news data."""
         try:
-            # Try to load summarized content first (most processed)
-            summarized_path = Path(self.data_paths['processed']) / 'summarized_content_20250929_023403.json'
+            # Find the most recent summarized content file
+            processed_dir = Path(self.data_paths['processed'])
+            summarized_files = list(processed_dir.glob('summarized_content_*.json'))
+            if not summarized_files:
+                self.logger.warning("⚠️  No summarized content files found")
+                return {'articles': []}
+            
+            # Get the most recent file
+            summarized_path = max(summarized_files, key=lambda p: p.stat().st_mtime)
+            self.logger.info(f"📰 Loading news data from: {summarized_path.name}")
+            
             if summarized_path.exists():
                 with open(summarized_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
@@ -149,7 +158,17 @@ class GridDataFiller:
     def _load_github_data(self) -> Dict[str, Any]:
         """Load GitHub trending data."""
         try:
-            github_path = Path(self.data_paths['processed']) / 'github_trending_20250929_023411.json'
+            # Find the most recent GitHub trending file
+            processed_dir = Path(self.data_paths['processed'])
+            github_files = list(processed_dir.glob('github_trending_*.json'))
+            if not github_files:
+                self.logger.warning("⚠️  No GitHub data found, using empty data")
+                return {'repositories': []}
+            
+            # Get the most recent file
+            github_path = max(github_files, key=lambda p: p.stat().st_mtime)
+            self.logger.info(f"🐙 Loading GitHub data from: {github_path.name}")
+            
             if github_path.exists():
                 with open(github_path, 'r', encoding='utf-8') as f:
                     return json.load(f)
@@ -164,7 +183,17 @@ class GridDataFiller:
     def _load_stock_data(self) -> Dict[str, Any]:
         """Load stock data."""
         try:
-            stock_path = Path(self.data_paths['raw']) / 'stock_data_20250929_023004.json'
+            # Find the most recent stock data file
+            raw_dir = Path(self.data_paths['raw'])
+            stock_files = list(raw_dir.glob('stock_data_*.json'))
+            if not stock_files:
+                self.logger.warning("⚠️  No stock data found, using empty data")
+                return {'stocks': []}
+            
+            # Get the most recent file
+            stock_path = max(stock_files, key=lambda p: p.stat().st_mtime)
+            self.logger.info(f"📈 Loading stock data from: {stock_path.name}")
+            
             if stock_path.exists():
                 with open(stock_path, 'r', encoding='utf-8') as f:
                     return json.load(f)
