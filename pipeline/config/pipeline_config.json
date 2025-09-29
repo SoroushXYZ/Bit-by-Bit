@@ -31,45 +31,51 @@
       "description": "Collect trending GitHub repositories from OSS Insight API",
       "config_file": "config/github_trending_config.json"
     },
-    "content_filtering": {
+    "stock_data": {
       "enabled": true,
       "order": 3,
+      "description": "Collect stock data for top tech companies (NVIDIA, Apple, Google, Amazon, Meta, Microsoft, Tesla)",
+      "config_file": "config/stock_data_config.json"
+    },
+    "content_filtering": {
+      "enabled": true,
+      "order": 4,
       "description": "Basic content filtering (length and language)",
       "config_file": "config/content_filtering_config.json"
     },
     "ad_detection": {
       "enabled": true,
-      "order": 4,
+      "order": 5,
       "description": "Advertisement detection using custom DistilBERT model",
       "config_file": "config/ad_detection_config.json"
     },
     "llm_quality_scoring": {
       "enabled": true,
-      "order": 5,
+      "order": 6,
       "description": "LLM-based content quality scoring using Ollama",
       "config_file": "config/llm_quality_scoring_config.json"
     },
     "deduplication": {
       "enabled": true,
-      "order": 6,
+      "order": 7,
       "description": "Deduplication using sentence transformers to find similar articles",
       "config_file": "config/deduplication_config.json"
     },
     "article_prioritization": {
       "enabled": true,
-      "order": 7,
+      "order": 8,
       "description": "LLM-based article prioritization to categorize articles into headlines, secondary, and optional",
       "config_file": "config/article_prioritization_config.json"
     },
     "summarization": {
       "enabled": true,
-      "order": 8,
+      "order": 9,
       "description": "Article summarization for newsletter generation with category-based length requirements",
       "config_file": "config/summarization_config.json"
     },
     "newsletter_generation": {
       "enabled": true,
-      "order": 9,
+      "order": 10,
       "description": "Generate clean newsletter output with pipeline visualization data",
       "config_file": "config/newsletter_generation_config.json"
     }
