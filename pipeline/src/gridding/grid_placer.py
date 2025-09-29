@@ -224,19 +224,6 @@ class GriddingProcessor:
         
         return placer
     
-    def _update_fallback_layout(self, blueprint: dict):
-        """Update the fallback layout with a successful blueprint."""
-        try:
-            fallback_path = Path(__file__).parent / 'fallback_grid_blueprint.json'
-            
-            with open(fallback_path, 'w', encoding='utf-8') as f:
-                json.dump(blueprint, f, indent=2, ensure_ascii=False)
-            
-            self.logger.info(f"💾 Updated fallback layout: {fallback_path}")
-            
-        except Exception as e:
-            self.logger.warning(f"⚠️  Failed to update fallback layout: {e}")
-    
     def _retry_placement_algorithm(self, components: List[Component], flexible_components: List[FlexibleComponent], 
                                  grid_width: int, grid_height: int) -> RetryGridPlacer:
         """Retry algorithm: Keep trying until all components are placed, then add stocks and bits."""
@@ -581,9 +568,6 @@ class GriddingProcessor:
                     'success': False,
                     'error': 'Failed to save grid blueprint'
                 }
-            
-            # Update fallback layout with this successful layout
-            self._update_fallback_layout(blueprint)
             
             self.logger.info("✅ Grid blueprint generation completed successfully")
             
