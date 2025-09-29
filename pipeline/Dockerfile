@@ -1,55 +1,58 @@
-# Bit-by-Bit AI Newsletter Pipeline - Restructured
+# Use Python base image for CPU-only deployment
 FROM python:3.11-slim
 
 # Set environment variables
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+ENV OLLAMA_HOST=0.0.0.0
+ENV PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
 
-# Install system dependencies including GPU support
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
-    wget \
     git \
     build-essential \
-    libssl-dev \
-    libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Ollama
-RUN curl -fsSL https://ollama.ai/install.sh | sh
+RUN curl -fsSL https://ollama.com/install.sh | sh
 
 # Set working directory
 WORKDIR /app
 
 # Copy requirements and install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-cpu.txt .
+RUN pip install --no-cache-dir -r requirements-cpu.txt
 
-# Copy the entire project
+# Copy pipeline code
 COPY . .
 
-# Create necessary directories
+# Create data directories
 RUN mkdir -p data/raw data/processed data/output logs
-
-# Set permissions
-RUN chmod +x run_pipeline.py
-
-# Create a startup script
-RUN echo '#!/bin/bash\n\
-echo "🚀 Starting Bit-by-Bit AI Newsletter Pipeline - Restructured"\n\
-echo "📥 Starting Ollama server..."\n\
-ollama serve &\n\
-sleep 10\n\
-echo "📚 Pulling required models..."\n\
-ollama pull llama3.2:3b\n\
-echo "✅ Setup complete! Ready to run pipeline."\n\
-echo "💡 Use: python run_pipeline.py"\n\
-echo "💡 Or: python run_pipeline.py --step data_collection"\n\
-tail -f /dev/null' > /app/start.sh && chmod +x /app/start.sh
 
 # Expose Ollama port
 EXPOSE 11434
 
-# Set the startup script as entrypoint
-ENTRYPOINT ["/app/start.sh"]
+# Create entrypoint script
+RUN echo '#!/bin/bash\n\
+# Start Ollama in background\n\
+ollama serve &\n\
+\n\
+# Wait for Ollama to start\n\
+sleep 5\n\
+\n\
+# Pull the required model\n\
+echo "Pulling llama3.2:3b model..."\n\
+ollama pull llama3.2:3b\n\
+\n\
+# Wait for model to be ready\n\
+sleep 10\n\
+\n\
+# Run the pipeline\n\
+echo "Starting pipeline..."\n\
+python run_pipeline.py "$@"' > /app/entrypoint.sh
+
+RUN chmod +x /app/entrypoint.sh
+
+# Set entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
