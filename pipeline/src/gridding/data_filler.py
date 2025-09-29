@@ -113,40 +113,46 @@ class GridDataFiller:
                     return {'articles': articles}
             
             # Fallback to prioritized content
-            prioritized_path = Path(self.data_paths['processed']) / 'prioritized_content_20250929_023328.json'
-            if prioritized_path.exists():
-                with open(prioritized_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    # Convert prioritized format to articles format
-                    articles = []
-                    if 'articles' in data:
-                        for item in data['articles']:
-                            articles.append({
-                                'title': item.get('title', ''),
-                                'summary': item.get('summary', ''),
-                                'source': item.get('source', 'RSS'),
-                                'url': item.get('url', ''),
-                                'quality_score': item.get('quality_score', 0)
-                            })
-                    return {'articles': articles}
+            prioritized_files = list(processed_dir.glob('prioritized_content_*.json'))
+            if prioritized_files:
+                prioritized_path = max(prioritized_files, key=lambda p: p.stat().st_mtime)
+                self.logger.info(f"📰 Fallback to prioritized content: {prioritized_path.name}")
+                if prioritized_path.exists():
+                    with open(prioritized_path, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                        # Convert prioritized format to articles format
+                        articles = []
+                        if 'articles' in data:
+                            for item in data['articles']:
+                                articles.append({
+                                    'title': item.get('title', ''),
+                                    'summary': item.get('summary', ''),
+                                    'source': item.get('source', 'RSS'),
+                                    'url': item.get('url', ''),
+                                    'quality_score': item.get('quality_score', 0)
+                                })
+                        return {'articles': articles}
             
             # Fallback to quality scored content
-            quality_path = Path(self.data_paths['processed']) / 'quality_scored_content_20250929_023316.json'
-            if quality_path.exists():
-                with open(quality_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    # Convert quality scored format to articles format
-                    articles = []
-                    if 'articles' in data:
-                        for item in data['articles']:
-                            articles.append({
-                                'title': item.get('title', ''),
-                                'summary': item.get('summary', ''),
-                                'source': item.get('source', 'RSS'),
-                                'url': item.get('url', ''),
-                                'quality_score': item.get('quality_score', 0)
-                            })
-                    return {'articles': articles}
+            quality_files = list(processed_dir.glob('quality_scored_content_*.json'))
+            if quality_files:
+                quality_path = max(quality_files, key=lambda p: p.stat().st_mtime)
+                self.logger.info(f"📰 Fallback to quality scored content: {quality_path.name}")
+                if quality_path.exists():
+                    with open(quality_path, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                        # Convert quality scored format to articles format
+                        articles = []
+                        if 'articles' in data:
+                            for item in data['articles']:
+                                articles.append({
+                                    'title': item.get('title', ''),
+                                    'summary': item.get('summary', ''),
+                                    'source': item.get('source', 'RSS'),
+                                    'url': item.get('url', ''),
+                                    'quality_score': item.get('quality_score', 0)
+                                })
+                        return {'articles': articles}
             
             self.logger.warning("⚠️  No news data found, using empty data")
             return {'articles': []}
