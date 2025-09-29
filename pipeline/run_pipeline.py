@@ -153,6 +153,16 @@ def main():
                 return 1
             logger.info(f"  ✅ Newsletter generation: {newsletter_result.get('newsletter_created', False)} newsletter created")
         
+        # GitHub trending processing (part of full pipeline)
+        if args.step == 'all':
+            logger.info("🐙 Running GitHub trending processing...")
+            github_processor = GitHubTrendingProcessor(config_loader)
+            github_result = github_processor.process()
+            if not github_result['success']:
+                logger.error(f"❌ GitHub trending processing failed: {github_result.get('error')}")
+                return 1
+            logger.info(f"✅ GitHub trending processing: {github_result.get('processed_count', 0)} repositories processed")
+        
         # Individual processing steps
         if args.step == 'content_filtering':
             logger.info("🔍 Running content filtering step only")
