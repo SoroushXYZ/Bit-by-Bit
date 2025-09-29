@@ -343,7 +343,7 @@ class StockDataCollector:
             
             if not available_sources:
                 self.logger.error("❌ No data sources available")
-                return {
+        return {
                     'success': False,
                     'error': 'No data sources available (no API keys)',
                     'collected_count': 0
@@ -414,4 +414,4 @@ class StockDataCollector:
                 'success': False,
                 'error': str(e),
                 'collected_count': 0
-            }
+        }
