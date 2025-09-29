@@ -1,0 +1,53 @@
+{
+  "step_name": "content_filtering",
+  "description": "Basic content filtering for length and language detection",
+  "enabled": true,
+  "input": {
+    "source_step": "rss_gathering",
+    "input_path": "pipeline/data/raw",
+    "filename_pattern": "rss_raw_*.json"
+  },
+  "filters": {
+    "word_count": {
+      "enabled": true,
+      "min_words": 100,
+      "check_fields": ["title", "content"],
+      "combined_check": true
+    },
+    "language_detection": {
+      "enabled": true,
+      "target_language": "en",
+      "confidence_threshold": 0.8,
+      "check_fields": ["title", "content", "summary"],
+      "combined_check": true
+    },
+    "basic_quality": {
+      "enabled": true,
+      "min_title_length": 10,
+      "require_url": true,
+      "exclude_patterns": [
+        "untitled",
+        "no title",
+        "test"
+      ],
+      "case_sensitive": false
+    }
+  },
+  "output": {
+    "format": "json",
+    "filename_template": "filtered_content_{timestamp}.json",
+    "include_filter_stats": true,
+    "include_rejected_articles": false,
+    "compress": false
+  },
+  "error_handling": {
+    "continue_on_error": true,
+    "log_filter_failures": true,
+    "fallback_on_language_detection_failure": true
+  },
+  "performance": {
+    "batch_size": 100,
+    "parallel_processing": true,
+    "max_workers": 4
+  }
+}

@@ -2,7 +2,7 @@
   "step_name": "rss_gathering",
   "description": "Gather raw RSS feed data from configured sources",
   "enabled": true,
-  "rss_feeds_config": "config/rss_feeds.json",
+  "rss_feeds_config": "pipeline/config/rss_feeds.json",
   "settings": {
     "max_age_hours": 24,
     "max_items_per_feed": 30,

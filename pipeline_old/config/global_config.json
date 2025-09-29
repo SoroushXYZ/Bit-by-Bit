@@ -1,0 +1,177 @@
+{
+  "global": {
+    "version": "1.0.0",
+    "description": "Global configuration settings shared across all pipeline steps"
+  },
+  
+  "llm": {
+    "default": {
+      "server_url": "http://172.22.128.1:11434",
+      "model": "llama3.2:3b",
+      "temperature": 0.3,
+      "seed": 42,
+      "max_tokens": 2000,
+      "max_retries": 3,
+      "timeout_seconds": 120,
+      "retry_delay_seconds": 2
+    },
+    "summarization": {
+      "timeout_seconds": 60,
+      "max_tokens": 2000
+    },
+    "quality_scoring": {
+      "timeout_seconds": 120,
+      "max_tokens": 2000
+    },
+    "prioritization": {
+      "timeout_seconds": 120,
+      "max_tokens": 2000
+    }
+  },
+  
+  "output": {
+    "default": {
+      "format": "json",
+      "include_metadata": true,
+      "compress": false,
+      "timestamp_format": "%Y%m%d_%H%M%S"
+    },
+    "filename_templates": {
+      "rss_raw": "rss_raw_{timestamp}.json",
+      "filtered_content": "filtered_content_{timestamp}.json",
+      "ad_filtered_content": "ad_filtered_content_{timestamp}.json",
+      "quality_scored_content": "quality_scored_content_{timestamp}.json",
+      "deduplicated_content": "deduplicated_content_{timestamp}.json",
+      "prioritized_content": "prioritized_content_{timestamp}.json",
+      "summarized_content": "summarized_content_{timestamp}.json"
+    }
+  },
+  
+  "error_handling": {
+    "default": {
+      "continue_on_error": true,
+      "log_errors": true,
+      "retry_delay_seconds": 2,
+      "max_consecutive_failures": 10
+    },
+    "llm": {
+      "include_on_llm_error": true,
+      "log_llm_errors": true
+    },
+    "rss": {
+      "continue_on_feed_error": true,
+      "log_failed_feeds": true,
+      "skip_feeds_after_max_failures": false
+    }
+  },
+  
+  "logging": {
+    "default": {
+      "log_statistics": true,
+      "max_examples_to_log": 3,
+      "log_high_quality_items": true
+    },
+    "deduplication": {
+      "log_duplicate_groups": true,
+      "log_top_articles": true,
+      "max_examples_to_log": 5
+    },
+    "ad_detection": {
+      "log_high_confidence_ads": true,
+      "log_feed_statistics": true
+    }
+  },
+  
+  "text_processing": {
+    "default": {
+      "clean_html": true,
+      "normalize_whitespace": true,
+      "max_content_tokens": 2000
+    },
+    "embeddings": {
+      "max_length": 120,
+      "batch_size": 50
+    },
+    "summarization": {
+      "fallback_summary_tokens": 500
+    }
+  },
+  
+  "performance": {
+    "default": {
+      "batch_size": 100,
+      "parallel_processing": true,
+      "max_workers": 4
+    },
+    "rss_gathering": {
+      "parallel_requests": 5,
+      "request_delay_seconds": 0.5
+    },
+    "deduplication": {
+      "batch_size": 50
+    }
+  },
+  
+  "quality": {
+    "levels": {
+      "excellent": {
+        "min_score": 85,
+        "description": "Exceptional quality, must-read content"
+      },
+      "high": {
+        "min_score": 75,
+        "description": "High quality, very valuable"
+      },
+      "good": {
+        "min_score": 65,
+        "description": "Good quality, worth reading"
+      },
+      "fair": {
+        "min_score": 55,
+        "description": "Acceptable quality, decent content"
+      },
+      "poor": {
+        "max_score": 54,
+        "description": "Poor quality, not suitable"
+      }
+    },
+    "criteria": {
+      "technical_depth": {
+        "weight": 1.0,
+        "description": "How technically informative and detailed is the content"
+      },
+      "news_value": {
+        "weight": 1.0,
+        "description": "How newsworthy and timely is the information"
+      },
+      "clarity_readability": {
+        "weight": 1.0,
+        "description": "How clear, well-structured, and readable is the writing"
+      },
+      "impact_relevance": {
+        "weight": 1.0,
+        "description": "How significant is this for tech professionals"
+      },
+      "originality": {
+        "weight": 1.0,
+        "description": "How original and insightful vs generic information"
+      }
+    }
+  },
+  
+  "fallback_strategy": {
+    "default": {
+      "enable_fallback": true,
+      "fallback_logging": true
+    },
+    "prioritization": {
+      "deduplication_weight": 2.0,
+      "use_deduplication_weight": true
+    },
+    "summarization": {
+      "use_original_summary": true,
+      "truncate_fallback_summary": true,
+      "max_fallback_length": 200
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "step_name": "ad_detection",
+  "description": "Advertisement detection and filtering using custom DistilBERT model",
+  "enabled": true,
+  "order": 3,
+  
+  "input": {
+    "source_step": "content_filtering",
+    "filename_prefix": "filtered_content",
+    "description": "Input from content filtering step"
+  },
+  
+  "output": {
+    "filename_prefix": "ad_filtered_content",
+    "save_format": "json",
+    "description": "Articles after advertisement filtering"
+  },
+  
+  "model": {
+    "name": "SoroushXYZ/distilbert-rss-ad-detection",
+    "base_model": "distilbert-base-uncased",
+    "training_data": "1,600+ RSS articles from 75+ tech feeds",
+    "performance": "~95% accuracy, ~94% F1 score",
+    "task": "Binary text classification (news vs advertisement)"
+  },
+  
+  "text_processing": {
+    "max_length": 120,
+    "description": "Maximum text length for model input (tokens)"
+  },
+  
+  "classification": {
+    "advertisement_label": "advertisement",
+    "news_label": "news",
+    "description": "Labels used by the model"
+  },
+  
+  "filtering": {
+    "min_news_confidence": 0.5,
+    "description": "Minimum confidence threshold for news classification"
+  },
+  
+  "error_handling": {
+    "continue_on_article_error": true,
+    "include_on_classification_error": true,
+    "log_classification_errors": true,
+    "description": "How to handle errors during classification"
+  },
+  
+  "logging": {
+    "log_high_confidence_ads": true,
+    "log_feed_statistics": true,
+    "max_examples_to_log": 3,
+    "description": "Logging configuration for ad detection results"
+  }
+}
