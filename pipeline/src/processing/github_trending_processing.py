@@ -410,9 +410,9 @@ Output: Plain text, 1–2 sentences."""
             self.logger.warning("🔄 No successful descriptions, using fallback repository")
             fallback_repo = {
                 "rank": 1,
-                "repo_name": "llamasoft/useless",
-                "github_url": "https://github.com/llamasoft/useless",
-                "description": "Our content pipeline encountered technical difficulties. We're working to restore normal service and will have fresh trending repositories for you soon.",
+                "repo_name": "bahamas10/ysap",
+                "github_url": "https://github.com/bahamas10/ysap",
+                "description": "Our content pipeline encountered technical difficulties. We're working to restore normal service and will have fresh trending repositories for you soon. Please come back tomorrow!",
                 "status": "fallback"
             }
             newsletter_repos.append(fallback_repo)
@@ -439,19 +439,81 @@ Output: Plain text, 1–2 sentences."""
             # Load GitHub trending data
             github_data = self._load_github_data()
             if not github_data:
+                self.logger.warning("⚠️  No GitHub trending data available, using fallback")
+                # Create fallback data structure
+                fallback_data = {
+                    "metadata": {
+                        "title": "Trending GitHub Repositories",
+                        "subtitle": "Top repositories from the past 24 hours",
+                        "generated_at": datetime.now().isoformat(),
+                        "ranking_source": "Fallback",
+                        "total_repositories": 1,
+                        "source_data": {
+                            "total_fetched": 0,
+                            "total_filtered": 0,
+                            "total_with_readme": 0
+                        }
+                    },
+                    "repositories": [{
+                        "rank": 1,
+                        "repo_name": "bahamas10/ysap",
+                        "primary_language": "Shell",
+                        "stars": 642,
+                        "github_url": "https://github.com/bahamas10/ysap",
+                        "original_description": "You Suck at Programming - A series on programming (actually just bash scripting) on youtube, tiktok and instagram hosted by Dave Eddy.",
+                        "summary": "Our content pipeline encountered technical difficulties. We're working to restore normal service and will have fresh trending repositories for you soon. Please come back tomorrow!",
+                        "status": "fallback"
+                    }]
+                }
+                
+                # Save fallback data
+                self._save_processed_data(fallback_data)
+                
                 return {
-                    'success': False,
-                    'error': 'Failed to load GitHub trending data',
-                    'processed_count': 0
+                    'success': True,
+                    'processed_count': 1,
+                    'data': fallback_data,
+                    'metadata': fallback_data['metadata']
                 }
             
             # Prepare repositories for processing
             repositories = self._prepare_repositories_for_processing(github_data)
             if not repositories:
+                self.logger.warning("⚠️  No repositories found in GitHub data, using fallback")
+                # Create fallback data structure
+                fallback_data = {
+                    "metadata": {
+                        "title": "Trending GitHub Repositories",
+                        "subtitle": "Top repositories from the past 24 hours",
+                        "generated_at": datetime.now().isoformat(),
+                        "ranking_source": "Fallback",
+                        "total_repositories": 1,
+                        "source_data": {
+                            "total_fetched": 0,
+                            "total_filtered": 0,
+                            "total_with_readme": 0
+                        }
+                    },
+                    "repositories": [{
+                        "rank": 1,
+                        "repo_name": "bahamas10/ysap",
+                        "primary_language": "Shell",
+                        "stars": 642,
+                        "github_url": "https://github.com/bahamas10/ysap",
+                        "original_description": "You Suck at Programming - A series on programming (actually just bash scripting) on youtube, tiktok and instagram hosted by Dave Eddy.",
+                        "summary": "Our content pipeline encountered technical difficulties. We're working to restore normal service and will have fresh trending repositories for you soon. Please come back tomorrow!",
+                        "status": "fallback"
+                    }]
+                }
+                
+                # Save fallback data
+                self._save_processed_data(fallback_data)
+                
                 return {
-                    'success': False,
-                    'error': 'No repositories found in GitHub data',
-                    'processed_count': 0
+                    'success': True,
+                    'processed_count': 1,
+                    'data': fallback_data,
+                    'metadata': fallback_data['metadata']
                 }
             
             self.logger.info(f"📊 Prepared {len(repositories)} repositories for processing")
