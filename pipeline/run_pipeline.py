@@ -28,7 +28,9 @@ def main():
     parser.add_argument('--config', default='config/pipeline_config.json',
                        help='Path to pipeline configuration file')
     parser.add_argument('--step', choices=[
-        'data_collection', 'processing', 'gridding', 'database', 'all'
+        'data_collection', 'processing', 'gridding', 'database', 'all',
+        'content_filtering', 'ad_detection', 'llm_quality_scoring', 
+        'deduplication', 'article_prioritization', 'summarization', 'newsletter_generation'
     ], default='all', help='Specific step to run or all steps')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
@@ -89,8 +91,129 @@ def main():
         
         if args.step == 'all' or args.step == 'processing':
             logger.info("⚙️ Executing processing step")
-            # TODO: Implement processing pipeline with existing steps
-            logger.info("  📝 Processing step - using existing pipeline steps")
+            
+            # Initialize processing steps
+            content_filter = ContentFilteringStep(config_loader)
+            ad_detector = AdDetectionStep(config_loader)
+            llm_scorer = LLMQualityScoringStep(config_loader)
+            deduplicator = DeduplicationStep(config_loader)
+            prioritizer = ArticlePrioritizationStep(config_loader)
+            summarizer = SummarizationStep(config_loader)
+            newsletter_gen = NewsletterGenerationStep(config_loader)
+            
+            # Execute processing pipeline
+            logger.info("  🔍 Running content filtering...")
+            filter_result = content_filter.execute()
+            if not filter_result['success']:
+                logger.error(f"  ❌ Content filtering failed: {filter_result.get('error')}")
+                return 1
+            logger.info(f"  ✅ Content filtering: {filter_result.get('articles_processed', 0)} articles processed")
+            
+            logger.info("  🚫 Running ad detection...")
+            ad_result = ad_detector.execute()
+            if not ad_result['success']:
+                logger.error(f"  ❌ Ad detection failed: {ad_result.get('error')}")
+                return 1
+            logger.info(f"  ✅ Ad detection: {ad_result.get('articles_passed', 0)} articles passed")
+            
+            logger.info("  🤖 Running LLM quality scoring...")
+            llm_result = llm_scorer.execute()
+            if not llm_result['success']:
+                logger.error(f"  ❌ LLM quality scoring failed: {llm_result.get('error')}")
+                return 1
+            logger.info(f"  ✅ LLM quality scoring: {llm_result.get('articles_passed', 0)} articles passed")
+            
+            logger.info("  🔄 Running deduplication...")
+            dedup_result = deduplicator.execute()
+            if not dedup_result['success']:
+                logger.error(f"  ❌ Deduplication failed: {dedup_result.get('error')}")
+                return 1
+            logger.info(f"  ✅ Deduplication: {dedup_result.get('duplicates_removed', 0)} duplicates removed")
+            
+            logger.info("  📊 Running article prioritization...")
+            priority_result = prioritizer.execute()
+            if not priority_result['success']:
+                logger.error(f"  ❌ Article prioritization failed: {priority_result.get('error')}")
+                return 1
+            logger.info(f"  ✅ Article prioritization: {priority_result.get('articles_prioritized', 0)} articles prioritized")
+            
+            logger.info("  📝 Running summarization...")
+            summary_result = summarizer.execute()
+            if not summary_result['success']:
+                logger.error(f"  ❌ Summarization failed: {summary_result.get('error')}")
+                return 1
+            logger.info(f"  ✅ Summarization: {summary_result.get('articles_summarized', 0)} articles summarized")
+            
+            logger.info("  📰 Running newsletter generation...")
+            newsletter_result = newsletter_gen.execute()
+            if not newsletter_result['success']:
+                logger.error(f"  ❌ Newsletter generation failed: {newsletter_result.get('error')}")
+                return 1
+            logger.info(f"  ✅ Newsletter generation: {newsletter_result.get('newsletter_created', False)} newsletter created")
+        
+        # Individual processing steps
+        if args.step == 'content_filtering':
+            logger.info("🔍 Running content filtering step only")
+            content_filter = ContentFilteringStep(config_loader)
+            filter_result = content_filter.execute()
+            if not filter_result['success']:
+                logger.error(f"❌ Content filtering failed: {filter_result.get('error')}")
+                return 1
+            logger.info(f"✅ Content filtering: {filter_result.get('articles_processed', 0)} articles processed")
+        
+        elif args.step == 'ad_detection':
+            logger.info("🚫 Running ad detection step only")
+            ad_detector = AdDetectionStep(config_loader)
+            ad_result = ad_detector.execute()
+            if not ad_result['success']:
+                logger.error(f"❌ Ad detection failed: {ad_result.get('error')}")
+                return 1
+            logger.info(f"✅ Ad detection: {ad_result.get('articles_passed', 0)} articles passed")
+        
+        elif args.step == 'llm_quality_scoring':
+            logger.info("🤖 Running LLM quality scoring step only")
+            llm_scorer = LLMQualityScoringStep(config_loader)
+            llm_result = llm_scorer.execute()
+            if not llm_result['success']:
+                logger.error(f"❌ LLM quality scoring failed: {llm_result.get('error')}")
+                return 1
+            logger.info(f"✅ LLM quality scoring: {llm_result.get('articles_passed', 0)} articles passed")
+        
+        elif args.step == 'deduplication':
+            logger.info("🔄 Running deduplication step only")
+            deduplicator = DeduplicationStep(config_loader)
+            dedup_result = deduplicator.execute()
+            if not dedup_result['success']:
+                logger.error(f"❌ Deduplication failed: {dedup_result.get('error')}")
+                return 1
+            logger.info(f"✅ Deduplication: {dedup_result.get('duplicates_removed', 0)} duplicates removed")
+        
+        elif args.step == 'article_prioritization':
+            logger.info("📊 Running article prioritization step only")
+            prioritizer = ArticlePrioritizationStep(config_loader)
+            priority_result = prioritizer.execute()
+            if not priority_result['success']:
+                logger.error(f"❌ Article prioritization failed: {priority_result.get('error')}")
+                return 1
+            logger.info(f"✅ Article prioritization: {priority_result.get('articles_prioritized', 0)} articles prioritized")
+        
+        elif args.step == 'summarization':
+            logger.info("📝 Running summarization step only")
+            summarizer = SummarizationStep(config_loader)
+            summary_result = summarizer.execute()
+            if not summary_result['success']:
+                logger.error(f"❌ Summarization failed: {summary_result.get('error')}")
+                return 1
+            logger.info(f"✅ Summarization: {summary_result.get('articles_summarized', 0)} articles summarized")
+        
+        elif args.step == 'newsletter_generation':
+            logger.info("📰 Running newsletter generation step only")
+            newsletter_gen = NewsletterGenerationStep(config_loader)
+            newsletter_result = newsletter_gen.execute()
+            if not newsletter_result['success']:
+                logger.error(f"❌ Newsletter generation failed: {newsletter_result.get('error')}")
+                return 1
+            logger.info(f"✅ Newsletter generation: {newsletter_result.get('newsletter_created', False)} newsletter created")
         
         if args.step == 'all' or args.step == 'gridding':
             logger.info("🎯 Executing gridding step")

@@ -503,8 +503,16 @@ Focus on creating content that would be valuable for tech professionals and enth
                     if summary['summary']:
                         self.logger.info(f"      {summary['summary']}")
             
-            return output_data
+            return {
+                'success': True,
+                **output_data
+            }
             
         except Exception as e:
             self.logger.error(f"❌ {self.step_name} step failed: {e}")
-            raise
+            return {
+                'success': False,
+                'error': str(e),
+                'step_name': self.step_name,
+                'timestamp': datetime.now().isoformat()
+            }
