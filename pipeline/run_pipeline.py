@@ -19,7 +19,7 @@ from src.processing import (
     NewsletterGenerationStep
 )
 from src.processing.github_trending_processing import GitHubTrendingProcessor
-from src.gridding import GriddingProcessor
+from src.gridding import GriddingProcessor, GridDataFiller
 from src.database import DatabaseWriter
 
 
@@ -29,10 +29,10 @@ def main():
     parser.add_argument('--config', default='config/pipeline_config.json',
                        help='Path to pipeline configuration file')
     parser.add_argument('--step', choices=[
-        'data_collection', 'processing', 'gridding', 'database', 'all',
+        'data_collection', 'processing', 'gridding', 'data_filling', 'database', 'all',
         'content_filtering', 'ad_detection', 'llm_quality_scoring', 
         'deduplication', 'article_prioritization', 'summarization', 'newsletter_generation',
-        'github_trending_processing', 'gridding'
+        'github_trending_processing'
     ], default='all', help='Specific step to run or all steps')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
@@ -245,6 +245,25 @@ def main():
                 return 1
             logger.info(f"✅ Gridding: {gridding_result.get('total_components', 0)} components placed, efficiency: {gridding_result.get('efficiency', 0)}%")
         
+        elif args.step == 'data_filling':
+            logger.info("📊 Running data filling step only")
+            # Find the latest grid blueprint
+            import glob
+            blueprint_files = glob.glob("data/raw/grid_blueprint_*.json")
+            if not blueprint_files:
+                logger.error("❌ No grid blueprint found. Run gridding step first.")
+                return 1
+            
+            latest_blueprint = max(blueprint_files, key=lambda x: Path(x).stat().st_mtime)
+            logger.info(f"📋 Using blueprint: {latest_blueprint}")
+            
+            data_filler = GridDataFiller(config_loader)
+            filling_result = data_filler.fill_blueprint(latest_blueprint)
+            if not filling_result['success']:
+                logger.error(f"❌ Data filling failed: {filling_result.get('error')}")
+                return 1
+            logger.info(f"✅ Data filling: {filling_result.get('components_filled', 0)} components filled")
+        
         if args.step == 'all':
             logger.info("🎯 Executing gridding step")
             gridding_processor = GriddingProcessor(config_loader)
@@ -253,6 +272,23 @@ def main():
                 logger.error(f"❌ Gridding failed: {gridding_result.get('error')}")
                 return 1
             logger.info(f"✅ Gridding: {gridding_result.get('total_components', 0)} components placed, efficiency: {gridding_result.get('efficiency', 0)}%")
+            
+            # Execute data filling step
+            logger.info("📊 Executing data filling step")
+            import glob
+            blueprint_files = glob.glob("data/raw/grid_blueprint_*.json")
+            if blueprint_files:
+                latest_blueprint = max(blueprint_files, key=lambda x: Path(x).stat().st_mtime)
+                logger.info(f"📋 Using blueprint: {latest_blueprint}")
+                
+                data_filler = GridDataFiller(config_loader)
+                filling_result = data_filler.fill_blueprint(latest_blueprint)
+                if not filling_result['success']:
+                    logger.error(f"❌ Data filling failed: {filling_result.get('error')}")
+                    return 1
+                logger.info(f"✅ Data filling: {filling_result.get('components_filled', 0)} components filled")
+            else:
+                logger.warning("⚠️  No grid blueprint found for data filling")
         
         if args.step == 'all' or args.step == 'database':
             logger.info("💾 Executing database step")

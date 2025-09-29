@@ -84,6 +84,12 @@
       "order": 11,
       "description": "Generate grid blueprint template for component placement",
       "config_file": "config/gridding_config.json"
+    },
+    "data_filling": {
+      "enabled": true,
+      "order": 12,
+      "description": "Fill grid blueprint with actual data from news, GitHub, stock sources",
+      "config_file": "config/gridding_config.json"
     }
   }
 }
