@@ -3,8 +3,8 @@ Gridding module for Bit-by-Bit Pipeline.
 Handles component placement and layout optimization.
 """
 
-from .component_placer import ComponentPlacer
+from .grid_placer import GriddingProcessor
 
 __all__ = [
-    'ComponentPlacer'
+    'GriddingProcessor'
 ]

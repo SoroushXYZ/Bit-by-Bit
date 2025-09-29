@@ -19,7 +19,7 @@ from src.processing import (
     NewsletterGenerationStep
 )
 from src.processing.github_trending_processing import GitHubTrendingProcessor
-from src.gridding import ComponentPlacer
+from src.gridding import GriddingProcessor
 from src.database import DatabaseWriter
 
 
@@ -32,7 +32,7 @@ def main():
         'data_collection', 'processing', 'gridding', 'database', 'all',
         'content_filtering', 'ad_detection', 'llm_quality_scoring', 
         'deduplication', 'article_prioritization', 'summarization', 'newsletter_generation',
-        'github_trending_processing'
+        'github_trending_processing', 'gridding'
     ], default='all', help='Specific step to run or all steps')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
@@ -57,7 +57,7 @@ def main():
         rss_gatherer = RSSGatheringStep(config_loader)
         github_collector = GitHubTrendingCollector(config_loader)
         stock_collector = StockDataCollector(config_loader)
-        component_placer = ComponentPlacer(config_loader)
+        gridding_processor = GriddingProcessor(config_loader)
         database_writer = DatabaseWriter(config_loader)
         
         # Execute steps
@@ -236,10 +236,23 @@ def main():
                 return 1
             logger.info(f"✅ GitHub trending processing: {github_result.get('processed_count', 0)} repositories processed")
         
-        if args.step == 'all' or args.step == 'gridding':
+        elif args.step == 'gridding':
+            logger.info("🎯 Running gridding step only")
+            gridding_processor = GriddingProcessor(config_loader)
+            gridding_result = gridding_processor.process()
+            if not gridding_result['success']:
+                logger.error(f"❌ Gridding failed: {gridding_result.get('error')}")
+                return 1
+            logger.info(f"✅ Gridding: {gridding_result.get('total_components', 0)} components placed, efficiency: {gridding_result.get('efficiency', 0)}%")
+        
+        if args.step == 'all':
             logger.info("🎯 Executing gridding step")
-            # TODO: Implement component placement
-            logger.info("  📐 Gridding step - component placement")
+            gridding_processor = GriddingProcessor(config_loader)
+            gridding_result = gridding_processor.process()
+            if not gridding_result['success']:
+                logger.error(f"❌ Gridding failed: {gridding_result.get('error')}")
+                return 1
+            logger.info(f"✅ Gridding: {gridding_result.get('total_components', 0)} components placed, efficiency: {gridding_result.get('efficiency', 0)}%")
         
         if args.step == 'all' or args.step == 'database':
             logger.info("💾 Executing database step")

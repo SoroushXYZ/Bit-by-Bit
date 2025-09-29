@@ -78,6 +78,12 @@
       "order": 10,
       "description": "Generate clean newsletter output with pipeline visualization data",
       "config_file": "config/newsletter_generation_config.json"
+    },
+    "gridding": {
+      "enabled": true,
+      "order": 11,
+      "description": "Generate grid blueprint template for component placement",
+      "config_file": "config/gridding_config.json"
     }
   }
 }
