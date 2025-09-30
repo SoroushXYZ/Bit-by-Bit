@@ -1,18 +1,24 @@
-# Use Python base image for CPU-only deployment
-FROM python:3.11-slim
+# Use NVIDIA CUDA 12.2 base image for GPU support
+FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 ENV OLLAMA_HOST=0.0.0.0
-ENV PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128
+ENV CUDA_VISIBLE_DEVICES=0
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+    python3.11 \
+    python3.11-dev \
+    python3-pip \
     curl \
     git \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
+
+# Create symbolic link for python
+RUN ln -s /usr/bin/python3.11 /usr/bin/python
 
 # Install Ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
@@ -21,8 +27,8 @@ RUN curl -fsSL https://ollama.com/install.sh | sh
 WORKDIR /app
 
 # Copy requirements and install Python dependencies
-COPY requirements-cpu.txt .
-RUN pip install --no-cache-dir -r requirements-cpu.txt
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy pipeline code
 COPY . .

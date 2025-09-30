@@ -18,9 +18,9 @@ jupyter
 sentence-transformers
 scikit-learn
 
-# Content filtering and processing (CPU-only)
+# Content filtering and processing
 transformers
-torch --index-url https://download.pytorch.org/whl/cpu
+torch
 nltk
 langdetect
 protobuf
