@@ -5,6 +5,9 @@ import SecondaryComponent from './SecondaryComponent';
 import QuickLinkComponent from './QuickLinkComponent';
 import BrandingComponent from './BrandingComponent';
 import GitRepoComponent from './GitRepoComponent';
+import BitComponent from './BitComponent';
+import StockComponent from './StockComponent';
+import DayComponent from './DayComponent';
 
 interface Props {
   component: Component;
@@ -27,8 +30,15 @@ export default function ComponentRenderer({ component }: Props) {
     case 'gitRepo':
       return <GitRepoComponent component={component} />;
     
-    // Future component types will be added here
+    case 'bit':
+      return <BitComponent component={component} />;
+    
     case 'stock':
+      return <StockComponent component={component} />;
+    
+    case 'day':
+      return <DayComponent component={component} />;
+    // Future component types will be added here
     case 'image':
     case 'icon':
     default:

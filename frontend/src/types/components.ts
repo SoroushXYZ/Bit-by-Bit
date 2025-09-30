@@ -7,7 +7,7 @@ export interface GridPosition {
 
 export interface BaseComponent {
   id: string;
-  type: 'headline' | 'secondary' | 'quickLink' | 'branding' | 'gitRepo' | 'stock' | 'image' | 'icon';
+  type: 'headline' | 'secondary' | 'quickLink' | 'branding' | 'gitRepo' | 'stock' | 'image' | 'icon' | 'bit' | 'day';
   position: GridPosition;
   clickable: boolean;
   url?: string;
@@ -72,6 +72,17 @@ export interface IconComponent extends BaseComponent {
   color?: string;
 }
 
+export interface BitComponent extends BaseComponent {
+  type: 'bit';
+  value: 0 | 1;
+}
+
+export interface DayComponent extends BaseComponent {
+  type: 'day';
+  day: string; // e.g., Monday
+  number: number; // e.g., 10
+}
+
 export type Component = 
   | HeadlineComponent 
   | SecondaryComponent 
@@ -80,7 +91,9 @@ export type Component =
   | GitRepoComponent
   | StockComponent
   | ImageComponent
-  | IconComponent;
+  | IconComponent
+  | BitComponent
+  | DayComponent;
 
 export interface NewsletterLayout {
   components: Component[];
