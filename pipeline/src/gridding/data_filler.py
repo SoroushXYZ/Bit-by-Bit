@@ -97,18 +97,18 @@ class GridDataFiller:
                             articles.append({
                                 'title': item.get('original_title', ''),
                                 'summary': item.get('summary', ''),
-                                'source': 'RSS',
+                                'source': item.get('feed_name', 'RSS'),
                                 'url': item.get('original_url', ''),
-                                'quality_score': 85  # Headlines are high quality
+                                'quality_score': int(item.get('quality_score', 85))
                             })
                         # Add secondary articles
                         for item in data['summaries'].get('secondary', []):
                             articles.append({
                                 'title': item.get('original_title', ''),
                                 'summary': item.get('summary', ''),
-                                'source': 'RSS',
+                                'source': item.get('feed_name', 'RSS'),
                                 'url': item.get('original_url', ''),
-                                'quality_score': 75  # Secondary articles
+                                'quality_score': int(item.get('quality_score', 75))
                             })
                     return {'articles': articles}
             
@@ -122,12 +122,31 @@ class GridDataFiller:
                         data = json.load(f)
                         # Convert prioritized format to articles format
                         articles = []
-                        if 'articles' in data:
+                        if 'categorization' in data:
+                            # Add headlines
+                            for item in data['categorization'].get('headlines', []):
+                                articles.append({
+                                    'title': item.get('title', ''),
+                                    'summary': item.get('summary', ''),
+                                    'source': item.get('feed_name', 'RSS'),
+                                    'url': item.get('url', ''),
+                                    'quality_score': 85  # Headlines are high quality
+                                })
+                            # Add secondary articles
+                            for item in data['categorization'].get('secondary', []):
+                                articles.append({
+                                    'title': item.get('title', ''),
+                                    'summary': item.get('summary', ''),
+                                    'source': item.get('feed_name', 'RSS'),
+                                    'url': item.get('url', ''),
+                                    'quality_score': 75  # Secondary articles
+                                })
+                        elif 'articles' in data:
                             for item in data['articles']:
                                 articles.append({
                                     'title': item.get('title', ''),
                                     'summary': item.get('summary', ''),
-                                    'source': item.get('source', 'RSS'),
+                                    'source': item.get('feed_name', item.get('source', 'RSS')),
                                     'url': item.get('url', ''),
                                     'quality_score': item.get('quality_score', 0)
                                 })
@@ -148,7 +167,7 @@ class GridDataFiller:
                                 articles.append({
                                     'title': item.get('title', ''),
                                     'summary': item.get('summary', ''),
-                                    'source': item.get('source', 'RSS'),
+                                    'source': item.get('feed_name', item.get('source', 'RSS')),
                                     'url': item.get('url', ''),
                                     'quality_score': item.get('quality_score', 0)
                                 })
