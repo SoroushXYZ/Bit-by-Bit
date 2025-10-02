@@ -23,7 +23,7 @@
   },
   
   "deduplication": {
-    "max_articles": 20,
+    "max_articles": 25,
     "quality_priority": true,
     "description": "Deduplication parameters and article selection"
   },

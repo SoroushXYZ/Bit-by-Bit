@@ -1,0 +1,33 @@
+# Core dependencies
+requests
+python-dotenv
+
+# Data collection
+beautifulsoup4
+lxml
+feedparser
+tqdm
+
+# Research and analysis
+pandas
+matplotlib
+seaborn
+jupyter
+
+# Deduplication and NLP
+sentence-transformers
+scikit-learn
+
+# Content filtering and processing
+transformers
+torch
+nltk
+langdetect
+protobuf
+
+# LLM integration
+ollama
+
+# Embeddings and Similarity
+sentence-transformers
+scikit-learn

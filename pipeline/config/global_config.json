@@ -1,7 +1,8 @@
 {
   "global": {
     "version": "1.0.0",
-    "description": "Global configuration settings shared across all pipeline steps"
+    "description": "Global configuration settings shared across all pipeline steps",
+    "starting_timestamp": 1758362400
   },
   
   "llm": {

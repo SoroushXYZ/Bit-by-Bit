@@ -1,0 +1,123 @@
+{
+  "step_name": "stock_data",
+  "description": "Collect stock data for top tech companies",
+  "enabled": true,
+  "companies": {
+    "NVIDIA": {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "sector": "Technology",
+      "priority": 1
+    },
+    "Apple": {
+      "symbol": "AAPL", 
+      "name": "Apple Inc.",
+      "sector": "Technology",
+      "priority": 2
+    },
+    "Google": {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc. (Google)",
+      "sector": "Technology", 
+      "priority": 3
+    },
+    "Amazon": {
+      "symbol": "AMZN",
+      "name": "Amazon.com Inc.",
+      "sector": "Consumer Discretionary",
+      "priority": 4
+    },
+    "Meta": {
+      "symbol": "META",
+      "name": "Meta Platforms Inc.",
+      "sector": "Technology",
+      "priority": 5
+    },
+    "Microsoft": {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "sector": "Technology",
+      "priority": 6
+    },
+    "Tesla": {
+      "symbol": "TSLA",
+      "name": "Tesla Inc.",
+      "sector": "Consumer Discretionary",
+      "priority": 7
+    }
+  },
+  "data_sources": {
+    "finnhub": {
+      "enabled": true,
+      "priority": 1,
+      "base_url": "https://finnhub.io/api/v1",
+      "rate_limit": {
+        "requests_per_minute": 60,
+        "requests_per_day": 1000
+      },
+      "timeout_seconds": 30,
+      "retry_attempts": 3,
+      "retry_delay_seconds": 1
+    },
+    "alpha_vantage": {
+      "enabled": true,
+      "priority": 2,
+      "base_url": "https://www.alphavantage.co/query",
+      "rate_limit": {
+        "requests_per_minute": 5,
+        "requests_per_day": 500
+      },
+      "timeout_seconds": 30,
+      "retry_attempts": 3,
+      "retry_delay_seconds": 2
+    },
+    "polygon": {
+      "enabled": true,
+      "priority": 3,
+      "base_url": "https://api.polygon.io",
+      "rate_limit": {
+        "requests_per_minute": 5,
+        "requests_per_day": 1000
+      },
+      "timeout_seconds": 30,
+      "retry_attempts": 3,
+      "retry_delay_seconds": 1
+    }
+  },
+  "data_requirements": {
+    "time_period": "24_hours",
+    "required_metrics": [
+      "current_price",
+      "price_change",
+      "price_change_percent", 
+      "volume",
+      "market_cap",
+      "pe_ratio",
+      "high_52_week",
+      "low_52_week"
+    ],
+    "optional_metrics": [
+      "dividend_yield",
+      "beta",
+      "eps",
+      "revenue_growth"
+    ]
+  },
+  "output": {
+    "format": "json",
+    "filename_template": "stock_data_{timestamp}.json",
+    "include_raw_data": false,
+    "include_metadata": true
+  },
+  "error_handling": {
+    "continue_on_error": true,
+    "log_api_errors": true,
+    "fallback_on_empty_data": true,
+    "max_failed_sources": 2
+  },
+  "performance": {
+    "parallel_requests": true,
+    "max_concurrent_requests": 3,
+    "request_delay_seconds": 0.5
+  }
+}

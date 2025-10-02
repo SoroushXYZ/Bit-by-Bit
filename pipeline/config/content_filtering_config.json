@@ -4,7 +4,7 @@
   "enabled": true,
   "input": {
     "source_step": "rss_gathering",
-    "input_path": "pipeline/data/raw",
+    "input_path": "data/raw",
     "filename_pattern": "rss_raw_*.json"
   },
   "filters": {

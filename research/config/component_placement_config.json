@@ -1,0 +1,50 @@
+{
+  "grid_config": {
+    "columns": 12,
+    "rows": 16,
+    "cell_size": 48
+  },
+  "components": [
+    {
+      "name": "headline",
+      "width": 5,
+      "height": 4,
+      "count": 4,
+      "can_rotate": false,
+      "priority": 1,
+      "color": "#3B82F6"
+    },
+    {
+      "name": "github_repo",
+      "width": 3,
+      "height": 3,
+      "count": 1,
+      "can_rotate": false,
+      "priority": 2,
+      "color": "#10B981"
+    },
+    {
+      "name": "branding",
+      "width": 2,
+      "height": 2,
+      "count": 3,
+      "can_rotate": false,
+      "priority": 3,
+      "color": "#8B5CF6"
+    },
+    {
+      "name": "quick_link",
+      "shapes": [
+        {"width": 6, "height": 1},
+        {"width": 4, "height": 2}
+      ],
+      "total_count": 6,
+      "can_rotate": false,
+      "priority": 1,
+      "color": "#F59E0B"
+    }
+  ],
+  "placement_strategy": "bottom_left_fill",
+  "optimization_goal": "minimize_wasted_space"
+}
+

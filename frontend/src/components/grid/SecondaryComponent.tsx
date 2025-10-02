@@ -1,0 +1,30 @@
+import React from 'react';
+import BaseGridComponent from './BaseGridComponent';
+import { SecondaryComponent as SecondaryComponentType } from '@/types/components';
+
+interface Props {
+  component: SecondaryComponentType;
+}
+
+export default function SecondaryComponent({ component }: Props) {
+  const { title, description, source, publishedAt } = component;
+
+  return (
+    <BaseGridComponent 
+      component={component} 
+      className="bg-gray-50 border-gray-200 hover:border-gray-300"
+    >
+      <h3 className="text-sm font-semibold mb-1 line-clamp-2">
+        {title}
+      </h3>
+      
+      <p className="text-xs text-muted-foreground mb-1 line-clamp-2 flex-1 flex items-center">
+        {description}
+      </p>
+      
+      <div className="flex items-center justify-end text-xs text-muted-foreground mt-auto">
+        <span className="truncate">{source}</span>
+      </div>
+    </BaseGridComponent>
+  );
+}
