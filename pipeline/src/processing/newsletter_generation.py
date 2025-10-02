@@ -79,16 +79,14 @@ class NewsletterGenerationStep:
     def _load_summarized_content(self) -> Dict[str, Any]:
         """Load the most recent summarized content."""
         processed_dir = Path(self.data_paths['processed'])
-        summarized_files = list(processed_dir.glob("summarized_content_*.json"))
+        summarized_path = processed_dir / "summarized_content.json"
         
-        if not summarized_files:
+        if not summarized_path.exists():
             raise Exception("No summarized content files found")
         
-        # Get the most recent file
-        latest_file = max(summarized_files, key=os.path.getctime)
-        self.logger.info(f"📄 Loading summarized content from: {latest_file.name}")
+        self.logger.info(f"📄 Loading summarized content from: {summarized_path.name}")
         
-        with open(latest_file, 'r', encoding='utf-8') as f:
+        with open(summarized_path, 'r', encoding='utf-8') as f:
             return json.load(f)
     
     def _collect_pipeline_metadata(self) -> Dict[str, Any]:
@@ -114,10 +112,9 @@ class NewsletterGenerationStep:
                 }
         
         # Content Filtering
-        filtering_files = list(processed_dir.glob("filtered_content_*.json"))
-        if filtering_files:
-            latest_filtering = max(filtering_files, key=os.path.getctime)
-            with open(latest_filtering, 'r', encoding='utf-8') as f:
+        filtering_path = processed_dir / "filtered_content.json"
+        if filtering_path.exists():
+            with open(filtering_path, 'r', encoding='utf-8') as f:
                 filtering_data = json.load(f)
                 metadata['content_filtering'] = {
                     'articles_input': filtering_data.get('metadata', {}).get('total_articles_input', 0),
@@ -129,10 +126,9 @@ class NewsletterGenerationStep:
                 }
         
         # Ad Detection
-        ad_detection_files = list(processed_dir.glob("ad_filtered_content_*.json"))
-        if ad_detection_files:
-            latest_ad_detection = max(ad_detection_files, key=os.path.getctime)
-            with open(latest_ad_detection, 'r', encoding='utf-8') as f:
+        ad_detection_path = processed_dir / "ad_filtered_content.json"
+        if ad_detection_path.exists():
+            with open(ad_detection_path, 'r', encoding='utf-8') as f:
                 ad_detection_data = json.load(f)
                 metadata['ad_detection'] = {
                     'articles_input': ad_detection_data.get('statistics', {}).get('articles_input', 0),
@@ -146,10 +142,9 @@ class NewsletterGenerationStep:
                 }
         
         # Quality Scoring
-        quality_files = list(processed_dir.glob("quality_scored_content_*.json"))
-        if quality_files:
-            latest_quality = max(quality_files, key=os.path.getctime)
-            with open(latest_quality, 'r', encoding='utf-8') as f:
+        quality_path = processed_dir / "quality_scored_content.json"
+        if quality_path.exists():
+            with open(quality_path, 'r', encoding='utf-8') as f:
                 quality_data = json.load(f)
                 metadata['quality_scoring'] = {
                     'articles_processed': quality_data.get('statistics', {}).get('articles_input', 0),
@@ -161,10 +156,9 @@ class NewsletterGenerationStep:
                 }
         
         # Deduplication
-        dedup_files = list(processed_dir.glob("deduplicated_content_*.json"))
-        if dedup_files:
-            latest_dedup = max(dedup_files, key=os.path.getctime)
-            with open(latest_dedup, 'r', encoding='utf-8') as f:
+        dedup_path = processed_dir / "deduplicated_content.json"
+        if dedup_path.exists():
+            with open(dedup_path, 'r', encoding='utf-8') as f:
                 dedup_data = json.load(f)
                 articles_input = dedup_data.get('statistics', {}).get('articles_input', 0)
                 articles_selected = dedup_data.get('statistics', {}).get('articles_selected', 0)
@@ -180,10 +174,9 @@ class NewsletterGenerationStep:
                 }
         
         # Article Prioritization
-        prioritization_files = list(processed_dir.glob("prioritized_content_*.json"))
-        if prioritization_files:
-            latest_prioritization = max(prioritization_files, key=os.path.getctime)
-            with open(latest_prioritization, 'r', encoding='utf-8') as f:
+        prioritization_path = processed_dir / "prioritized_content.json"
+        if prioritization_path.exists():
+            with open(prioritization_path, 'r', encoding='utf-8') as f:
                 prioritization_data = json.load(f)
                 metadata['prioritization'] = {
                     'articles_processed': prioritization_data.get('metadata', {}).get('articles_processed', 0),
@@ -197,10 +190,9 @@ class NewsletterGenerationStep:
                 }
         
         # Summarization
-        summarization_files = list(processed_dir.glob("summarized_content_*.json"))
-        if summarization_files:
-            latest_summarization = max(summarization_files, key=os.path.getctime)
-            with open(latest_summarization, 'r', encoding='utf-8') as f:
+        summarization_path = processed_dir / "summarized_content.json"
+        if summarization_path.exists():
+            with open(summarization_path, 'r', encoding='utf-8') as f:
                 summarization_data = json.load(f)
                 metadata['summarization'] = {
                     'articles_processed': summarization_data.get('metadata', {}).get('articles_processed', 0),
@@ -439,8 +431,8 @@ class NewsletterGenerationStep:
     
     def _save_newsletter_output(self, newsletter_output: Dict[str, Any]) -> str:
         """Save newsletter output to file."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_file = self.output_dir / f"newsletter_output_{timestamp}.json"
+        # Use fixed filename within run directory
+        output_file = self.output_dir / "newsletter_output.json"
         
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(newsletter_output, f, indent=2, ensure_ascii=False)

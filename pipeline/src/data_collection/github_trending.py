@@ -389,16 +389,12 @@ class GitHubTrendingCollector:
             if not output_config.get('format') == 'json':
                 return None
             
-            # Create output directory
-            output_dir = Path('data/raw')
+            # Create output directory (run-scoped raw path)
+            output_dir = Path(self.config_loader.get_data_paths()['raw'])
             output_dir.mkdir(parents=True, exist_ok=True)
             
-            # Generate filename
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            filename_template = output_config.get('filename_template', 'github_trending_{timestamp}.json')
-            filename = filename_template.format(timestamp=timestamp)
-            
-            output_path = output_dir / filename
+            # Use fixed filename within run directory
+            output_path = output_dir / 'github_trending.json'
             
             # Save data
             with open(output_path, 'w', encoding='utf-8') as f:

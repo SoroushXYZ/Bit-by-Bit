@@ -63,19 +63,14 @@ class SummarizationStep:
             source_step = input_config['source_step']
             filename_prefix = input_config['filename_prefix']
             
-            # Find the most recent file from the source step
+            # Load fixed input file within run directory
             input_path = self.data_paths['processed']
-            search_pattern = os.path.join(input_path, f"{filename_prefix}_*.json")
-            matching_files = glob.glob(search_pattern)
+            fixed_input = os.path.join(input_path, f"{filename_prefix}.json")
+            if not os.path.exists(fixed_input):
+                raise FileNotFoundError(f"Input file not found: {fixed_input}")
+            self.logger.info(f"Loading input data from: {fixed_input}")
             
-            if not matching_files:
-                raise FileNotFoundError(f"No input files found matching pattern: {search_pattern}")
-            
-            # Get the most recent file
-            latest_file = max(matching_files, key=os.path.getctime)
-            self.logger.info(f"Loading input data from: {latest_file}")
-            
-            with open(latest_file, 'r', encoding='utf-8') as f:
+            with open(fixed_input, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
             self.logger.info(f"Loaded prioritized articles from input file")
@@ -88,10 +83,10 @@ class SummarizationStep:
     def _save_output_data(self, output_data: Dict[str, Any]) -> str:
         """Save summarized articles to file."""
         try:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            # Use fixed filename within run directory
             filename_template = self.config['output']['filename_template']
-            filename = filename_template.format(timestamp=timestamp)
-            
+            # Convert summarized_content_{timestamp}.json to summarized_content.json
+            filename = filename_template.replace('_{timestamp}', '').replace('{timestamp}_', '').replace('{timestamp}', '')
             output_path = Path(self.data_paths['processed']) / filename
             
             with open(output_path, 'w', encoding='utf-8') as f:

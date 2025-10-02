@@ -11,7 +11,7 @@ from pathlib import Path
 # Add pipeline to Python path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from src.utils import initialize_logger, load_pipeline_config
+from src.utils import initialize_logger, load_pipeline_config, reset_logger
 from src.data_collection import RSSGatheringStep, GitHubTrendingCollector, StockDataCollector
 from src.processing import (
     ContentFilteringStep, AdDetectionStep, LLMQualityScoringStep, 
@@ -40,17 +40,27 @@ def main():
     args = parser.parse_args()
     
     try:
-        # Initialize logging
-        logger = initialize_logger(args.config)
+        # Load configuration first to get run_id
+        config_loader = load_pipeline_config(args.config)
+        run_id = getattr(config_loader, 'run_id', 'unknown')
+        
+        # Reset any existing logger and initialize with run-scoped directory
+        reset_logger()
+        logger = initialize_logger(args.config, run_id)
         if args.verbose:
             logger.logger.setLevel('DEBUG')
         
         logger.info("🚀 Starting Bit-by-Bit Newsletter Pipeline - Restructured")
         logger.info(f"Configuration: {args.config}")
         logger.info(f"Step: {args.step}")
+        logger.info(f"Run ID: {run_id}")
         
-        # Load configuration
-        config_loader = load_pipeline_config(args.config)
+        # Log run-scoped data directory info
+        try:
+            data_paths = config_loader.get_data_paths()
+            logger.info(f"Data paths: base={data_paths['base']}, raw={data_paths['raw']}, processed={data_paths['processed']}, output={data_paths['output']}")
+        except Exception:
+            pass
         logger.info("Pipeline configuration loaded successfully")
         
         # Initialize components
@@ -248,13 +258,13 @@ def main():
         elif args.step == 'data_filling':
             logger.info("📊 Running data filling step only")
             # Find the latest grid blueprint
-            import glob
-            blueprint_files = glob.glob("data/raw/grid_blueprint_*.json")
-            if not blueprint_files:
+            from pathlib import Path
+            blueprint_path = Path(config_loader.get_data_paths()['raw']) / 'grid_blueprint.json'
+            if not blueprint_path.exists():
                 logger.error("❌ No grid blueprint found. Run gridding step first.")
                 return 1
             
-            latest_blueprint = max(blueprint_files, key=lambda x: Path(x).stat().st_mtime)
+            latest_blueprint = str(blueprint_path)
             logger.info(f"📋 Using blueprint: {latest_blueprint}")
             
             data_filler = GridDataFiller(config_loader)
@@ -275,12 +285,11 @@ def main():
             
             # Execute data filling step
             logger.info("📊 Executing data filling step")
-            import glob
-            blueprint_files = glob.glob("data/raw/grid_blueprint_*.json")
-            if blueprint_files:
-                latest_blueprint = max(blueprint_files, key=lambda x: Path(x).stat().st_mtime)
+            from pathlib import Path
+            blueprint_path = Path(config_loader.get_data_paths()['raw']) / 'grid_blueprint.json'
+            if blueprint_path.exists():
+                latest_blueprint = str(blueprint_path)
                 logger.info(f"📋 Using blueprint: {latest_blueprint}")
-                
                 data_filler = GridDataFiller(config_loader)
                 filling_result = data_filler.fill_blueprint(latest_blueprint)
                 if not filling_result['success']:

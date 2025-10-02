@@ -306,14 +306,13 @@ class StockDataCollector:
     def _save_data(self, data: Dict[str, Any], filename_template: str) -> str:
         """Save stock data to file."""
         try:
-            # Create output directory
-            output_dir = Path('data/raw')
+            # Create output directory (run-scoped raw path)
+            output_dir = Path(self.config_loader.get_data_paths()['raw'])
             output_dir.mkdir(parents=True, exist_ok=True)
             
-            # Generate filename
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            filename = filename_template.format(timestamp=timestamp)
-            
+            # Use fixed filename within run directory
+            # Convert stock_data_{timestamp}.json to stock_data.json
+            filename = filename_template.replace('_{timestamp}', '').replace('{timestamp}_', '').replace('{timestamp}', '')
             output_path = output_dir / filename
             
             # Save data

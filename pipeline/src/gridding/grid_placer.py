@@ -508,11 +508,8 @@ class GriddingProcessor:
             raw_dir = Path(self.data_paths['raw'])
             raw_dir.mkdir(parents=True, exist_ok=True)
             
-            # Generate filename
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            filename = self.config['output']['filename_template'].format(timestamp=timestamp)
-            
-            output_path = raw_dir / filename
+            # Use fixed filename within run-scoped raw directory
+            output_path = raw_dir / 'grid_blueprint.json'
             
             # Save blueprint
             with open(output_path, 'w', encoding='utf-8') as f:

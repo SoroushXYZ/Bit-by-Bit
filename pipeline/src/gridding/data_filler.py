@@ -75,15 +75,12 @@ class GridDataFiller:
     def _load_news_data(self) -> Dict[str, Any]:
         """Load processed news data."""
         try:
-            # Find the most recent summarized content file
+            # Load summarized content from fixed filename
             processed_dir = Path(self.data_paths['processed'])
-            summarized_files = list(processed_dir.glob('summarized_content_*.json'))
-            if not summarized_files:
+            summarized_path = processed_dir / 'summarized_content.json'
+            if not summarized_path.exists():
                 self.logger.warning("⚠️  No summarized content files found")
                 return {'articles': []}
-            
-            # Get the most recent file
-            summarized_path = max(summarized_files, key=lambda p: p.stat().st_mtime)
             self.logger.info(f"📰 Loading news data from: {summarized_path.name}")
             
             if summarized_path.exists():
@@ -113,9 +110,8 @@ class GridDataFiller:
                     return {'articles': articles}
             
             # Fallback to prioritized content
-            prioritized_files = list(processed_dir.glob('prioritized_content_*.json'))
-            if prioritized_files:
-                prioritized_path = max(prioritized_files, key=lambda p: p.stat().st_mtime)
+            prioritized_path = processed_dir / 'prioritized_content.json'
+            if prioritized_path.exists():
                 self.logger.info(f"📰 Fallback to prioritized content: {prioritized_path.name}")
                 if prioritized_path.exists():
                     with open(prioritized_path, 'r', encoding='utf-8') as f:
@@ -153,9 +149,8 @@ class GridDataFiller:
                         return {'articles': articles}
             
             # Fallback to quality scored content
-            quality_files = list(processed_dir.glob('quality_scored_content_*.json'))
-            if quality_files:
-                quality_path = max(quality_files, key=lambda p: p.stat().st_mtime)
+            quality_path = processed_dir / 'quality_scored_content.json'
+            if quality_path.exists():
                 self.logger.info(f"📰 Fallback to quality scored content: {quality_path.name}")
                 if quality_path.exists():
                     with open(quality_path, 'r', encoding='utf-8') as f:
@@ -183,15 +178,12 @@ class GridDataFiller:
     def _load_github_data(self) -> Dict[str, Any]:
         """Load GitHub trending data."""
         try:
-            # Find the most recent GitHub trending file
+            # Load GitHub trending from fixed filename
             processed_dir = Path(self.data_paths['processed'])
-            github_files = list(processed_dir.glob('github_trending_*.json'))
-            if not github_files:
+            github_path = processed_dir / 'github_trending.json'
+            if not github_path.exists():
                 self.logger.warning("⚠️  No GitHub data found, using empty data")
                 return {'repositories': []}
-            
-            # Get the most recent file
-            github_path = max(github_files, key=lambda p: p.stat().st_mtime)
             self.logger.info(f"🐙 Loading GitHub data from: {github_path.name}")
             
             if github_path.exists():
@@ -208,15 +200,12 @@ class GridDataFiller:
     def _load_stock_data(self) -> Dict[str, Any]:
         """Load stock data."""
         try:
-            # Find the most recent stock data file
+            # Load stock data from fixed filename
             raw_dir = Path(self.data_paths['raw'])
-            stock_files = list(raw_dir.glob('stock_data_*.json'))
-            if not stock_files:
+            stock_path = raw_dir / 'stock_data.json'
+            if not stock_path.exists():
                 self.logger.warning("⚠️  No stock data found, using empty data")
                 return {'stocks': []}
-            
-            # Get the most recent file
-            stock_path = max(stock_files, key=lambda p: p.stat().st_mtime)
             self.logger.info(f"📈 Loading stock data from: {stock_path.name}")
             
             if stock_path.exists():
@@ -371,11 +360,9 @@ class GridDataFiller:
     def _save_filled_blueprint(self, blueprint: Dict[str, Any], original_path: str) -> str:
         """Save the filled blueprint to a new file."""
         try:
-            # Create output filename
+            # Use fixed filename in run-scoped output directory
             original_path = Path(original_path)
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_filename = f"filled_grid_blueprint_{timestamp}.json"
-            output_path = Path(self.data_paths['output']) / output_filename
+            output_path = Path(self.data_paths['output']) / 'filled_grid_blueprint.json'
             
             # Save blueprint
             with open(output_path, 'w', encoding='utf-8') as f:

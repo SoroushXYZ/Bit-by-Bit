@@ -238,10 +238,10 @@ class RSSGatheringStep:
     def _save_results(self, all_articles: List[Dict[str, Any]], feed_stats: List[Dict[str, Any]]) -> str:
         """Save gathered data to file."""
         try:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            # Use fixed filename within run directory
             filename_template = self.step_config['output']['filename_template']
-            filename = filename_template.format(timestamp=timestamp)
-            
+            # Convert rss_raw_{timestamp}.json to rss_raw.json
+            filename = filename_template.replace('_{timestamp}', '').replace('{timestamp}_', '').replace('{timestamp}', '')
             output_path = Path(self.data_paths['raw']) / filename
             
             # Prepare output data

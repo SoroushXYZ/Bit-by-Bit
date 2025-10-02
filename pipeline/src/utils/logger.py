@@ -101,12 +101,57 @@ def get_logger() -> PipelineLogger:
     """Get the global logger instance."""
     global _logger
     if _logger is None:
-        _logger = load_logger_config('pipeline/config/pipeline_config.json')
+        # If no logger has been initialized, create a temporary one
+        # This should not happen in normal operation since initialize_logger should be called first
+        fallback_config = {
+            'level': 'INFO',
+            'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            'file': 'logs/pipeline.log',
+            'max_size_mb': 100,
+            'backup_count': 5
+        }
+        _logger = PipelineLogger(fallback_config)
     return _logger
 
 
-def initialize_logger(config_path: str) -> PipelineLogger:
-    """Initialize the global logger with config."""
+def initialize_logger(config_path: str, run_id: str = None) -> PipelineLogger:
+    """Initialize the global logger with config and optional run-scoped directory."""
     global _logger
-    _logger = load_logger_config(config_path)
+    
+    # Load base config
+    try:
+        with open(config_path, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+        logging_config = config['logging'].copy()
+        
+        # If run_id is provided, update log file path to be run-scoped
+        if run_id:
+            original_log_file = logging_config['file']
+            # Convert logs/pipeline.log to data/<run_id>/logs/pipeline.log
+            log_filename = os.path.basename(original_log_file)
+            logging_config['file'] = f"data/{run_id}/logs/{log_filename}"
+        
+        _logger = PipelineLogger(logging_config)
+    except Exception as e:
+        # Fallback logger if config loading fails
+        fallback_config = {
+            'level': 'INFO',
+            'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            'file': f"data/{run_id}/logs/pipeline.log" if run_id else 'logs/pipeline.log',
+            'max_size_mb': 100,
+            'backup_count': 5
+        }
+        _logger = PipelineLogger(fallback_config)
+    
     return _logger
+
+
+def reset_logger() -> None:
+    """Reset the global logger instance to force reinitialization."""
+    global _logger
+    if _logger is not None:
+        # Close existing handlers to avoid file locks
+        for handler in _logger.logger.handlers[:]:
+            handler.close()
+            _logger.logger.removeHandler(handler)
+    _logger = None

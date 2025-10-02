@@ -299,21 +299,19 @@ class ContentFilteringStep:
         """Load input data from RSS gathering step."""
         try:
             input_config = self.step_config['input']
-            input_path = input_config['input_path']
             filename_pattern = input_config['filename_pattern']
             
-            # Find the most recent file matching the pattern
-            search_pattern = os.path.join(input_path, filename_pattern)
-            matching_files = glob.glob(search_pattern)
+            # Use run-scoped raw directory and convert pattern to fixed filename
+            input_path = self.data_paths['raw']
+            # Convert rss_raw_*.json to rss_raw.json
+            fixed_filename = filename_pattern.replace('_*.json', '.json').replace('_{timestamp}.json', '.json')
+            fixed_input = os.path.join(input_path, fixed_filename)
             
-            if not matching_files:
-                raise FileNotFoundError(f"No input files found matching pattern: {search_pattern}")
+            if not os.path.exists(fixed_input):
+                raise FileNotFoundError(f"Input file not found: {fixed_input}")
+            self.logger.info(f"Loading input data from: {fixed_input}")
             
-            # Get the most recent file
-            latest_file = max(matching_files, key=os.path.getctime)
-            self.logger.info(f"Loading input data from: {latest_file}")
-            
-            with open(latest_file, 'r', encoding='utf-8') as f:
+            with open(fixed_input, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
             articles = data.get('articles', [])
@@ -329,10 +327,10 @@ class ContentFilteringStep:
                      filter_stats: Dict[str, Any]) -> str:
         """Save filtered results to file."""
         try:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            # Use fixed filename within run directory
             filename_template = self.step_config['output']['filename_template']
-            filename = filename_template.format(timestamp=timestamp)
-            
+            # Convert filtered_content_{timestamp}.json to filtered_content.json
+            filename = filename_template.replace('_{timestamp}', '').replace('{timestamp}_', '').replace('{timestamp}', '')
             output_path = Path(self.data_paths['processed']) / filename
             
             # Prepare output data

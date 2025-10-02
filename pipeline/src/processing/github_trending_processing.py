@@ -283,20 +283,17 @@ Output: Plain text, 1–2 sentences."""
             dict: GitHub trending data or None if not found
         """
         try:
-            data_dir = Path('data/raw')
-            github_files = list(data_dir.glob('github_trending_*.json'))
+            data_dir = Path(self.config_loader.get_data_paths()['raw'])
+            github_path = data_dir / 'github_trending.json'
             
-            if not github_files:
-                self.logger.error("No GitHub trending data files found")
+            if not github_path.exists():
+                self.logger.error("No GitHub trending data file found")
                 return None
             
-            # Get the most recent file
-            latest_file = max(github_files, key=lambda f: f.stat().st_mtime)
-            
-            with open(latest_file, 'r', encoding='utf-8') as f:
+            with open(github_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
-            self.logger.info(f"Loaded GitHub data from: {latest_file}")
+            self.logger.info(f"Loaded GitHub data from: {github_path}")
             return data
             
         except Exception as e:
@@ -587,15 +584,12 @@ Output: Plain text, 1–2 sentences."""
             str: Path to saved file or None if failed
         """
         try:
-            # Create processed directory (intermediate processing)
-            processed_dir = Path('data/processed')
+            # Create processed directory (run-scoped)
+            processed_dir = Path(self.config_loader.get_data_paths()['processed'])
             processed_dir.mkdir(parents=True, exist_ok=True)
             
-            # Generate filename
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            filename = f"github_trending_{timestamp}.json"
-            
-            output_path = processed_dir / filename
+            # Use fixed filename
+            output_path = processed_dir / 'github_trending.json'
             
             # Save data
             with open(output_path, 'w', encoding='utf-8') as f:

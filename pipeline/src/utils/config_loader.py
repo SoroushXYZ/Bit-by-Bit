@@ -7,6 +7,7 @@ import json
 import os
 from typing import Dict, Any, Optional
 from pathlib import Path
+from datetime import datetime
 
 
 class ConfigLoader:
@@ -18,6 +19,10 @@ class ConfigLoader:
         self.global_config_path = global_config_path
         self.base_config = self._load_config(base_config_path)
         self.global_config = self._load_global_config()
+        # Establish a per-run identifier and directories
+        self.run_id = os.getenv('BITBYBIT_RUN_ID') or datetime.now().strftime('%Y%m%d_%H%M%S')
+        self._data_paths = self._compute_run_scoped_paths()
+        self._ensure_directories()
     
     def _load_config(self, config_path: str) -> Dict[str, Any]:
         """Load JSON configuration file with error handling."""
@@ -167,14 +172,31 @@ class ConfigLoader:
         return self.base_config
     
     def get_data_paths(self) -> Dict[str, str]:
-        """Get data directory paths from configuration."""
+        """Get per-run data directory paths (data/<run_id>/{raw,processed,output})."""
+        return self._data_paths
+
+    def get_run_id(self) -> str:
+        """Return the current pipeline run identifier."""
+        return self.run_id
+
+    def _compute_run_scoped_paths(self) -> Dict[str, str]:
+        """Compute run-scoped data directories based on config and run_id."""
         data_config = self.base_config.get('data', {})
+        base_root = Path(data_config.get('base_path', 'data'))
+        run_root = base_root / self.run_id
         return {
-            'base': data_config.get('base_path', 'pipeline/data'),
-            'raw': data_config.get('raw_data_path', 'pipeline/data/raw'),
-            'processed': data_config.get('processed_data_path', 'pipeline/data/processed'),
-            'output': data_config.get('output_data_path', 'pipeline/data/output')
+            'base': str(run_root),
+            'raw': str(run_root / 'raw'),
+            'processed': str(run_root / 'processed'),
+            'output': str(run_root / 'output'),
+            'logs': str(run_root / 'logs')
         }
+
+    def _ensure_directories(self) -> None:
+        """Create run-scoped directories if they do not exist."""
+        for key in ['base', 'raw', 'processed', 'output', 'logs']:
+            path = Path(self._data_paths[key])
+            path.mkdir(parents=True, exist_ok=True)
     
     def validate_step_config(self, step_config: Dict[str, Any], required_fields: list) -> bool:
         """Validate that step configuration has required fields."""

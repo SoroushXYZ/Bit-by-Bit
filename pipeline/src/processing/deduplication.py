@@ -75,19 +75,14 @@ class DeduplicationStep:
             source_step = input_config['source_step']
             filename_prefix = input_config['filename_prefix']
             
-            # Find the most recent file from the source step
+            # Load fixed input file within run directory
             input_path = self.data_paths['processed']
-            search_pattern = os.path.join(input_path, f"{filename_prefix}_*.json")
-            matching_files = glob.glob(search_pattern)
+            fixed_input = os.path.join(input_path, f"{filename_prefix}.json")
+            if not os.path.exists(fixed_input):
+                raise FileNotFoundError(f"Input file not found: {fixed_input}")
+            self.logger.info(f"Loading input data from: {fixed_input}")
             
-            if not matching_files:
-                raise FileNotFoundError(f"No input files found matching pattern: {search_pattern}")
-            
-            # Get the most recent file
-            latest_file = max(matching_files, key=os.path.getctime)
-            self.logger.info(f"Loading input data from: {latest_file}")
-            
-            with open(latest_file, 'r', encoding='utf-8') as f:
+            with open(fixed_input, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
             articles = data.get('articles', [])
@@ -126,9 +121,8 @@ class DeduplicationStep:
             filename_prefix = output_config['filename_prefix']
             save_format = output_config['save_format']
             
-            # Create filename with timestamp
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"{filename_prefix}_{timestamp}.json"
+            # Use fixed filename within run directory
+            filename = f"{filename_prefix}.json"
             
             # Save to processed data path
             output_path = self.data_paths['processed']
