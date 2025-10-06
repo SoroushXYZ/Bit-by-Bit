@@ -47,7 +47,7 @@
   "max_retries": 500,
   "stock_components": {
     "enabled": true,
-    "max_count": 5,
+    "max_count": 7,
     "size": {"width": 2, "height": 2}
   },
   "day_number_component": {

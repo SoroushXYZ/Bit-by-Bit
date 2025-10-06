@@ -287,8 +287,8 @@ class GridDataFiller:
                 self.logger.warning(f"  ⚠️  No repository available for github_repo_{i+1}")
     
     def _fill_stocks(self, blueprint: Dict[str, Any], stock_data: Dict[str, Any]):
-        """Fill stock components (max 5 stocks)."""
-        stocks = stock_data.get('stocks', [])[:5]  # Limit to first 5 stocks
+        """Fill stock components (max 7 stocks)."""
+        stocks = stock_data.get('stocks', [])[:7]  # Limit to first 7 stocks
         stock_components = [comp for comp in blueprint['components'] if comp['type'] == 'stock']
         
         self.logger.info(f"📈 Filling {len(stock_components)} stocks with {len(stocks)} stock data")
