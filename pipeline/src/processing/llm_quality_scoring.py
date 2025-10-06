@@ -10,7 +10,6 @@ import time
 import logging
 import os
 import re
-import requests
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
@@ -23,6 +22,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.utils.logger import get_logger
 from src.utils.config_loader import ConfigLoader
+from src.utils.together_client import create_together_client
 
 
 class LLMQualityScoringStep:
@@ -46,12 +46,22 @@ class LLMQualityScoringStep:
         
         # LLM configuration
         self.llm_config = self.config['llm']
-        self.url = self.llm_config['server_url']
-        self.model = self.llm_config['model']
-        self.temperature = self.llm_config.get('temperature', 0.3)
-        self.seed = self.llm_config.get('seed', 42)
-        self.max_tokens = self.llm_config.get('max_tokens', 2000)
-        self.max_retries = self.llm_config.get('max_retries', 3)
+        self.provider = self.llm_config.get('provider', 'together_ai')
+        
+        if self.provider == 'together_ai':
+            self.llm_client = create_together_client(self.llm_config['together_ai'])
+            # Set attributes for compatibility
+            self.temperature = self.llm_config['together_ai'].get('temperature', 0.3)
+            self.max_tokens = self.llm_config['together_ai'].get('max_tokens', 2000)
+            self.max_retries = self.llm_config['together_ai'].get('max_retries', 3)
+        else:
+            # Fallback to Ollama configuration
+            self.url = self.llm_config['ollama']['server_url']
+            self.model = self.llm_config['ollama']['model']
+            self.temperature = self.llm_config['ollama'].get('temperature', 0.3)
+            self.seed = self.llm_config['ollama'].get('seed', 42)
+            self.max_tokens = self.llm_config['ollama'].get('max_tokens', 2000)
+            self.max_retries = self.llm_config['ollama'].get('max_retries', 3)
         
         # Quality scoring configuration
         self.scoring_config = self.config['scoring']
@@ -200,75 +210,99 @@ Focus on content that would be valuable for tech professionals, entrepreneurs, a
         """Analyze content using LLM with retry logic."""
         prompt = self._create_quality_analysis_prompt(article)
         
-        payload = {
-            "model": self.model,
-            "prompt": prompt,
-            "stream": False,
-            "options": {
-                "temperature": self.temperature,
-                "seed": self.seed
-            }
-        }
-        
-        for attempt in range(self.max_retries):
+        if self.provider == 'together_ai':
+            # Use Together AI client
             try:
-                self.logger.debug(f"Making LLM request (attempt {attempt + 1}/{self.max_retries})")
+                self.logger.debug("Making Together AI request for quality analysis")
                 
                 # Add a small progress indicator for LLM request
-                with tqdm(total=1, desc="🤖 LLM processing", leave=False, bar_format="{desc}: {elapsed}") as llm_progress:
-                    response = requests.post(
-                        f"{self.url}/api/generate",
-                        json=payload,
-                        timeout=120
-                    )
+                with tqdm(total=1, desc="🤖 Together AI processing", leave=False, bar_format="{desc}: {elapsed}") as llm_progress:
+                    analysis = self.llm_client.generate_json_completion(prompt)
                     llm_progress.update(1)
                 
-                if response.status_code == 200:
-                    result = response.json()
-                    response_text = result.get('response', '')
-                    
-                    # Extract JSON from response
-                    try:
-                        json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
-                        if json_match:
-                            analysis = json.loads(json_match.group())
-                            
-                            # Validate required fields
-                            required_fields = ['technical_depth', 'news_value', 'clarity_readability', 
-                                             'impact_relevance', 'originality', 'overall_quality']
-                            
-                            if all(field in analysis for field in required_fields):
-                                return {
-                                    'success': True,
-                                    'analysis': analysis,
-                                    'raw_response': response_text,
-                                    'attempt': attempt + 1
-                                }
-                            else:
-                                raise ValueError(f"Missing required fields in analysis: {analysis}")
-                        else:
-                            raise ValueError("No JSON found in response")
-                            
-                    except (json.JSONDecodeError, ValueError) as e:
-                        if attempt < self.max_retries - 1:
-                            self.logger.warning(f"JSON parsing failed (attempt {attempt + 1}): {e}")
-                            time.sleep(1)  # Brief delay before retry
-                            continue
-                        else:
-                            raise e
-                else:
-                    raise requests.RequestException(f"HTTP {response.status_code}: {response.text}")
-                    
+                # Return in the same format as Ollama for consistency
+                return {
+                    'success': True,
+                    'analysis': analysis,
+                    'raw_response': json.dumps(analysis),
+                    'attempt': 1
+                }
+                
             except Exception as e:
-                if attempt < self.max_retries - 1:
-                    self.logger.warning(f"LLM request failed (attempt {attempt + 1}): {e}")
-                    time.sleep(2)  # Longer delay for network issues
-                    continue
-                else:
-                    raise e
-        
-        # If we get here, all retries failed
-        raise Exception(f"All {self.max_retries} attempts failed")
+                self.logger.error(f"Together AI request failed: {e}")
+                raise e
+        else:
+            # Fallback to Ollama
+            payload = {
+                "model": self.model,
+                "prompt": prompt,
+                "stream": False,
+                "options": {
+                    "temperature": self.temperature,
+                    "seed": self.seed
+                }
+            }
+            
+            for attempt in range(self.max_retries):
+                try:
+                    self.logger.debug(f"Making Ollama request (attempt {attempt + 1}/{self.max_retries})")
+                    
+                    # Add a small progress indicator for LLM request
+                    with tqdm(total=1, desc="🤖 Ollama processing", leave=False, bar_format="{desc}: {elapsed}") as llm_progress:
+                        import requests
+                        response = requests.post(
+                            f"{self.url}/api/generate",
+                            json=payload,
+                            timeout=120
+                        )
+                        llm_progress.update(1)
+                    
+                    if response.status_code == 200:
+                        result = response.json()
+                        response_text = result.get('response', '')
+                        
+                        # Extract JSON from response
+                        try:
+                            json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+                            if json_match:
+                                analysis = json.loads(json_match.group())
+                                
+                                # Validate required fields
+                                required_fields = ['technical_depth', 'news_value', 'clarity_readability', 
+                                                 'impact_relevance', 'originality', 'overall_quality']
+                                
+                                if all(field in analysis for field in required_fields):
+                                    return {
+                                        'success': True,
+                                        'analysis': analysis,
+                                        'raw_response': response_text,
+                                        'attempt': attempt + 1
+                                    }
+                                else:
+                                    raise ValueError(f"Missing required fields in analysis: {analysis}")
+                            else:
+                                raise ValueError("No JSON found in response")
+                                
+                        except (json.JSONDecodeError, ValueError) as e:
+                            if attempt < self.max_retries - 1:
+                                self.logger.warning(f"JSON parsing failed (attempt {attempt + 1}): {e}")
+                                time.sleep(1)  # Brief delay before retry
+                                continue
+                            else:
+                                raise e
+                    else:
+                        raise requests.RequestException(f"HTTP {response.status_code}: {response.text}")
+                        
+                except Exception as e:
+                    if attempt < self.max_retries - 1:
+                        self.logger.warning(f"LLM request failed (attempt {attempt + 1}): {e}")
+                        time.sleep(2)  # Longer delay for network issues
+                        continue
+                    else:
+                        raise e
+            
+            # If we get here, all retries failed
+            raise Exception(f"All {self.max_retries} attempts failed")
     
     def _calculate_quality_metrics(self, analysis: Dict[str, Any]) -> Dict[str, Any]:
         """Calculate additional quality metrics from LLM analysis."""

@@ -17,19 +17,27 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. **Install and setup Ollama:**
+3. **Set up environment variables:**
 ```bash
-# Install Ollama
-curl -fsSL https://ollama.ai/install.sh | sh
-
-# Start Ollama server
-ollama serve &
-
-# Pull required model
-ollama pull llama3.2:3b
+cd pipeline
+# Create .env file with your API keys
+echo "TOGETHER_AI_API_KEY=your_key_here" > .env
 ```
 
-4. **Run the pipeline:**
+4. **Choose your LLM provider:**
+
+   **Option A: Together AI (Recommended)**
+   - Get API key from [Together AI](https://together.ai)
+   - Add `TOGETHER_AI_API_KEY=your_key_here` to your `.env` file
+   - No local setup needed
+
+   **Option B: Ollama (Local)**
+   - Install Ollama: `curl -fsSL https://ollama.ai/install.sh | sh`
+   - Start server: `ollama serve &`
+   - Pull model: `ollama pull llama3.2:3b`
+   - Update config to use `"provider": "ollama"`
+
+5. **Run the pipeline:**
 ```bash
 cd pipeline && python run_pipeline.py
 ```
@@ -159,7 +167,8 @@ The pipeline uses JSON configuration files in `pipeline/config/`:
 ### Key Configuration Features
 - **Run-Scoped Directories**: Each run creates isolated `data/<timestamp>/` folders
 - **Flexible Step Execution**: Run individual steps or complete pipeline
-- **AI Model Configuration**: Ollama settings, quality scoring parameters
+- **LLM Provider Support**: Together AI (cloud) or Ollama (local) options
+- **Environment Variables**: Secure API key management via `.env` file
 - **RSS Feed Management**: Categorized feeds with quality weights
 
 ## 📈 Features

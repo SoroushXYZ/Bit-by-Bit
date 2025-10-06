@@ -67,17 +67,16 @@ class ConfigLoader:
         global_settings = self.global_config.get('global', {})
         
         # Merge LLM settings if step uses LLM
-        if step_name in ['llm_quality_scoring', 'article_prioritization', 'summarization']:
-            llm_default = self.global_config.get('llm', {}).get('default', {})
-            llm_specific = self.global_config.get('llm', {}).get(step_name, {})
+        if step_name in ['llm_quality_scoring', 'article_prioritization', 'summarization', 'github_trending']:
+            # Get the full LLM config from global config
+            llm_config = self.global_config.get('llm', {})
             
             # Merge LLM config into step config
             if 'llm' not in merged_config:
                 merged_config['llm'] = {}
             
-            # Apply default LLM settings first, then step-specific overrides
-            merged_config['llm'] = self._deep_merge(llm_default, merged_config['llm'])
-            merged_config['llm'] = self._deep_merge(merged_config['llm'], llm_specific)
+            # Apply the full LLM config (includes provider, together_ai, ollama, etc.)
+            merged_config['llm'] = self._deep_merge(llm_config, merged_config['llm'])
         
         # Merge output settings
         output_default = self.global_config.get('output', {}).get('default', {})

@@ -6,7 +6,16 @@
   },
   
   "llm": {
-    "default": {
+    "provider": "together_ai",
+    "together_ai": {
+      "model": "meta-llama/Llama-3.2-3B-Instruct-Turbo",
+      "temperature": 0.3,
+      "max_tokens": 2000,
+      "max_retries": 3,
+      "timeout_seconds": 120,
+      "retry_delay_seconds": 2.0
+    },
+    "ollama": {
       "server_url": "http://172.22.128.1:11434",
       "model": "llama3.2:3b",
       "temperature": 0.3,

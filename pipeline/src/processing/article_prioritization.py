@@ -14,7 +14,6 @@ import re
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
-import requests
 
 import sys
 from pathlib import Path
@@ -22,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.utils.logger import get_logger
 from src.utils.config_loader import ConfigLoader
+from src.utils.together_client import create_together_client
 
 
 class ArticlePrioritizationStep:
@@ -47,8 +47,16 @@ class ArticlePrioritizationStep:
         
         # LLM configuration
         self.llm_config = self.config['llm']
-        self.ollama_endpoint = self.llm_config['server_url']
-        self.model_name = self.llm_config['model']
+        self.provider = self.llm_config.get('provider', 'together_ai')
+        
+        if self.provider == 'together_ai':
+            self.llm_client = create_together_client(self.llm_config['together_ai'])
+            # Set attributes for compatibility
+            self.model_name = self.llm_config['together_ai'].get('model', 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo')
+        else:
+            # Fallback to Ollama configuration
+            self.ollama_endpoint = self.llm_config['ollama']['server_url']
+            self.model_name = self.llm_config['ollama']['model']
         
         # Prioritization configuration
         self.prioritization_config = self.config['prioritization']
@@ -322,57 +330,66 @@ Return only the JSON response, no additional text."""
         return prompt
     
     def _call_llm(self, prompt: str) -> Dict[str, Any]:
-        """Call Ollama LLM for article prioritization with fallback support."""
+        """Call LLM for article prioritization with fallback support."""
         try:
             self.logger.info(f"🤖 Calling LLM for article prioritization...")
             
-            payload = {
-                "model": self.model_name,
-                "prompt": prompt,
-                "stream": False,
-                "options": {
-                    "temperature": 0.3,  # Lower temperature for more consistent results
-                    "top_p": 0.9,
-                    "max_tokens": 2000
+            if self.provider == 'together_ai':
+                # Use Together AI client
+                response = self.llm_client.generate_json_completion(prompt)
+                self.logger.info(f"✅ Together AI response received")
+                return response
+            else:
+                # Fallback to Ollama
+                import requests
+                
+                payload = {
+                    "model": self.model_name,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.3,  # Lower temperature for more consistent results
+                        "top_p": 0.9,
+                        "max_tokens": 2000
+                    }
                 }
-            }
-            
-            # Simulate LLM failure for testing fallback system
-            # Uncomment the line below to test fallback:
-            # raise Exception("Simulated LLM failure for testing fallback system")
-            
-            response = requests.post(
-                f"{self.ollama_endpoint}/api/generate",
-                json=payload,
-                timeout=120
-            )
-            
-            if response.status_code != 200:
-                raise Exception(f"LLM API error: {response.status_code} - {response.text}")
-            
-            result = response.json()
-            llm_response = result.get('response', '')
-            
-            self.logger.info(f"✅ LLM response received ({len(llm_response)} characters)")
-            
-            # Parse JSON response
-            try:
-                # Extract JSON from response (in case there's extra text)
-                json_start = llm_response.find('{')
-                json_end = llm_response.rfind('}') + 1
                 
-                if json_start == -1 or json_end == 0:
-                    raise ValueError("No JSON found in LLM response")
+                # Simulate LLM failure for testing fallback system
+                # Uncomment the line below to test fallback:
+                # raise Exception("Simulated LLM failure for testing fallback system")
                 
-                json_str = llm_response[json_start:json_end]
-                parsed_response = json.loads(json_str)
+                response = requests.post(
+                    f"{self.ollama_endpoint}/api/generate",
+                    json=payload,
+                    timeout=120
+                )
                 
-                return parsed_response
+                if response.status_code != 200:
+                    raise Exception(f"LLM API error: {response.status_code} - {response.text}")
                 
-            except (json.JSONDecodeError, ValueError) as e:
-                self.logger.error(f"Failed to parse LLM JSON response: {e}")
-                self.logger.error(f"Raw response: {llm_response}")
-                raise Exception(f"Invalid JSON response from LLM: {e}")
+                result = response.json()
+                llm_response = result.get('response', '')
+                
+                self.logger.info(f"✅ LLM response received ({len(llm_response)} characters)")
+                
+                # Parse JSON response
+                try:
+                    # Extract JSON from response (in case there's extra text)
+                    json_start = llm_response.find('{')
+                    json_end = llm_response.rfind('}') + 1
+                    
+                    if json_start == -1 or json_end == 0:
+                        raise ValueError("No JSON found in LLM response")
+                    
+                    json_str = llm_response[json_start:json_end]
+                    parsed_response = json.loads(json_str)
+                    
+                    return parsed_response
+                    
+                except (json.JSONDecodeError, ValueError) as e:
+                    self.logger.error(f"Failed to parse LLM JSON response: {e}")
+                    self.logger.error(f"Raw response: {llm_response}")
+                    raise Exception(f"Invalid JSON response from LLM: {e}")
                 
         except Exception as e:
             self.logger.error(f"❌ LLM call failed: {e}")

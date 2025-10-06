@@ -1,0 +1,786 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-30T22:59:26.868013",
+    "grid_config": {
+      "columns": 12,
+      "rows": 16,
+      "cell_size": 48
+    },
+    "total_components": 55,
+    "efficiency": 100.0
+  },
+  "components": [
+    {
+      "id": "branding_1",
+      "type": "branding",
+      "position": {
+        "row": 13,
+        "column": 7,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "order_id": 3
+      }
+    },
+    {
+      "id": "branding_2",
+      "type": "branding",
+      "position": {
+        "row": 8,
+        "column": 8,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "order_id": 1
+      }
+    },
+    {
+      "id": "branding_3",
+      "type": "branding",
+      "position": {
+        "row": 10,
+        "column": 10,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "order_id": 2
+      }
+    },
+    {
+      "id": "quick_link_2",
+      "type": "quick_link",
+      "position": {
+        "row": 10,
+        "column": 1,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Amazon Launches Vegas OS, Its Android Replacement For Fire TV With No Sideloading",
+        "summary": "Amazon replaces Android with its own Vega OS on new Fire TV hardware, removing sideloading and limiting app selection to the Amazon Appstore.",
+        "source": "Slashdot",
+        "url": "https://tech.slashdot.org/story/25/09/30/2225237/amazon-launches-vegas-os-its-android-replacement-for-fire-tv-with-no-sideloading?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 90
+      }
+    },
+    {
+      "id": "quick_link_5",
+      "type": "quick_link",
+      "position": {
+        "row": 1,
+        "column": 5,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Venmo and PayPal Users Will Finally Be Able To Send Money To Each Other",
+        "summary": "Starting in November, Venmo users can send money directly to PayPal users without workarounds.",
+        "source": "Slashdot",
+        "url": "https://news.slashdot.org/story/25/09/30/2019252/venmo-and-paypal-users-will-finally-be-able-to-send-money-to-each-other?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "headline_2",
+      "type": "headline",
+      "position": {
+        "row": 2,
+        "column": 2,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "Apple  Amazon iPhone  Mac price fixing lawsuit dismissed",
+        "summary": "A class action suit alleging Apple and Amazon conspired to inflate iPhone prices has been dismissed due to the actions of lawyers involved. The plaintiffs can resubmit an amended complaint, but for now, the case is closed. This decision may impact potential price-fixing claims against tech giants.",
+        "source": "AppleInsider",
+        "url": "https://appleinsider.com/articles/25/09/30/apple-amazon-iphone-mac-price-fixing-lawsuit-dismissed?utm_source=rss",
+        "quality_score": 92
+      }
+    },
+    {
+      "id": "headline_4",
+      "type": "headline",
+      "position": {
+        "row": 2,
+        "column": 7,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "What the M5 iPad Pro leak says about the M5 MacBook Air",
+        "summary": "Leaked M5 iPad Pro benchmarks suggest an upcoming M5 MacBook Air will outperform a M3 Pro MacBook Pro, thanks to shared thermal characteristics with the iPad Pro. This could mark a significant upgrade for Apple's 2026 MacBook Air release. The implications are substantial for enterprise adoption and AI integration.",
+        "source": "AppleInsider",
+        "url": "https://appleinsider.com/articles/25/09/30/what-the-m5-ipad-pro-leak-says-about-the-m5-macbook-air?utm_source=rss",
+        "quality_score": 92
+      }
+    },
+    {
+      "id": "headline_1",
+      "type": "headline",
+      "position": {
+        "row": 11,
+        "column": 2,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "Salesforce challenger Zeta Global is making its biggest-ever acquisition as it looks to corner the loyalty market",
+        "summary": "Marketing tech firm Zeta Global acquires Marigold's enterprise software business, expanding its customer base and loyalty offerings in a move to corner the market.",
+        "source": "Business Insider (Tech)",
+        "url": "https://www.businessinsider.com/martech-company-zeta-global-acquire-marigold-enterprise-business-2025-9",
+        "quality_score": 92
+      }
+    },
+    {
+      "id": "quick_link_6",
+      "type": "quick_link",
+      "position": {
+        "row": 6,
+        "column": 7,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Windows 11s 2025 Update Arrives",
+        "summary": "Windows 11 version 25H2 is now available, bringing security enhancements and reduced footprint with the removal of legacy tools.",
+        "source": "Slashdot",
+        "url": "https://tech.slashdot.org/story/25/09/30/1827229/windows-11s-2025-update-arrives?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "headline_3",
+      "type": "headline",
+      "position": {
+        "row": 6,
+        "column": 1,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "Sen. Maria Cantwell releases report citing NASA whistleblowers concerns about budget cuts",
+        "summary": "Sen. Maria Cantwell releases report citing NASA whistleblowers' concerns about safety impacts due to budget cuts, including potential astronaut deaths.",
+        "source": "GeekWire",
+        "url": "https://www.geekwire.com/2025/sen-maria-cantwell-nasa-whistleblower-budget-cuts/",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "github_repo_1",
+      "type": "github_repo",
+      "position": {
+        "row": 13,
+        "column": 10,
+        "width": 3,
+        "height": 3
+      },
+      "data": {
+        "name": "tile-ai/tilelang",
+        "description": "This repository provides a domain-specific language (DSL) for developing high-performance computer vision and machine learning kernels on various hardware platforms.",
+        "url": "https://github.com/tile-ai/tilelang",
+        "stars": 310,
+        "language": "C++",
+        "rank": 1
+      }
+    },
+    {
+      "id": "quick_link_3",
+      "type": "quick_link",
+      "position": {
+        "row": 7,
+        "column": 6,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Boses new QuietComfort Ultra earbuds just quietly got their first price drop",
+        "summary": "The Bose QuietComfort Ultra earbuds (2nd gen) are now on sale for $257.36 at Amazon, offering a 41.64 discount from their usual price of $299.",
+        "source": "Mashable (Tech)",
+        "url": "https://mashable.com/article/sept-30-bose-quietcomfort-ultra-2nd-gen-earbuds-deal",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "quick_link_4",
+      "type": "quick_link",
+      "position": {
+        "row": 15,
+        "column": 5,
+        "width": 4,
+        "height": 2
+      },
+      "data": {
+        "title": "The KWL Method Will Help You Remember What You Study",
+        "summary": "A study technique called KWL (Know, Want to Know, Learn) can help you remember what you study by engaging you in an active learning process.",
+        "source": "Lifehacker",
+        "url": "https://lifehacker.com/kwl-study-method?utm_medium=RSS",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "quick_link_1",
+      "type": "quick_link",
+      "position": {
+        "row": 15,
+        "column": 1,
+        "width": 4,
+        "height": 2
+      },
+      "data": {
+        "title": "Military women fear losing every bit of ground as Hegseth looks backward to the 1990s",
+        "summary": "Defense Secretary Pete Hegseth calls for review of military standards changed since the 1990s, sparking concerns about eroding women's protections.",
+        "source": "Business Insider (Tech)",
+        "url": "https://www.businessinsider.com/military-women-fear-setbacks-as-hegseth-looks-back-to-1990s-2025-9",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "stock_1",
+      "type": "stock",
+      "position": {
+        "row": 8,
+        "column": 6,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "NVDA",
+        "price": 186.58,
+        "change": 4.73,
+        "change_percent": 2.601,
+        "company_name": "NVIDIA Corp"
+      }
+    },
+    {
+      "id": "stock_2",
+      "type": "stock",
+      "position": {
+        "row": 8,
+        "column": 10,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "AAPL",
+        "price": 254.63,
+        "change": 0.2,
+        "change_percent": 0.0786,
+        "company_name": "Apple Inc"
+      }
+    },
+    {
+      "id": "stock_4",
+      "type": "stock",
+      "position": {
+        "row": 10,
+        "column": 7,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "GOOGL",
+        "price": 243.1,
+        "change": -0.95,
+        "change_percent": -0.3893,
+        "company_name": "Alphabet Inc"
+      }
+    },
+    {
+      "id": "day_1",
+      "type": "day_number",
+      "position": {
+        "row": 1,
+        "column": 1,
+        "width": 2,
+        "height": 1
+      },
+      "data": {
+        "day_number": 10
+      }
+    },
+    {
+      "id": "bit_1",
+      "type": "bit",
+      "position": {
+        "row": 1,
+        "column": 3,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_2",
+      "type": "bit",
+      "position": {
+        "row": 1,
+        "column": 4,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_3",
+      "type": "bit",
+      "position": {
+        "row": 1,
+        "column": 11,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_4",
+      "type": "bit",
+      "position": {
+        "row": 1,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_5",
+      "type": "bit",
+      "position": {
+        "row": 2,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_6",
+      "type": "bit",
+      "position": {
+        "row": 2,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_7",
+      "type": "bit",
+      "position": {
+        "row": 3,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_8",
+      "type": "bit",
+      "position": {
+        "row": 3,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_9",
+      "type": "bit",
+      "position": {
+        "row": 4,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_10",
+      "type": "bit",
+      "position": {
+        "row": 4,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_11",
+      "type": "bit",
+      "position": {
+        "row": 5,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_12",
+      "type": "bit",
+      "position": {
+        "row": 5,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_13",
+      "type": "bit",
+      "position": {
+        "row": 6,
+        "column": 6,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_14",
+      "type": "bit",
+      "position": {
+        "row": 7,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_15",
+      "type": "bit",
+      "position": {
+        "row": 8,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_16",
+      "type": "bit",
+      "position": {
+        "row": 9,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_17",
+      "type": "bit",
+      "position": {
+        "row": 10,
+        "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_18",
+      "type": "bit",
+      "position": {
+        "row": 10,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_19",
+      "type": "bit",
+      "position": {
+        "row": 11,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_20",
+      "type": "bit",
+      "position": {
+        "row": 11,
+        "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_21",
+      "type": "bit",
+      "position": {
+        "row": 11,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_22",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_23",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 7,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_24",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 8,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_25",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_26",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 10,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_27",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 11,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_28",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_29",
+      "type": "bit",
+      "position": {
+        "row": 13,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_30",
+      "type": "bit",
+      "position": {
+        "row": 13,
+        "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_31",
+      "type": "bit",
+      "position": {
+        "row": 14,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_32",
+      "type": "bit",
+      "position": {
+        "row": 14,
+        "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_33",
+      "type": "bit",
+      "position": {
+        "row": 15,
+        "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_34",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_35",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 10,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_36",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 11,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_37",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    }
+  ]
+}

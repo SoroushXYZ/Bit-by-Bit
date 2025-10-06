@@ -1,0 +1,751 @@
+{
+  "metadata": {
+    "generated_at": "2025-10-05T18:07:58.997515",
+    "grid_config": {
+      "columns": 12,
+      "rows": 16,
+      "cell_size": 48
+    },
+    "total_components": 52,
+    "efficiency": 100.0
+  },
+  "components": [
+    {
+      "id": "branding_1",
+      "type": "branding",
+      "position": {
+        "row": 2,
+        "column": 6,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "order_id": 1
+      }
+    },
+    {
+      "id": "branding_2",
+      "type": "branding",
+      "position": {
+        "row": 8,
+        "column": 1,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "order_id": 2
+      }
+    },
+    {
+      "id": "branding_3",
+      "type": "branding",
+      "position": {
+        "row": 9,
+        "column": 6,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "order_id": 3
+      }
+    },
+    {
+      "id": "headline_4",
+      "type": "headline",
+      "position": {
+        "row": 10,
+        "column": 8,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "OpenAI backer Vinod Khosla slams tunnel vision creatives attacking Sora as AI slop",
+        "summary": "Legendary investor Vinod Khosla slams critics of OpenAI's new video-generation app Sora, saying they're shortsighted and missing its creative potential. The tool has been derided as AI slop but Khosla sees it as a cultural touchstone.",
+        "source": "Business Insider (Tech)",
+        "url": "https://www.businessinsider.com/vinod-khosla-sora-openai-ai-slop-2025-10",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "quick_link_3",
+      "type": "quick_link",
+      "position": {
+        "row": 7,
+        "column": 1,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "The Free Software Foundation is Livestreaming Its 40th Anniversary Celebration",
+        "summary": "The Free Software Foundation is celebrating its 40th anniversary with a livestreamed event, featuring talks, workshops, and a panel discussion on the future of free software. The event highlights the organization's commitment to promoting software freedom and its continued relevance in today's technology landscape.",
+        "source": "Slashdot",
+        "url": "https://news.slashdot.org/story/25/10/04/1854250/the-free-software-foundation-is-livestreaming-its-40th-anniversary-celebration?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "headline_1",
+      "type": "headline",
+      "position": {
+        "row": 4,
+        "column": 7,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "What Would Happen If an AI Bubble Burst?",
+        "summary": "The US economy expanded 1.6% in the first half of the year, driven by AI spending, with concerns growing about a potential bubble in AI investment. Industry insiders worry that the technology may not advance enough to pay back huge investments.",
+        "source": "Slashdot",
+        "url": "https://news.slashdot.org/story/25/10/04/0648215/what-would-happen-if-an-ai-bubble-burst?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 90
+      }
+    },
+    {
+      "id": "quick_link_5",
+      "type": "quick_link",
+      "position": {
+        "row": 8,
+        "column": 5,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Meet Lisa Su: CEO and president of Advanced Micro Devices, the main competitor to Nvidia",
+        "summary": "Lisa Su transformed AMD from struggling semiconductor firm to global powerhouse, rivaling Intel and Nvidia in AI chips.",
+        "source": "Business Insider (Tech)",
+        "url": "https://www.businessinsider.com/meet-lisa-su-ceo-and-president-of-advanced-micro-device",
+        "quality_score": 84
+      }
+    },
+    {
+      "id": "headline_3",
+      "type": "headline",
+      "position": {
+        "row": 11,
+        "column": 2,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "First Evidence That Plastic Nanoparticles Can Accumulate in Edible Parts of Vegetables",
+        "summary": "Research reveals tiny nanoplastic fragments can accumulate in veggie roots, potentially contaminating food supply. Scientists tested polystyrene nanoparticles on radishes, finding 5% made it past plant defenses into edible parts.",
+        "source": "Slashdot",
+        "url": "https://news.slashdot.org/story/25/10/05/2032200/first-evidence-that-plastic-nanoparticles-can-accumulate-in-edible-parts-of-vegetables?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 89
+      }
+    },
+    {
+      "id": "headline_2",
+      "type": "headline",
+      "position": {
+        "row": 1,
+        "column": 1,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "Cory Doctorow Explains Why Amazon is Way Past Its Prime",
+        "summary": "Cory Doctorow explains how Amazon's business tactics have turned it into a giant pile of shit, abusing users and merchants alike. The company's predatory pricing, DRM, and junk fees create a self-reinforcing cycle of exploitation.",
+        "source": "Slashdot",
+        "url": "https://news.slashdot.org/story/25/10/05/1953218/cory-doctorow-explains-why-amazon-is-way-past-its-prime?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 88
+      }
+    },
+    {
+      "id": "quick_link_4",
+      "type": "quick_link",
+      "position": {
+        "row": 16,
+        "column": 6,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Lightning deal: Ankers 3-in-1 MagSafe UFO charger is 30 off today only",
+        "summary": "Amazon's early Prime Day deals feature Anker's MagSafe UFO 3-in-1 wireless charger at 62.68, a 27.31 discount from its regular price.",
+        "source": "Mashable (Tech)",
+        "url": "https://mashable.com/article/oct-5-anker-magsafe-ufo-charger-deal",
+        "quality_score": 84
+      }
+    },
+    {
+      "id": "quick_link_2",
+      "type": "quick_link",
+      "position": {
+        "row": 5,
+        "column": 3,
+        "width": 4,
+        "height": 2
+      },
+      "data": {
+        "title": "Whats the Best Way to Stop AI From Designing Hazardous Proteins?",
+        "summary": "Microsoft researchers develop patch to address AI-generated hazardous proteins, experts say current approach is insufficient.",
+        "source": "Slashdot",
+        "url": "https://science.slashdot.org/story/25/10/04/0539239/whats-the-best-way-to-stop-ai-from-designing-hazardous-proteins?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 84
+      }
+    },
+    {
+      "id": "github_repo_1",
+      "type": "github_repo",
+      "position": {
+        "row": 1,
+        "column": 8,
+        "width": 3,
+        "height": 3
+      },
+      "data": {
+        "name": "juspay/hyperswitch",
+        "description": "The juspay/hyperswitch repository is an open-source payment switch written in Rust that enables fast, reliable, and affordable transactions. It facilitates secure payment processing.",
+        "url": "https://github.com/juspay/hyperswitch",
+        "stars": 533,
+        "language": "Rust",
+        "rank": 1
+      }
+    },
+    {
+      "id": "quick_link_6",
+      "type": "quick_link",
+      "position": {
+        "row": 14,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      },
+      "data": {
+        "title": "Soras Controls Dont Block All Deepfakes or Copyright Infringements",
+        "summary": "AI app Sora generates realistic videos of deceased celebrities with copyrighted music, sparking copyright concerns.",
+        "source": "Slashdot",
+        "url": "https://yro.slashdot.org/story/25/10/05/0122231/soras-controls-dont-block-all-deepfakes-or-copyright-infringements?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 83
+      }
+    },
+    {
+      "id": "quick_link_1",
+      "type": "quick_link",
+      "position": {
+        "row": 15,
+        "column": 1,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Roland is finally honoring its legacy instead of just cashing in on it",
+        "summary": "Roland is re-releasing its iconic TR-1000 rhythm generator, honoring its legacy after years of neglect.",
+        "source": "The Verge",
+        "url": "https://www.theverge.com/entertainment/792209/roland-is-finally-honoring-its-legacy-instead-of-just-cashing-in-tr-1000",
+        "quality_score": 77
+      }
+    },
+    {
+      "id": "stock_1",
+      "type": "stock",
+      "position": {
+        "row": 1,
+        "column": 11,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "NVDA",
+        "price": 187.62,
+        "change": -1.27,
+        "change_percent": -0.6723,
+        "company_name": "NVIDIA Corp"
+      }
+    },
+    {
+      "id": "stock_3",
+      "type": "stock",
+      "position": {
+        "row": 5,
+        "column": 1,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "AAPL",
+        "price": 258.02,
+        "change": 0.89,
+        "change_percent": 0.3461,
+        "company_name": "Apple Inc"
+      }
+    },
+    {
+      "id": "stock_4",
+      "type": "stock",
+      "position": {
+        "row": 8,
+        "column": 3,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "GOOGL",
+        "price": 245.35,
+        "change": -0.34,
+        "change_percent": -0.1384,
+        "company_name": "Alphabet Inc"
+      }
+    },
+    {
+      "id": "stock_5",
+      "type": "stock",
+      "position": {
+        "row": 8,
+        "column": 11,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "AMZN",
+        "price": 219.51,
+        "change": -2.9,
+        "change_percent": -1.3039,
+        "company_name": "Amazon.com Inc"
+      }
+    },
+    {
+      "id": "day_1",
+      "type": "day_number",
+      "position": {
+        "row": 1,
+        "column": 6,
+        "width": 2,
+        "height": 1
+      },
+      "data": {
+        "day_number": 15
+      }
+    },
+    {
+      "id": "bit_1",
+      "type": "bit",
+      "position": {
+        "row": 3,
+        "column": 11,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_2",
+      "type": "bit",
+      "position": {
+        "row": 3,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_3",
+      "type": "bit",
+      "position": {
+        "row": 4,
+        "column": 6,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_4",
+      "type": "bit",
+      "position": {
+        "row": 4,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_5",
+      "type": "bit",
+      "position": {
+        "row": 5,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_6",
+      "type": "bit",
+      "position": {
+        "row": 6,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_7",
+      "type": "bit",
+      "position": {
+        "row": 7,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_8",
+      "type": "bit",
+      "position": {
+        "row": 9,
+        "column": 5,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_9",
+      "type": "bit",
+      "position": {
+        "row": 9,
+        "column": 8,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_10",
+      "type": "bit",
+      "position": {
+        "row": 9,
+        "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_11",
+      "type": "bit",
+      "position": {
+        "row": 9,
+        "column": 10,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_12",
+      "type": "bit",
+      "position": {
+        "row": 10,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_13",
+      "type": "bit",
+      "position": {
+        "row": 10,
+        "column": 2,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_14",
+      "type": "bit",
+      "position": {
+        "row": 10,
+        "column": 3,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_15",
+      "type": "bit",
+      "position": {
+        "row": 10,
+        "column": 4,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_16",
+      "type": "bit",
+      "position": {
+        "row": 10,
+        "column": 5,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_17",
+      "type": "bit",
+      "position": {
+        "row": 11,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_18",
+      "type": "bit",
+      "position": {
+        "row": 11,
+        "column": 7,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_19",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_20",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 7,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_21",
+      "type": "bit",
+      "position": {
+        "row": 13,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_22",
+      "type": "bit",
+      "position": {
+        "row": 13,
+        "column": 7,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_23",
+      "type": "bit",
+      "position": {
+        "row": 14,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_24",
+      "type": "bit",
+      "position": {
+        "row": 14,
+        "column": 7,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_25",
+      "type": "bit",
+      "position": {
+        "row": 14,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_26",
+      "type": "bit",
+      "position": {
+        "row": 15,
+        "column": 7,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_27",
+      "type": "bit",
+      "position": {
+        "row": 15,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_28",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_29",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 2,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_30",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 3,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_31",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 4,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_32",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 5,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_33",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    }
+  ]
+}

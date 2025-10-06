@@ -8,7 +8,6 @@ Includes LLM ranking, description generation, and newsletter formatting.
 import sys
 import json
 import time
-import requests
 import re
 import random
 from pathlib import Path
@@ -21,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.utils.logger import get_logger
 from src.utils.config_loader import ConfigLoader
+from src.utils.together_client import create_together_client
 
 
 class GitHubTrendingProcessor:
@@ -38,9 +38,18 @@ class GitHubTrendingProcessor:
         self.global_config = self.config_loader.global_config
         
         # LLM settings
-        self.ollama_host = self.global_config.get('llm', {}).get('ollama_host', '172.22.128.1')
-        self.model_name = self.global_config.get('llm', {}).get('model', 'llama3.2:3b')
-        self.api_url = f"http://{self.ollama_host}:11434/api/generate"
+        llm_config = self.global_config.get('llm', {})
+        self.provider = llm_config.get('provider', 'together_ai')
+        
+        if self.provider == 'together_ai':
+            self.llm_client = create_together_client(llm_config['together_ai'])
+            # Set attributes for compatibility
+            self.model_name = llm_config['together_ai'].get('model', 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo')
+        else:
+            # Fallback to Ollama configuration
+            self.ollama_host = llm_config.get('ollama', {}).get('server_url', 'http://172.22.128.1:11434').replace('http://', '').replace(':11434', '')
+            self.model_name = llm_config.get('ollama', {}).get('model', 'llama3.2:3b')
+            self.api_url = f"http://{self.ollama_host}:11434/api/generate"
         
         # Set random seed for reproducible results
         random.seed(42)
@@ -102,7 +111,7 @@ Repositories to rank:
     
     def _get_llm_ranking(self, repositories: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
         """
-        Get ranking from LLM via Ollama.
+        Get ranking from LLM.
         
         Args:
             repositories: List of repository data
@@ -112,35 +121,41 @@ Repositories to rank:
         """
         prompt = self._create_ranking_prompt(repositories)
         
-        payload = {
-            "model": self.model_name,
-            "prompt": prompt,
-            "stream": False,
-            "options": {
-                "temperature": 0.3,  # Lower temperature for more consistent rankings
-                "top_p": 0.9,
-                "max_tokens": 2000
-            }
-        }
-        
         try:
-            self.logger.info(f"🤖 Sending ranking request to Ollama at {self.ollama_host}...")
-            response = requests.post(self.api_url, json=payload, timeout=60)
-            
-            if response.status_code == 200:
-                result = response.json()
-                llm_response = result.get('response', '')
-                self.logger.info(f"✅ LLM ranking response received ({len(llm_response)} characters)")
-                return llm_response
+            if self.provider == 'together_ai':
+                self.logger.info(f"🤖 Sending ranking request to Together AI...")
+                response = self.llm_client.generate_completion(prompt)
+                self.logger.info(f"✅ Together AI ranking response received ({len(response)} characters)")
+                return response
             else:
-                self.logger.error(f"❌ Ollama API error: {response.status_code} - {response.text}")
-                return None
+                # Fallback to Ollama
+                import requests
                 
-        except requests.exceptions.RequestException as e:
-            self.logger.error(f"❌ Connection error to Ollama: {e}")
-            return None
+                payload = {
+                    "model": self.model_name,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.3,  # Lower temperature for more consistent rankings
+                        "top_p": 0.9,
+                        "max_tokens": 2000
+                    }
+                }
+                
+                self.logger.info(f"🤖 Sending ranking request to Ollama at {self.ollama_host}...")
+                response = requests.post(self.api_url, json=payload, timeout=60)
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    llm_response = result.get('response', '')
+                    self.logger.info(f"✅ LLM ranking response received ({len(llm_response)} characters)")
+                    return llm_response
+                else:
+                    self.logger.error(f"❌ Ollama API error: {response.status_code} - {response.text}")
+                    return None
+                    
         except Exception as e:
-            self.logger.error(f"❌ Unexpected error: {e}")
+            self.logger.error(f"❌ LLM ranking request failed: {e}")
             return None
     
     def _parse_llm_response(self, response_text: str) -> Optional[Dict[str, Any]]:
@@ -244,30 +259,38 @@ Output: Plain text, 1–2 sentences."""
         """
         prompt = self._create_description_prompt(repo_info)
         
-        payload = {
-            "model": self.model_name,
-            "prompt": prompt,
-            "stream": False,
-            "options": {
-                "temperature": 0.3,
-                "max_tokens": 150  # Keep it short
-            }
-        }
-        
         try:
-            response = requests.post(self.api_url, json=payload, timeout=30)
-            
-            if response.status_code == 200:
-                result = response.json()
-                description = result.get('response', '').strip()
+            if self.provider == 'together_ai':
+                description = self.llm_client.generate_completion(prompt)
+            else:
+                # Fallback to Ollama
+                import requests
                 
-                # Clean up the description
-                if description:
-                    # Remove any markdown formatting
-                    description = description.replace('**', '').replace('*', '').replace('`', '')
-                    # Remove extra whitespace
-                    description = ' '.join(description.split())
-                    return description
+                payload = {
+                    "model": self.model_name,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.3,
+                        "max_tokens": 150  # Keep it short
+                    }
+                }
+                
+                response = requests.post(self.api_url, json=payload, timeout=30)
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    description = result.get('response', '').strip()
+                else:
+                    return None
+            
+            # Clean up the description
+            if description:
+                # Remove any markdown formatting
+                description = description.replace('**', '').replace('*', '').replace('`', '')
+                # Remove extra whitespace
+                description = ' '.join(description.split())
+                return description
             
             return None
             

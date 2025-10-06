@@ -26,6 +26,7 @@ langdetect
 protobuf
 
 # LLM integration
+together
 ollama
 
 # Embeddings and Similarity

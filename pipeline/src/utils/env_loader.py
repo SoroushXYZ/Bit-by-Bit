@@ -52,6 +52,7 @@ class EnvLoader:
             API key string or None if not found
         """
         key_mapping = {
+            'together_ai': 'TOGETHER_AI_API_KEY',
             'finnhub': 'FINNHUB_API_KEY',
             'alpha_vantage': 'ALPHA_VANTAGE_API_KEY', 
             'polygon': 'POLYGON_API_KEY',
@@ -81,7 +82,7 @@ class EnvLoader:
         Returns:
             Dictionary mapping service names to API keys
         """
-        services = ['finnhub', 'alpha_vantage', 'polygon', 'yahoo_finance']
+        services = ['together_ai', 'finnhub', 'alpha_vantage', 'polygon', 'yahoo_finance']
         return {service: self.get_api_key(service) for service in services}
     
     def is_service_available(self, service: str) -> bool:

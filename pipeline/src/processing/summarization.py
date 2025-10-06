@@ -13,7 +13,6 @@ import re
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
-import requests
 
 import sys
 from pathlib import Path
@@ -21,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.utils.logger import get_logger
 from src.utils.config_loader import ConfigLoader
+from src.utils.together_client import create_together_client
 
 
 class SummarizationStep:
@@ -46,8 +46,16 @@ class SummarizationStep:
         
         # LLM configuration
         self.llm_config = self.config['llm']
-        self.ollama_endpoint = self.llm_config['server_url']
-        self.model_name = self.llm_config['model']
+        self.provider = self.llm_config.get('provider', 'together_ai')
+        
+        if self.provider == 'together_ai':
+            self.llm_client = create_together_client(self.llm_config['together_ai'])
+            # Set attributes for compatibility
+            self.model_name = self.llm_config['together_ai'].get('model', 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo')
+        else:
+            # Fallback to Ollama configuration
+            self.ollama_endpoint = self.llm_config['ollama']['server_url']
+            self.model_name = self.llm_config['ollama']['model']
         
         # Summarization configuration
         self.summarization_config = self.config['summarization']
@@ -239,51 +247,59 @@ Focus on creating content that would be valuable for tech professionals and enth
         return prompt
     
     def _call_llm(self, prompt: str) -> Dict[str, Any]:
-        """Call Ollama LLM for article summarization with fallback support."""
+        """Call LLM for article summarization with fallback support."""
         try:
             self.logger.debug(f"🤖 Calling LLM for article summarization...")
             
-            payload = {
-                "model": self.model_name,
-                "prompt": prompt,
-                "stream": False,
-                "options": {
-                    "temperature": 0.3,  # Lower temperature for more consistent results
-                    "top_p": 0.9,
-                    "max_tokens": 500
+            if self.provider == 'together_ai':
+                # Use Together AI client
+                response = self.llm_client.generate_json_completion(prompt)
+                return response
+            else:
+                # Fallback to Ollama
+                import requests
+                
+                payload = {
+                    "model": self.model_name,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.3,  # Lower temperature for more consistent results
+                        "top_p": 0.9,
+                        "max_tokens": 500
+                    }
                 }
-            }
-            
-            response = requests.post(
-                f"{self.ollama_endpoint}/api/generate",
-                json=payload,
-                timeout=60
-            )
-            
-            if response.status_code != 200:
-                raise Exception(f"LLM API error: {response.status_code} - {response.text}")
-            
-            result = response.json()
-            llm_response = result.get('response', '')
-            
-            # Parse JSON response
-            try:
-                # Extract JSON from response (in case there's extra text)
-                json_start = llm_response.find('{')
-                json_end = llm_response.rfind('}') + 1
                 
-                if json_start == -1 or json_end == 0:
-                    raise ValueError("No JSON found in LLM response")
+                response = requests.post(
+                    f"{self.ollama_endpoint}/api/generate",
+                    json=payload,
+                    timeout=60
+                )
                 
-                json_str = llm_response[json_start:json_end]
-                parsed_response = json.loads(json_str)
+                if response.status_code != 200:
+                    raise Exception(f"LLM API error: {response.status_code} - {response.text}")
                 
-                return parsed_response
+                result = response.json()
+                llm_response = result.get('response', '')
                 
-            except (json.JSONDecodeError, ValueError) as e:
-                self.logger.error(f"Failed to parse LLM JSON response: {e}")
-                self.logger.error(f"Raw response: {llm_response}")
-                raise Exception(f"Invalid JSON response from LLM: {e}")
+                # Parse JSON response
+                try:
+                    # Extract JSON from response (in case there's extra text)
+                    json_start = llm_response.find('{')
+                    json_end = llm_response.rfind('}') + 1
+                    
+                    if json_start == -1 or json_end == 0:
+                        raise ValueError("No JSON found in LLM response")
+                    
+                    json_str = llm_response[json_start:json_end]
+                    parsed_response = json.loads(json_str)
+                    
+                    return parsed_response
+                    
+                except (json.JSONDecodeError, ValueError) as e:
+                    self.logger.error(f"Failed to parse LLM JSON response: {e}")
+                    self.logger.error(f"Raw response: {llm_response}")
+                    raise Exception(f"Invalid JSON response from LLM: {e}")
                 
         except Exception as e:
             self.logger.error(f"❌ LLM call failed: {e}")

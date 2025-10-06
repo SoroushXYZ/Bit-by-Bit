@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "generated_at": "2025-09-30T22:59:26.868013",
+    "generated_at": "2025-10-06T18:07:52.446809",
     "grid_config": {
       "columns": 12,
       "rows": 16,
       "cell_size": 48
     },
-    "total_components": 55,
+    "total_components": 47,
     "efficiency": 100.0
   },
   "components": [
@@ -14,8 +14,8 @@
       "id": "branding_1",
       "type": "branding",
       "position": {
-        "row": 13,
-        "column": 7,
+        "row": 15,
+        "column": 11,
         "width": 2,
         "height": 2
       },
@@ -27,21 +27,8 @@
       "id": "branding_2",
       "type": "branding",
       "position": {
-        "row": 8,
-        "column": 8,
-        "width": 2,
-        "height": 2
-      },
-      "data": {
-        "order_id": 1
-      }
-    },
-    {
-      "id": "branding_3",
-      "type": "branding",
-      "position": {
-        "row": 10,
-        "column": 10,
+        "row": 3,
+        "column": 5,
         "width": 2,
         "height": 2
       },
@@ -50,140 +37,16 @@
       }
     },
     {
-      "id": "quick_link_2",
-      "type": "quick_link",
+      "id": "branding_3",
+      "type": "branding",
       "position": {
-        "row": 10,
-        "column": 1,
-        "width": 6,
-        "height": 1
-      },
-      "data": {
-        "title": "Amazon Launches Vegas OS, Its Android Replacement For Fire TV With No Sideloading",
-        "summary": "Amazon replaces Android with its own Vega OS on new Fire TV hardware, removing sideloading and limiting app selection to the Amazon Appstore.",
-        "source": "Slashdot",
-        "url": "https://tech.slashdot.org/story/25/09/30/2225237/amazon-launches-vegas-os-its-android-replacement-for-fire-tv-with-no-sideloading?utm_source=rss1.0mainlinkanon&utm_medium=feed",
-        "quality_score": 90
-      }
-    },
-    {
-      "id": "quick_link_5",
-      "type": "quick_link",
-      "position": {
-        "row": 1,
-        "column": 5,
-        "width": 6,
-        "height": 1
-      },
-      "data": {
-        "title": "Venmo and PayPal Users Will Finally Be Able To Send Money To Each Other",
-        "summary": "Starting in November, Venmo users can send money directly to PayPal users without workarounds.",
-        "source": "Slashdot",
-        "url": "https://news.slashdot.org/story/25/09/30/2019252/venmo-and-paypal-users-will-finally-be-able-to-send-money-to-each-other?utm_source=rss1.0mainlinkanon&utm_medium=feed",
-        "quality_score": 88
-      }
-    },
-    {
-      "id": "headline_2",
-      "type": "headline",
-      "position": {
-        "row": 2,
+        "row": 3,
         "column": 2,
-        "width": 5,
-        "height": 4
+        "width": 2,
+        "height": 2
       },
       "data": {
-        "title": "Apple  Amazon iPhone  Mac price fixing lawsuit dismissed",
-        "summary": "A class action suit alleging Apple and Amazon conspired to inflate iPhone prices has been dismissed due to the actions of lawyers involved. The plaintiffs can resubmit an amended complaint, but for now, the case is closed. This decision may impact potential price-fixing claims against tech giants.",
-        "source": "AppleInsider",
-        "url": "https://appleinsider.com/articles/25/09/30/apple-amazon-iphone-mac-price-fixing-lawsuit-dismissed?utm_source=rss",
-        "quality_score": 92
-      }
-    },
-    {
-      "id": "headline_4",
-      "type": "headline",
-      "position": {
-        "row": 2,
-        "column": 7,
-        "width": 5,
-        "height": 4
-      },
-      "data": {
-        "title": "What the M5 iPad Pro leak says about the M5 MacBook Air",
-        "summary": "Leaked M5 iPad Pro benchmarks suggest an upcoming M5 MacBook Air will outperform a M3 Pro MacBook Pro, thanks to shared thermal characteristics with the iPad Pro. This could mark a significant upgrade for Apple's 2026 MacBook Air release. The implications are substantial for enterprise adoption and AI integration.",
-        "source": "AppleInsider",
-        "url": "https://appleinsider.com/articles/25/09/30/what-the-m5-ipad-pro-leak-says-about-the-m5-macbook-air?utm_source=rss",
-        "quality_score": 92
-      }
-    },
-    {
-      "id": "headline_1",
-      "type": "headline",
-      "position": {
-        "row": 11,
-        "column": 2,
-        "width": 5,
-        "height": 4
-      },
-      "data": {
-        "title": "Salesforce challenger Zeta Global is making its biggest-ever acquisition as it looks to corner the loyalty market",
-        "summary": "Marketing tech firm Zeta Global acquires Marigold's enterprise software business, expanding its customer base and loyalty offerings in a move to corner the market.",
-        "source": "Business Insider (Tech)",
-        "url": "https://www.businessinsider.com/martech-company-zeta-global-acquire-marigold-enterprise-business-2025-9",
-        "quality_score": 92
-      }
-    },
-    {
-      "id": "quick_link_6",
-      "type": "quick_link",
-      "position": {
-        "row": 6,
-        "column": 7,
-        "width": 6,
-        "height": 1
-      },
-      "data": {
-        "title": "Windows 11s 2025 Update Arrives",
-        "summary": "Windows 11 version 25H2 is now available, bringing security enhancements and reduced footprint with the removal of legacy tools.",
-        "source": "Slashdot",
-        "url": "https://tech.slashdot.org/story/25/09/30/1827229/windows-11s-2025-update-arrives?utm_source=rss1.0mainlinkanon&utm_medium=feed",
-        "quality_score": 88
-      }
-    },
-    {
-      "id": "headline_3",
-      "type": "headline",
-      "position": {
-        "row": 6,
-        "column": 1,
-        "width": 5,
-        "height": 4
-      },
-      "data": {
-        "title": "Sen. Maria Cantwell releases report citing NASA whistleblowers concerns about budget cuts",
-        "summary": "Sen. Maria Cantwell releases report citing NASA whistleblowers' concerns about safety impacts due to budget cuts, including potential astronaut deaths.",
-        "source": "GeekWire",
-        "url": "https://www.geekwire.com/2025/sen-maria-cantwell-nasa-whistleblower-budget-cuts/",
-        "quality_score": 88
-      }
-    },
-    {
-      "id": "github_repo_1",
-      "type": "github_repo",
-      "position": {
-        "row": 13,
-        "column": 10,
-        "width": 3,
-        "height": 3
-      },
-      "data": {
-        "name": "tile-ai/tilelang",
-        "description": "This repository provides a domain-specific language (DSL) for developing high-performance computer vision and machine learning kernels on various hardware platforms.",
-        "url": "https://github.com/tile-ai/tilelang",
-        "stars": 310,
-        "language": "C++",
-        "rank": 1
+        "order_id": 1
       }
     },
     {
@@ -196,96 +59,267 @@
         "height": 1
       },
       "data": {
-        "title": "Boses new QuietComfort Ultra earbuds just quietly got their first price drop",
-        "summary": "The Bose QuietComfort Ultra earbuds (2nd gen) are now on sale for $257.36 at Amazon, offering a 41.64 discount from their usual price of $299.",
-        "source": "Mashable (Tech)",
-        "url": "https://mashable.com/article/sept-30-bose-quietcomfort-ultra-2nd-gen-earbuds-deal",
-        "quality_score": 88
+        "title": "One UI 8 brings some nice UI improvements to Galaxy tablets",
+        "summary": "Samsung's One UI 8 update enhances app layouts and productivity on large screens, including the Galaxy Tab S10 Plus. The redesigns include a resizable agenda view in the Calendar app and relocated clock controls. This update matters for users seeking a more streamlined experience on their tablets.",
+        "source": "Android Authority",
+        "url": "https://www.androidauthority.com/one-ui-8-tablet-ui-improvement-3604214/",
+        "quality_score": 92
       }
     },
     {
-      "id": "quick_link_4",
+      "id": "quick_link_6",
       "type": "quick_link",
       "position": {
-        "row": 15,
-        "column": 5,
+        "row": 5,
+        "column": 6,
         "width": 4,
         "height": 2
       },
       "data": {
-        "title": "The KWL Method Will Help You Remember What You Study",
-        "summary": "A study technique called KWL (Know, Want to Know, Learn) can help you remember what you study by engaging you in an active learning process.",
-        "source": "Lifehacker",
-        "url": "https://lifehacker.com/kwl-study-method?utm_medium=RSS",
-        "quality_score": 88
+        "title": "2025 Climate Tech Companies to Watch: Ather Energy and its premium e-scooters",
+        "summary": "Ather Energy, a leading Indian e-scooter maker, is expanding production to 500,000 units per year, aiming to reduce transport emissions in India. The company's focus on product quality and rider experience has helped drive micromobility EV penetration. Ather's success could propel India's shift away from fossil fuels.",
+        "source": "MIT Technology Review",
+        "url": "https://www.technologyreview.com/2025/10/06/1124284/2025-climate-tech-companies-to-watch-ather-energy-premium-escooters/",
+        "quality_score": 90
+      }
+    },
+    {
+      "id": "quick_link_2",
+      "type": "quick_link",
+      "position": {
+        "row": 1,
+        "column": 5,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Googles ready to pay up to 20,000 if you can break Gemini very, very badly",
+        "summary": "Google's Vulnerability Reward Program increases payouts for AI exploits, with top scores reaching $20,000. This move aims to encourage responsible AI testing and bug discovery. The program targets AI chatbots like Gemini, which can be vulnerable to manipulation.",
+        "source": "Android Authority",
+        "url": "https://www.androidauthority.com/gemini-ai-bug-bounties-3604354/",
+        "quality_score": 90
+      }
+    },
+    {
+      "id": "headline_2",
+      "type": "headline",
+      "position": {
+        "row": 13,
+        "column": 3,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "T-Mobile will soon begin phasing out LTE in favor of 5G",
+        "summary": "T-Mobile will start phasing out LTE in favor of 5G, with most LTE service shut down by 2028. This change affects new activations, requiring 5G SA-compatible devices starting January 2026. The move aims to keep the network evolving and efficient.",
+        "source": "Android Authority",
+        "url": "https://www.androidauthority.com/t-mobile-5g-refarm-3604285/",
+        "quality_score": 96
+      }
+    },
+    {
+      "id": "github_repo_1",
+      "type": "github_repo",
+      "position": {
+        "row": 12,
+        "column": 9,
+        "width": 3,
+        "height": 3
+      },
+      "data": {
+        "name": "aandrew-me/ytDownloader",
+        "description": "This GitHub repository hosts a desktop app for downloading videos and audios from various websites.",
+        "url": "https://github.com/aandrew-me/ytDownloader",
+        "stars": 251,
+        "language": "JavaScript",
+        "rank": 1
+      }
+    },
+    {
+      "id": "quick_link_5",
+      "type": "quick_link",
+      "position": {
+        "row": 2,
+        "column": 7,
+        "width": 6,
+        "height": 1
+      },
+      "data": {
+        "title": "Verizons new promo uses AI to allegedly give you a better deal than T-Mobile or ATT",
+        "summary": "Verizon's new Bring Your Bill tool uses AI to analyze rival bills and apply comparable pricing and promotional credits, aiming to match or beat AT&T and T-Mobile prices. This short-term value play seeks to shed Verizon's premium image and become more competitive in the market. The promotion is locked for 36 months.",
+        "source": "Android Authority",
+        "url": "https://www.androidauthority.com/verizons-new-promo-ai-3604242/",
+        "quality_score": 90
+      }
+    },
+    {
+      "id": "headline_4",
+      "type": "headline",
+      "position": {
+        "row": 9,
+        "column": 3,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "Microsoft Assures Gamers Its Not Abandoning Xbox Hardware",
+        "summary": "Microsoft has denied rumors it's abandoning Xbox hardware, citing ongoing investments in first-party consoles and a partnership with AMD for next-gen hardware. The company's commitment to hardware development comes after a 50% price increase for Xbox Game Pass Ultimate and product removals from retailers. This news matters to gamers and tech enthusiasts.",
+        "source": "Slashdot",
+        "url": "https://games.slashdot.org/story/25/10/06/1929246/microsoft-assures-gamers-its-not-abandoning-xbox-hardware?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 92
       }
     },
     {
       "id": "quick_link_1",
       "type": "quick_link",
       "position": {
-        "row": 15,
+        "row": 3,
+        "column": 7,
+        "width": 4,
+        "height": 2
+      },
+      "data": {
+        "title": "ChatGPT Now Has 800 Million Weekly Active Users",
+        "summary": "ChatGPT has reached 800 million weekly active users, marking a significant increase in adoption among consumers, developers, and enterprises. This growth is driven by OpenAI's efforts to expand AI infrastructure and secure AI chips. The milestone underscores the growing importance of AI in daily workflows.",
+        "source": "Slashdot",
+        "url": "https://slashdot.org/story/25/10/06/1848254/chatgpt-now-has-800-million-weekly-active-users?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 90
+      }
+    },
+    {
+      "id": "headline_3",
+      "type": "headline",
+      "position": {
+        "row": 5,
+        "column": 1,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "US v. Google redux: all the news from the ad tech trial",
+        "summary": "A US judge ruled Google acted illegally to acquire and maintain monopoly power in online advertising, leading to a trial over whether the company should be broken up. Google must sell its AdX exchange, but the DOJ argues this won't be enough to restore competition. The trial's outcome could impact the entire online advertising industry.",
+        "source": "The Verge",
+        "url": "https://www.theverge.com/24237832/google-monopoly-trial-ad-tech-antitrust-us-search",
+        "quality_score": 92
+      }
+    },
+    {
+      "id": "headline_1",
+      "type": "headline",
+      "position": {
+        "row": 8,
+        "column": 8,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "Seattle scientists Mary Brunkow and Fred Ramsdell win Nobel Prize for immunology research",
+        "summary": "Mary Brunkow and Fred Ramsdell, Seattle-based researchers, won the 2025 Nobel Prize in physiology or medicine for their work on immune cells that prevent autoimmune diseases. Their discoveries have led to a new field of peripheral tolerance research and therapies for cancer and autoimmune diseases.",
+        "source": "GeekWire",
+        "url": "https://www.geekwire.com/2025/seattle-scientist-mary-brunkow-wins-nobel-prize-for-immunology-research/",
+        "quality_score": 92
+      }
+    },
+    {
+      "id": "quick_link_4",
+      "type": "quick_link",
+      "position": {
+        "row": 1,
         "column": 1,
         "width": 4,
         "height": 2
       },
       "data": {
-        "title": "Military women fear losing every bit of ground as Hegseth looks backward to the 1990s",
-        "summary": "Defense Secretary Pete Hegseth calls for review of military standards changed since the 1990s, sparking concerns about eroding women's protections.",
-        "source": "Business Insider (Tech)",
-        "url": "https://www.businessinsider.com/military-women-fear-setbacks-as-hegseth-looks-back-to-1990s-2025-9",
-        "quality_score": 88
+        "title": "Apple Watch Series 11 review: wrist-flickingly good with longer battery life",
+        "summary": "The Apple Watch Series 11 boasts longer battery life, more scratch-resistant glass, and new hands-free gestures, making it one of the best smartwatches available despite minimal design changes. These upgrades address a key concern for users, solidifying its position in the market. The Series 11 is a direct replacement for the Series 10, offering a refined experience.",
+        "source": "The Guardian - Technology",
+        "url": "https://www.theguardian.com/technology/2025/oct/06/apple-watch-series-11-review-wrist-flickingly-good-with-longer-battery-life",
+        "quality_score": 89
       }
     },
     {
       "id": "stock_1",
       "type": "stock",
       "position": {
-        "row": 8,
-        "column": 6,
+        "row": 3,
+        "column": 11,
         "width": 2,
         "height": 2
       },
       "data": {
         "symbol": "NVDA",
-        "price": 186.58,
-        "change": 4.73,
-        "change_percent": 2.601,
+        "price": 185.54,
+        "change": -2.08,
+        "change_percent": -1.1086,
         "company_name": "NVIDIA Corp"
       }
     },
     {
-      "id": "stock_2",
+      "id": "stock_3",
       "type": "stock",
       "position": {
-        "row": 8,
+        "row": 5,
         "column": 10,
         "width": 2,
         "height": 2
       },
       "data": {
         "symbol": "AAPL",
-        "price": 254.63,
-        "change": 0.2,
-        "change_percent": 0.0786,
+        "price": 256.69,
+        "change": -1.33,
+        "change_percent": -0.5155,
         "company_name": "Apple Inc"
       }
     },
     {
-      "id": "stock_4",
+      "id": "stock_5",
       "type": "stock",
       "position": {
-        "row": 10,
-        "column": 7,
+        "row": 9,
+        "column": 1,
         "width": 2,
         "height": 2
       },
       "data": {
         "symbol": "GOOGL",
-        "price": 243.1,
-        "change": -0.95,
-        "change_percent": -0.3893,
+        "price": 250.43,
+        "change": 5.08,
+        "change_percent": 2.0705,
         "company_name": "Alphabet Inc"
+      }
+    },
+    {
+      "id": "stock_7",
+      "type": "stock",
+      "position": {
+        "row": 11,
+        "column": 1,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "AMZN",
+        "price": 220.9,
+        "change": 1.39,
+        "change_percent": 0.6332,
+        "company_name": "Amazon.com Inc"
+      }
+    },
+    {
+      "id": "stock_9",
+      "type": "stock",
+      "position": {
+        "row": 13,
+        "column": 1,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "META",
+        "price": 715.66,
+        "change": 5.1,
+        "change_percent": 0.7177,
+        "company_name": "Meta Platforms Inc"
       }
     },
     {
@@ -293,20 +327,20 @@
       "type": "day_number",
       "position": {
         "row": 1,
-        "column": 1,
+        "column": 11,
         "width": 2,
         "height": 1
       },
       "data": {
-        "day_number": 10
+        "day_number": 16
       }
     },
     {
       "id": "bit_1",
       "type": "bit",
       "position": {
-        "row": 1,
-        "column": 3,
+        "row": 2,
+        "column": 5,
         "width": 1,
         "height": 1
       },
@@ -318,21 +352,21 @@
       "id": "bit_2",
       "type": "bit",
       "position": {
-        "row": 1,
-        "column": 4,
+        "row": 2,
+        "column": 6,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 0
+        "value": 1
       }
     },
     {
       "id": "bit_3",
       "type": "bit",
       "position": {
-        "row": 1,
-        "column": 11,
+        "row": 3,
+        "column": 1,
         "width": 1,
         "height": 1
       },
@@ -344,20 +378,20 @@
       "id": "bit_4",
       "type": "bit",
       "position": {
-        "row": 1,
-        "column": 12,
+        "row": 3,
+        "column": 4,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
       "id": "bit_5",
       "type": "bit",
       "position": {
-        "row": 2,
+        "row": 4,
         "column": 1,
         "width": 1,
         "height": 1
@@ -370,33 +404,33 @@
       "id": "bit_6",
       "type": "bit",
       "position": {
-        "row": 2,
-        "column": 12,
+        "row": 4,
+        "column": 4,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
       "id": "bit_7",
       "type": "bit",
       "position": {
-        "row": 3,
-        "column": 1,
+        "row": 5,
+        "column": 12,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
       "id": "bit_8",
       "type": "bit",
       "position": {
-        "row": 3,
+        "row": 6,
         "column": 12,
         "width": 1,
         "height": 1
@@ -409,8 +443,8 @@
       "id": "bit_9",
       "type": "bit",
       "position": {
-        "row": 4,
-        "column": 1,
+        "row": 7,
+        "column": 12,
         "width": 1,
         "height": 1
       },
@@ -422,8 +456,8 @@
       "id": "bit_10",
       "type": "bit",
       "position": {
-        "row": 4,
-        "column": 12,
+        "row": 8,
+        "column": 6,
         "width": 1,
         "height": 1
       },
@@ -435,173 +469,17 @@
       "id": "bit_11",
       "type": "bit",
       "position": {
-        "row": 5,
-        "column": 1,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_12",
-      "type": "bit",
-      "position": {
-        "row": 5,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_13",
-      "type": "bit",
-      "position": {
-        "row": 6,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_14",
-      "type": "bit",
-      "position": {
-        "row": 7,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_15",
-      "type": "bit",
-      "position": {
         "row": 8,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_16",
-      "type": "bit",
-      "position": {
-        "row": 9,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_17",
-      "type": "bit",
-      "position": {
-        "row": 10,
-        "column": 9,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_18",
-      "type": "bit",
-      "position": {
-        "row": 10,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_19",
-      "type": "bit",
-      "position": {
-        "row": 11,
-        "column": 1,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_20",
-      "type": "bit",
-      "position": {
-        "row": 11,
-        "column": 9,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_21",
-      "type": "bit",
-      "position": {
-        "row": 11,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_22",
-      "type": "bit",
-      "position": {
-        "row": 12,
-        "column": 1,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_23",
-      "type": "bit",
-      "position": {
-        "row": 12,
         "column": 7,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
-      "id": "bit_24",
+      "id": "bit_12",
       "type": "bit",
       "position": {
         "row": 12,
@@ -614,11 +492,167 @@
       }
     },
     {
-      "id": "bit_25",
+      "id": "bit_13",
       "type": "bit",
       "position": {
         "row": 12,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_14",
+      "type": "bit",
+      "position": {
+        "row": 13,
+        "column": 8,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_15",
+      "type": "bit",
+      "position": {
+        "row": 13,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_16",
+      "type": "bit",
+      "position": {
+        "row": 14,
+        "column": 8,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_17",
+      "type": "bit",
+      "position": {
+        "row": 14,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_18",
+      "type": "bit",
+      "position": {
+        "row": 15,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_19",
+      "type": "bit",
+      "position": {
+        "row": 15,
+        "column": 2,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_20",
+      "type": "bit",
+      "position": {
+        "row": 15,
+        "column": 8,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_21",
+      "type": "bit",
+      "position": {
+        "row": 15,
         "column": 9,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_22",
+      "type": "bit",
+      "position": {
+        "row": 15,
+        "column": 10,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_23",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 1,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_24",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 2,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
+      "id": "bit_25",
+      "type": "bit",
+      "position": {
+        "row": 16,
+        "column": 8,
         "width": 1,
         "height": 1
       },
@@ -630,151 +664,21 @@
       "id": "bit_26",
       "type": "bit",
       "position": {
-        "row": 12,
-        "column": 10,
+        "row": 16,
+        "column": 9,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
       "id": "bit_27",
       "type": "bit",
       "position": {
-        "row": 12,
-        "column": 11,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_28",
-      "type": "bit",
-      "position": {
-        "row": 12,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_29",
-      "type": "bit",
-      "position": {
-        "row": 13,
-        "column": 1,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_30",
-      "type": "bit",
-      "position": {
-        "row": 13,
-        "column": 9,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_31",
-      "type": "bit",
-      "position": {
-        "row": 14,
-        "column": 1,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_32",
-      "type": "bit",
-      "position": {
-        "row": 14,
-        "column": 9,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_33",
-      "type": "bit",
-      "position": {
-        "row": 15,
-        "column": 9,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_34",
-      "type": "bit",
-      "position": {
-        "row": 16,
-        "column": 9,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_35",
-      "type": "bit",
-      "position": {
         "row": 16,
         "column": 10,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_36",
-      "type": "bit",
-      "position": {
-        "row": 16,
-        "column": 11,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_37",
-      "type": "bit",
-      "position": {
-        "row": 16,
-        "column": 12,
         "width": 1,
         "height": 1
       },
