@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "generated_at": "2025-10-06T19:12:03.576374",
+    "generated_at": "2025-10-07T20:15:32.584633",
     "grid_config": {
       "columns": 12,
       "rows": 16,
-      "cell_size": 48
+      "cell_size": 52
     },
-    "total_components": 57,
+    "total_components": 41,
     "efficiency": 100.0
   },
   "components": [
@@ -14,33 +14,7 @@
       "id": "branding_1",
       "type": "branding",
       "position": {
-        "row": 8,
-        "column": 8,
-        "width": 2,
-        "height": 2
-      },
-      "data": {
-        "order_id": 3
-      }
-    },
-    {
-      "id": "branding_2",
-      "type": "branding",
-      "position": {
-        "row": 1,
-        "column": 8,
-        "width": 2,
-        "height": 2
-      },
-      "data": {
-        "order_id": 1
-      }
-    },
-    {
-      "id": "branding_3",
-      "type": "branding",
-      "position": {
-        "row": 2,
+        "row": 4,
         "column": 6,
         "width": 2,
         "height": 2
@@ -50,144 +24,118 @@
       }
     },
     {
-      "id": "headline_2",
-      "type": "headline",
+      "id": "branding_2",
+      "type": "branding",
       "position": {
-        "row": 10,
-        "column": 7,
-        "width": 5,
-        "height": 4
-      },
-      "data": {
-        "title": "Boeings 777X was supposed to lead its comeback, but it has been delayed mdash; again. This is why thats such a big deal.",
-        "summary": "Boeing has pushed the 777X wide‑body debut to 2027 after certification hurdles, marking a seventh‑year delay from the original 2020 target. The setback threatens Boeing’s comeback, costs airlines like Lufthansa and Emirates billions, and gives Airbus a competitive edge in the long‑haul market for customers.",
-        "source": "Business Insider (Tech)",
-        "url": "https://www.businessinsider.com/why-another-delay-boeing-new-777x-such-a-big-deal-2025-10",
-        "quality_score": 78
-      }
-    },
-    {
-      "id": "quick_link_3",
-      "type": "quick_link",
-      "position": {
-        "row": 2,
-        "column": 2,
-        "width": 4,
+        "row": 12,
+        "column": 8,
+        "width": 2,
         "height": 2
       },
       "data": {
-        "title": "The neurons that let us see what isnt there",
-        "summary": "Researchers at Seoul National University, UC Berkeley, and the Allen Institute have identified IC-encoders, a specific neuron population in the visual cortex that signals illusory contours like the Kanizsa triangle. This discovery clarifies how the brain constructs perceived edges absent in physical stimuli, advancing our understanding of visual perception mechanisms.",
-        "source": "Ars Technica",
-        "url": "https://arstechnica.com/science/2025/10/the-neurons-that-let-us-see-what-isnt-there/",
-        "quality_score": 71
+        "order_id": 3
       }
     },
     {
-      "id": "github_repo_1",
-      "type": "github_repo",
+      "id": "branding_3",
+      "type": "branding",
       "position": {
-        "row": 10,
-        "column": 1,
-        "width": 3,
-        "height": 3
+        "row": 1,
+        "column": 10,
+        "width": 2,
+        "height": 2
       },
       "data": {
-        "name": "aandrew-me/ytDownloader",
-        "description": "ytDownloader is a desktop application that lets users download videos and audio from many websites.",
-        "url": "https://github.com/aandrew-me/ytDownloader",
-        "stars": 251,
-        "language": "JavaScript",
-        "rank": 1
+        "order_id": 1
       }
     },
     {
-      "id": "headline_3",
+      "id": "headline_2",
       "type": "headline",
       "position": {
-        "row": 5,
-        "column": 1,
+        "row": 11,
+        "column": 3,
         "width": 5,
         "height": 4
       },
       "data": {
-        "title": "2025 Climate Tech Companies to Watch: Cyclic Materials and its rare earth recycling tech",
-        "summary": "Cyclic Materials has opened its first commercial hub in Kingston, Ontario, and a spoke facility in Mesa, Arizona, to begin large‑scale recycling of rare‑earth magnets from discarded devices. By collecting and chemically extracting neodymium and other metals, the company aims to reduce reliance on Chinese supply, cut water use by 95%, and support the growing EV and wind‑turbine markets.",
-        "source": "MIT Technology Review",
-        "url": "https://www.technologyreview.com/2025/10/06/1124287/2025-climate-tech-companies-to-watch-cyclic-materials-rare-earth-recycling/",
-        "quality_score": 77
+        "title": "OpenAI unveils AgentKit that lets developers drag and drop to build AI agents",
+        "summary": "OpenAI launched AgentKit, a visual builder for creating AI agents with chat capabilities, aiming to simplify enterprise adoption and streamline tool usage. The tool reduces setup times and provides a centralized platform for managing agents and data. This move expands OpenAI's ecosystem and competes with platforms like Zapier.",
+        "source": "VentureBeat",
+        "url": "https://venturebeat.com/ai/openai-unveils-agentkit-that-lets-developers-drag-and-drop-to-build-ai",
+        "quality_score": 92
       }
     },
     {
       "id": "quick_link_6",
       "type": "quick_link",
       "position": {
-        "row": 14,
+        "row": 8,
+        "column": 6,
+        "width": 4,
+        "height": 2
+      },
+      "data": {
+        "title": "Cold war power play: how the Stasi got into computer games",
+        "summary": "Researchers discovered East German-made Pong consoles and DIY gaming schematics, revealing a surprisingly enthusiastic response to video games from the notoriously paranoid state. This finding matters for understanding the intersection of technology and politics during the Cold War era.",
+        "source": "The Guardian - Technology",
+        "url": "https://www.theguardian.com/games/2025/oct/07/stasi-coldwargames-its-all-a-game-alliiertenmuseum-berlin",
+        "quality_score": 90
+      }
+    },
+    {
+      "id": "quick_link_3",
+      "type": "quick_link",
+      "position": {
+        "row": 3,
         "column": 7,
         "width": 6,
         "height": 1
       },
       "data": {
-        "title": "Salesforce AI Research Releases CoDA-1.7B: a Discrete-Diffusion Code Model with Bidirectional, Parallel Token Generation",
-        "summary": "Salesforce released the 1.7B‑parameter CoDA model, a diffusion‑based code generator that updates tokens in parallel, achieving HumanEval 54.3 pass‑rate while offering tunable latency.",
-        "source": "MarkTechPost (AI News)",
-        "url": "https://www.marktechpost.com/2025/10/05/salesforce-ai-research-releases-coda-1-7b-a-discrete-diffusion-code-model-with-bidirectional-parallel-token-generation/",
-        "quality_score": 71
+        "title": "The true story of Alfred Hitchcocks Psycho isnt like its depicted in Netflixs Monster: The Ed Gein Story",
+        "summary": "Alfred Hitchcock expert Tony Lee Moral reveals Netflix's Monster: The Ed Gein Story took creative liberties when depicting the making of Psycho, including a dramatic scene featuring Anthony Perkins, which is not historically accurate. This matters because it highlights the show's inaccuracy and potential misinformation about the film's production.",
+        "source": "Business Insider (Tech)",
+        "url": "https://www.businessinsider.com/monster-ed-gein-netflix-alfred-hitchcock-psycho-fact-check-2025-10",
+        "quality_score": 90
       }
     },
     {
-      "id": "headline_4",
+      "id": "headline_3",
       "type": "headline",
       "position": {
-        "row": 13,
+        "row": 7,
         "column": 1,
         "width": 5,
         "height": 4
       },
       "data": {
-        "title": "How to Limit Who Can Make Deepfakes of You on Sora",
-        "summary": "OpenAI’s Sora app lets users insert real people into AI‑generated videos via a cameo feature, but the tool’s lax controls have sparked deep‑fake fears. Users can now block who uses their likeness, delete offending clips, or delete their account, yet critics warn the safeguards may be insufficient to prevent misuse across social media.",
-        "source": "Lifehacker",
-        "url": "https://lifehacker.com/tech/how-to-stop-deepfakes-on-sora?utm_medium=RSS",
-        "quality_score": 75
-      }
-    },
-    {
-      "id": "headline_1",
-      "type": "headline",
-      "position": {
-        "row": 4,
-        "column": 7,
-        "width": 5,
-        "height": 4
-      },
-      "data": {
-        "title": "ChatGPT apps are live: Here are the first ones you can try",
-        "summary": "OpenAI has unveiled ChatGPT app integrations that let users control services like Spotify, Canva, Zillow, Expedia, and Coursera directly from the chatbot. These built‑in interfaces enable tasks such as generating playlists, editing designs, searching real‑estate listings, booking travel, and accessing course content without leaving ChatGPT, streamlining workflows. Additional apps, including Uber and DoorDash, are slated to join later this year.",
-        "source": "The Verge",
-        "url": "https://www.theverge.com/news/793081/chagpt-apps-sdk-spotify-zillow-openai",
-        "quality_score": 65
+        "title": "Jeff Bezos says orbital data centers will be the next step for space ventures that make Earth better",
+        "summary": "Jeff Bezos predicts a future of space-based data centers, powered by solar arrays, to support AI advancements and reduce costs. This move could revolutionize the tech industry, with estimates suggesting a 10-20 year transition from Earth-based to space-based data processing.",
+        "source": "GeekWire",
+        "url": "https://www.geekwire.com/2025/jeff-bezos-orbital-data-centers-next-step/",
+        "quality_score": 92
       }
     },
     {
       "id": "quick_link_1",
       "type": "quick_link",
       "position": {
-        "row": 15,
-        "column": 6,
+        "row": 2,
+        "column": 1,
         "width": 6,
         "height": 1
       },
       "data": {
-        "title": "Raj Singh named Smartsheet CEO, returning to his enterprise tech roots in the Seattle area",
-        "summary": "Raj Singh, co‑founder of Concur, has been appointed CEO of Smartsheet, citing the company’s strong product base, AI potential, and personal ties to Seattle’s tech community.",
-        "source": "GeekWire",
-        "url": "https://www.geekwire.com/2025/raj-singh-named-smartsheet-ceo-returning-to-his-enterprise-software-roots-in-the-seattle-area/",
-        "quality_score": 70
+        "title": "IBM claims 45 productivity gains with Project Bob, its multi-model IDE that orchestrates LLMs with full repository context",
+        "summary": "IBM's Project Bob automates application modernization with multi-model IDE, achieving 45 productivity gains for internal developers. The tool integrates with LLMs and DevSecOps practices, addressing enterprise AI challenges.",
+        "source": "VentureBeat",
+        "url": "https://venturebeat.com/ai/ibm-claims-45-productivity-gains-with-project-bob-its-multi-model-ide-that",
+        "quality_score": 89
       }
     },
     {
-      "id": "quick_link_5",
+      "id": "quick_link_2",
       "type": "quick_link",
       "position": {
         "row": 16,
@@ -196,45 +144,97 @@
         "height": 1
       },
       "data": {
-        "title": "Deloitte will refund Australian government for AI hallucination-filled report",
-        "summary": "Deloitte Australia will partially refund the Australian government for a $440,000 report that contained AI‑generated hallucinations, including fabricated citations and nonexistent research.",
-        "source": "Ars Technica",
-        "url": "https://arstechnica.com/ai/2025/10/deloitte-will-refund-australian-government-for-ai-hallucination-filled-report/",
-        "quality_score": 69
+        "title": "AstraZeneca Signs Up For 555 Million AI Deal With Algen To Develop Therapies",
+        "summary": "AstraZeneca partners with Algen Biotechnologies to develop immune-related therapies using AI-powered gene-editing platform AlgenBrain, worth up to $555 million. This deal highlights the growing use of AI in drug development and AstraZeneca's efforts to advance its cell and gene therapy capabilities.",
+        "source": "Slashdot",
+        "url": "https://science.slashdot.org/story/25/10/06/2255243/astrazeneca-signs-up-for-555-million-ai-deal-with-algen-to-develop-therapies?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+        "quality_score": 89
       }
     },
     {
-      "id": "quick_link_2",
-      "type": "quick_link",
+      "id": "headline_1",
+      "type": "headline",
       "position": {
-        "row": 1,
+        "row": 3,
         "column": 1,
-        "width": 6,
-        "height": 1
+        "width": 5,
+        "height": 4
       },
       "data": {
-        "title": "OpenAIs new chip deals raise a tough question: Where will all the power come from?",
-        "summary": "OpenAI and AMD have struck a multibillion‑dollar agreement to deploy 6 GW of AI chips, underscoring the urgent need for dedicated power solutions as the electric grid strains under AI demand.",
-        "source": "Business Insider (Tech)",
-        "url": "https://www.businessinsider.com/openai-amd-deal-highlights-ai-strain-on-power-grid-2025-10",
-        "quality_score": 66
+        "title": "New platform, familiar risks: Zillow and Expedia bet on OpenAIs ChatGPT apps rollout",
+        "summary": "Zillow and Expedia join OpenAI's ChatGPT platform, offering users a conversational interface for home searches and trip planning. This move raises questions about control and potential trade-offs in the AI ecosystem.",
+        "source": "GeekWire",
+        "url": "https://www.geekwire.com/2025/new-platform-familiar-risks-zillow-and-expedia-bet-on-openais-chatgpt-apps-rollout/",
+        "quality_score": 92
+      }
+    },
+    {
+      "id": "github_repo_1",
+      "type": "github_repo",
+      "position": {
+        "row": 9,
+        "column": 10,
+        "width": 3,
+        "height": 3
+      },
+      "data": {
+        "name": "Infisical/infisical",
+        "description": "Infisical is an open-source platform for managing secrets, public key infrastructure (PKI), and SSH access securely. It provides a centralized solution for sensitive data management.",
+        "url": "https://github.com/Infisical/infisical",
+        "stars": 545,
+        "language": "TypeScript",
+        "rank": 1
+      }
+    },
+    {
+      "id": "headline_4",
+      "type": "headline",
+      "position": {
+        "row": 4,
+        "column": 8,
+        "width": 5,
+        "height": 4
+      },
+      "data": {
+        "title": "Amazons 379 iPad mini 7 deal shaves 120 off Apples smallest tablet",
+        "summary": "Amazon's Prime Big Deal Days sale has cut the iPad mini 7 price to $379, making it a more affordable option for those seeking power in a compact frame. This is the lowest price ever offered by Apple, making it a savvy buy for those craving a luxury tablet at a lower cost. The A17 Pro chip-powered device usually retails for $499.",
+        "source": "AppleInsider",
+        "url": "https://appleinsider.com/articles/25/10/07/amazons-379-ipad-mini-7-deal-shaves-120-off-apples-smallest-tablet?utm_source=rss",
+        "quality_score": 90
+      }
+    },
+    {
+      "id": "quick_link_5",
+      "type": "quick_link",
+      "position": {
+        "row": 15,
+        "column": 3,
+        "width": 4,
+        "height": 2
+      },
+      "data": {
+        "title": "Newest developer beta backtracks on one iPadOS 26 multitasking decision",
+        "summary": "Apple has added Slide Over support back into iPadOS 26.1, addressing user concerns over the removal of the feature in the previous beta. This change brings back a key multitasking feature, making the new system more flexible and predictable. Users can now invoke and dismiss Slide Over windows as needed.",
+        "source": "Ars Technica",
+        "url": "https://arstechnica.com/gadgets/2025/10/newest-developer-beta-backtracks-on-one-ipados-26-multitasking-decision/",
+        "quality_score": 89
       }
     },
     {
       "id": "quick_link_4",
       "type": "quick_link",
       "position": {
-        "row": 9,
-        "column": 2,
-        "width": 6,
-        "height": 1
+        "row": 14,
+        "column": 9,
+        "width": 4,
+        "height": 2
       },
       "data": {
-        "title": "Agentic Design Methodology: How to Build Reliable and Human-Like AI Agents using Parlant",
-        "summary": "The guide explains how to design AI agents that act reliably and safely by defining clear guidelines, canned responses, tool calls, and iterative journeys, using Parlant’s agentic methodology.",
-        "source": "MarkTechPost (AI News)",
-        "url": "https://www.marktechpost.com/2025/10/05/agentic-design-methodology-how-to-build-reliable-and-human-like-ai-agents-using-parlant/",
-        "quality_score": 66
+        "title": "Scientists enlist AI to map regions of the brain in unprecedented detail  and thats just the start",
+        "summary": "Scientists used AI to create a detailed map of the mouse brain, identifying 1,300 regions and subregions, including previously uncharted areas. This breakthrough could lead to more targeted and precise treatments for neurological ailments.",
+        "source": "GeekWire",
+        "url": "https://www.geekwire.com/2025/ai-map-brain-regions/",
+        "quality_score": 89
       }
     },
     {
@@ -242,63 +242,131 @@
       "type": "stock",
       "position": {
         "row": 1,
-        "column": 10,
+        "column": 7,
         "width": 2,
         "height": 2
       },
       "data": {
         "symbol": "NVDA",
-        "price": 185.54,
-        "change": -2.08,
-        "change_percent": -1.1086,
+        "price": 185.001,
+        "change": -0.539,
+        "change_percent": -0.2905,
         "company_name": "NVIDIA Corp"
+      }
+    },
+    {
+      "id": "stock_3",
+      "type": "stock",
+      "position": {
+        "row": 6,
+        "column": 6,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "AAPL",
+        "price": 256.48,
+        "change": -0.21,
+        "change_percent": -0.0818,
+        "company_name": "Apple Inc"
+      }
+    },
+    {
+      "id": "stock_4",
+      "type": "stock",
+      "position": {
+        "row": 10,
+        "column": 8,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "GOOGL",
+        "price": 245.76,
+        "change": -4.67,
+        "change_percent": -1.8648,
+        "company_name": "Alphabet Inc"
       }
     },
     {
       "id": "stock_5",
       "type": "stock",
       "position": {
-        "row": 8,
-        "column": 10,
+        "row": 11,
+        "column": 1,
         "width": 2,
         "height": 2
       },
       "data": {
-        "symbol": "AAPL",
-        "price": 256.69,
-        "change": -1.33,
-        "change_percent": -0.5155,
-        "company_name": "Apple Inc"
+        "symbol": "AMZN",
+        "price": 221.761,
+        "change": 0.861,
+        "change_percent": 0.3898,
+        "company_name": "Amazon.com Inc"
       }
     },
     {
       "id": "stock_7",
       "type": "stock",
       "position": {
-        "row": 10,
-        "column": 4,
+        "row": 12,
+        "column": 10,
         "width": 2,
         "height": 2
       },
       "data": {
-        "symbol": "GOOGL",
-        "price": 250.43,
-        "change": 5.08,
-        "change_percent": 2.0705,
-        "company_name": "Alphabet Inc"
+        "symbol": "META",
+        "price": 713.08,
+        "change": -2.58,
+        "change_percent": -0.3605,
+        "company_name": "Meta Platforms Inc"
+      }
+    },
+    {
+      "id": "stock_9",
+      "type": "stock",
+      "position": {
+        "row": 13,
+        "column": 1,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "MSFT",
+        "price": 523.98,
+        "change": -4.59,
+        "change_percent": -0.8684,
+        "company_name": "Microsoft Corp"
+      }
+    },
+    {
+      "id": "stock_11",
+      "type": "stock",
+      "position": {
+        "row": 15,
+        "column": 1,
+        "width": 2,
+        "height": 2
+      },
+      "data": {
+        "symbol": "TSLA",
+        "price": 433.09,
+        "change": -20.16,
+        "change_percent": -4.4479,
+        "company_name": "Tesla Inc"
       }
     },
     {
       "id": "day_1",
       "type": "day_number",
       "position": {
-        "row": 3,
-        "column": 8,
+        "row": 1,
+        "column": 1,
         "width": 2,
         "height": 1
       },
       "data": {
-        "day_number": 16
+        "day_number": 17
       }
     },
     {
@@ -306,12 +374,12 @@
       "type": "bit",
       "position": {
         "row": 1,
-        "column": 7,
+        "column": 3,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 0
+        "value": 1
       }
     },
     {
@@ -319,20 +387,20 @@
       "type": "bit",
       "position": {
         "row": 1,
-        "column": 12,
+        "column": 4,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 0
+        "value": 1
       }
     },
     {
       "id": "bit_3",
       "type": "bit",
       "position": {
-        "row": 2,
-        "column": 1,
+        "row": 1,
+        "column": 5,
         "width": 1,
         "height": 1
       },
@@ -344,8 +412,8 @@
       "id": "bit_4",
       "type": "bit",
       "position": {
-        "row": 2,
-        "column": 12,
+        "row": 1,
+        "column": 6,
         "width": 1,
         "height": 1
       },
@@ -357,21 +425,21 @@
       "id": "bit_5",
       "type": "bit",
       "position": {
-        "row": 3,
-        "column": 1,
+        "row": 1,
+        "column": 9,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
       "id": "bit_6",
       "type": "bit",
       "position": {
-        "row": 3,
-        "column": 10,
+        "row": 1,
+        "column": 12,
         "width": 1,
         "height": 1
       },
@@ -383,112 +451,86 @@
       "id": "bit_7",
       "type": "bit",
       "position": {
-        "row": 3,
-        "column": 11,
+        "row": 2,
+        "column": 9,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
       "id": "bit_8",
       "type": "bit",
       "position": {
-        "row": 3,
+        "row": 2,
         "column": 12,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
       "id": "bit_9",
       "type": "bit",
       "position": {
-        "row": 4,
-        "column": 1,
+        "row": 3,
+        "column": 6,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 0
+        "value": 1
       }
     },
     {
       "id": "bit_10",
       "type": "bit",
       "position": {
-        "row": 4,
-        "column": 2,
+        "row": 8,
+        "column": 10,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 0
+        "value": 1
       }
     },
     {
       "id": "bit_11",
       "type": "bit",
       "position": {
-        "row": 4,
-        "column": 3,
+        "row": 8,
+        "column": 11,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
+        "value": 0
       }
     },
     {
       "id": "bit_12",
       "type": "bit",
       "position": {
-        "row": 4,
-        "column": 4,
+        "row": 8,
+        "column": 12,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 0
+        "value": 1
       }
     },
     {
       "id": "bit_13",
       "type": "bit",
       "position": {
-        "row": 4,
-        "column": 5,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_14",
-      "type": "bit",
-      "position": {
-        "row": 4,
+        "row": 10,
         "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_15",
-      "type": "bit",
-      "position": {
-        "row": 4,
-        "column": 12,
         "width": 1,
         "height": 1
       },
@@ -497,11 +539,37 @@
       }
     },
     {
+      "id": "bit_14",
+      "type": "bit",
+      "position": {
+        "row": 10,
+        "column": 7,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 0
+      }
+    },
+    {
+      "id": "bit_15",
+      "type": "bit",
+      "position": {
+        "row": 12,
+        "column": 12,
+        "width": 1,
+        "height": 1
+      },
+      "data": {
+        "value": 1
+      }
+    },
+    {
       "id": "bit_16",
       "type": "bit",
       "position": {
-        "row": 5,
-        "column": 6,
+        "row": 13,
+        "column": 12,
         "width": 1,
         "height": 1
       },
@@ -513,8 +581,8 @@
       "id": "bit_17",
       "type": "bit",
       "position": {
-        "row": 5,
-        "column": 12,
+        "row": 14,
+        "column": 8,
         "width": 1,
         "height": 1
       },
@@ -526,8 +594,8 @@
       "id": "bit_18",
       "type": "bit",
       "position": {
-        "row": 6,
-        "column": 6,
+        "row": 15,
+        "column": 7,
         "width": 1,
         "height": 1
       },
@@ -539,273 +607,13 @@
       "id": "bit_19",
       "type": "bit",
       "position": {
-        "row": 6,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_20",
-      "type": "bit",
-      "position": {
-        "row": 7,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_21",
-      "type": "bit",
-      "position": {
-        "row": 7,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_22",
-      "type": "bit",
-      "position": {
-        "row": 8,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_23",
-      "type": "bit",
-      "position": {
-        "row": 8,
-        "column": 7,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_24",
-      "type": "bit",
-      "position": {
-        "row": 8,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_25",
-      "type": "bit",
-      "position": {
-        "row": 9,
-        "column": 1,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_26",
-      "type": "bit",
-      "position": {
-        "row": 9,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_27",
-      "type": "bit",
-      "position": {
-        "row": 10,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_28",
-      "type": "bit",
-      "position": {
-        "row": 10,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_29",
-      "type": "bit",
-      "position": {
-        "row": 11,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_30",
-      "type": "bit",
-      "position": {
-        "row": 11,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_31",
-      "type": "bit",
-      "position": {
-        "row": 12,
-        "column": 4,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_32",
-      "type": "bit",
-      "position": {
-        "row": 12,
-        "column": 5,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_33",
-      "type": "bit",
-      "position": {
-        "row": 12,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_34",
-      "type": "bit",
-      "position": {
-        "row": 12,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_35",
-      "type": "bit",
-      "position": {
-        "row": 13,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_36",
-      "type": "bit",
-      "position": {
-        "row": 13,
-        "column": 12,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 0
-      }
-    },
-    {
-      "id": "bit_37",
-      "type": "bit",
-      "position": {
-        "row": 14,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_38",
-      "type": "bit",
-      "position": {
         "row": 15,
-        "column": 12,
+        "column": 8,
         "width": 1,
         "height": 1
       },
       "data": {
-        "value": 1
-      }
-    },
-    {
-      "id": "bit_39",
-      "type": "bit",
-      "position": {
-        "row": 16,
-        "column": 6,
-        "width": 1,
-        "height": 1
-      },
-      "data": {
-        "value": 1
+        "value": 0
       }
     }
   ]

@@ -41,7 +41,7 @@ export default function GitRepoComponent({ component }: Props) {
         </div>
 
         {/* Description */}
-        <p className="text-xs text-muted-foreground flex-1 break-words overflow-hidden">
+        <p className="text-[10px] text-muted-foreground flex-1 break-words overflow-hidden">
           {description}
         </p>
       </div>

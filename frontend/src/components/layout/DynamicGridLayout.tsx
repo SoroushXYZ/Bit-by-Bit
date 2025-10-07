@@ -18,9 +18,10 @@ export default function DynamicGridLayout({ layout }: Props) {
             display: 'grid',
             gridTemplateColumns: `repeat(${gridConfig.columns}, minmax(0, 1fr))`,
             gridTemplateRows: `repeat(${gridConfig.rows}, minmax(0, 1fr))`,
-            gap: '0.5rem',
-            width: `${gridConfig.columns * gridConfig.cellSize + (gridConfig.columns - 1) * 8 + 32}px`,
-            height: `${gridConfig.rows * gridConfig.cellSize + (gridConfig.rows - 1) * 8 + 32}px`,
+            // Slightly reduce the gap between grid items from 8px to 6px
+            gap: '0.375rem',
+            width: `${gridConfig.columns * gridConfig.cellSize + (gridConfig.columns - 1) * 6 + 32}px`,
+            height: `${gridConfig.rows * gridConfig.cellSize + (gridConfig.rows - 1) * 6 + 32}px`,
             margin: '0 auto'
           }}
         >
