@@ -615,6 +615,14 @@
       "category": "Tech News",
       "description": "Technology news and reviews",
       "score": 0.7
+    },
+    {
+      "name": "Arduino Blog",
+      "url": "https://blog.arduino.cc/feed/",
+      "enabled": true,
+      "category": "Hardware/Gadgets",
+      "description": "Arduino official blog covering hardware, IoT, maker projects, and developer content",
+      "score": 0.85
     }
   ],
   "settings": {
