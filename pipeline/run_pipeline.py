@@ -43,6 +43,9 @@ def main():
         # Load configuration first to get run_id
         config_loader = load_pipeline_config(args.config)
         run_id = getattr(config_loader, 'run_id', 'unknown')
+        # Export run_id so any early logger fallbacks use run-scoped path
+        import os
+        os.environ['BITBYBIT_RUN_ID'] = run_id
         
         # Reset any existing logger and initialize with run-scoped directory
         reset_logger()

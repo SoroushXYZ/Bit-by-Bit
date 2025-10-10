@@ -82,11 +82,13 @@ def load_logger_config(config_path: str) -> PipelineLogger:
             config = json.load(f)
         return PipelineLogger(config['logging'])
     except Exception as e:
-        # Fallback logger if config loading fails
+        # Fallback logger if config loading fails; honor run-scoped logging if available
+        run_id = os.getenv('BITBYBIT_RUN_ID')
+        fallback_file = f"data/{run_id}/logs/pipeline.log" if run_id else 'logs/pipeline.log'
         fallback_config = {
             'level': 'INFO',
             'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            'file': 'pipeline/logs/pipeline.log',
+            'file': fallback_file,
             'max_size_mb': 100,
             'backup_count': 5
         }
@@ -102,11 +104,13 @@ def get_logger() -> PipelineLogger:
     global _logger
     if _logger is None:
         # If no logger has been initialized, create a temporary one
-        # This should not happen in normal operation since initialize_logger should be called first
+        # Prefer run-scoped path if BITBYBIT_RUN_ID is set
+        run_id = os.getenv('BITBYBIT_RUN_ID')
+        fallback_file = f"data/{run_id}/logs/pipeline.log" if run_id else 'logs/pipeline.log'
         fallback_config = {
             'level': 'INFO',
             'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            'file': 'logs/pipeline.log',
+            'file': fallback_file,
             'max_size_mb': 100,
             'backup_count': 5
         }

@@ -6,7 +6,7 @@ Creates clean, formatted output with pipeline visualization data.
 
 import json
 import os
-import logging
+from src.utils.logger import get_logger
 from datetime import datetime
 from typing import Dict, Any, List
 from pathlib import Path
@@ -22,8 +22,8 @@ class NewsletterGenerationStep:
         self.output_dir = Path(self.data_paths['processed'])
         self.output_dir.mkdir(exist_ok=True)
         
-        # Setup logging
-        self.logger = logging.getLogger(f"pipeline.{self.step_name}")
+        # Setup logging (run-scoped)
+        self.logger = get_logger()
         
     def execute(self) -> Dict[str, Any]:
         """Execute the newsletter generation step."""

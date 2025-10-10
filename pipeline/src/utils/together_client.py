@@ -7,7 +7,7 @@ replacing the existing Ollama-based implementations.
 
 import json
 import time
-import logging
+from src.utils.logger import get_logger
 from typing import Dict, List, Any, Optional
 from together import Together
 
@@ -42,7 +42,7 @@ class TogetherAIClient:
         self.max_retries = max_retries
         self.timeout_seconds = timeout_seconds
         self.retry_delay = retry_delay
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_logger()
     
     def generate_completion(self, prompt: str, system_message: Optional[str] = None) -> str:
         """
