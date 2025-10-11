@@ -21,6 +21,7 @@ from src.processing import (
 from src.processing.github_trending_processing import GitHubTrendingProcessor
 from src.gridding import GriddingProcessor, GridDataFiller
 from src.database import DatabaseWriter
+from src.upload import UploadManager
 
 
 def main():
@@ -29,7 +30,7 @@ def main():
     parser.add_argument('--config', default='config/pipeline_config.json',
                        help='Path to pipeline configuration file')
     parser.add_argument('--step', choices=[
-        'data_collection', 'processing', 'gridding', 'data_filling', 'database', 'all',
+        'data_collection', 'processing', 'gridding', 'data_filling', 'database', 'upload', 'all',
         'content_filtering', 'ad_detection', 'llm_quality_scoring', 
         'deduplication', 'article_prioritization', 'summarization', 'newsletter_generation',
         'github_trending_processing'
@@ -74,6 +75,7 @@ def main():
         stock_collector = StockDataCollector(config_loader)
         gridding_processor = GriddingProcessor(config_loader)
         database_writer = DatabaseWriter(config_loader)
+        upload_manager = UploadManager(config_loader)
         
         # Execute steps
         if args.step == 'all' or args.step == 'data_collection':
@@ -251,6 +253,20 @@ def main():
                 return 1
             logger.info(f"✅ GitHub trending processing: {github_result.get('processed_count', 0)} repositories processed")
         
+        elif args.step == 'upload':
+            logger.info("☁️ Running upload step only")
+            upload_result = upload_manager.upload_run(run_id)
+            if upload_result['success']:
+                if upload_result.get('skipped'):
+                    logger.info(f"✅ Upload skipped: {upload_result.get('message')}")
+                else:
+                    logger.info(f"✅ Upload completed: {upload_result.get('s3_result', {}).get('total_files_uploaded', 0)} files uploaded")
+                    if upload_result.get('backend_result', {}).get('success'):
+                        logger.info("📡 Backend notification sent")
+            else:
+                logger.error(f"❌ Upload failed: {upload_result.get('error')}")
+                return 1
+        
         elif args.step == 'gridding':
             logger.info("🎯 Running gridding step only")
             gridding_processor = GriddingProcessor(config_loader)
@@ -308,6 +324,22 @@ def main():
             logger.info("💾 Executing database step")
             # TODO: Implement database operations
             logger.info("  🗄️ Database step - data persistence")
+        
+        # Upload step (only for full pipeline runs)
+        if args.step == 'all':
+            logger.info("☁️ Executing upload step")
+            upload_result = upload_manager.upload_run(run_id)
+            if upload_result['success']:
+                if upload_result.get('skipped'):
+                    logger.info(f"  ⏭️ Upload skipped: {upload_result.get('message')}")
+                else:
+                    logger.info(f"  ✅ Upload completed: {upload_result.get('s3_result', {}).get('total_files_uploaded', 0)} files uploaded")
+                    if upload_result.get('backend_result', {}).get('success'):
+                        logger.info("  📡 Backend notification sent")
+            else:
+                logger.error(f"  ❌ Upload failed: {upload_result.get('error')}")
+                # Don't fail the entire pipeline for upload errors
+                logger.warning("  ⚠️ Continuing despite upload failure")
         
         logger.info("✅ Pipeline execution completed successfully")
         return 0
