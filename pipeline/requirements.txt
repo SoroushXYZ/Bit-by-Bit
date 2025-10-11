@@ -28,3 +28,7 @@ protobuf
 # LLM integration
 together
 ollama
+
+# AWS S3 integration
+boto3>=1.26.0
+botocore>=1.29.0

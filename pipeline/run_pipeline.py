@@ -34,6 +34,8 @@ def main():
         'deduplication', 'article_prioritization', 'summarization', 'newsletter_generation',
         'github_trending_processing'
     ], default='all', help='Specific step to run or all steps')
+    parser.add_argument('--env', choices=['development', 'production'],
+                       help='Override environment (development or production)')
     parser.add_argument('--verbose', '-v', action='store_true',
                        help='Enable verbose logging')
     

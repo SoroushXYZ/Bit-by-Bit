@@ -97,3 +97,16 @@ class EnvLoader:
         """
         api_key = self.get_api_key(service)
         return api_key is not None and api_key != "your_api_key_here"
+    
+    def get_env_var(self, var_name: str, default: Optional[str] = None) -> Optional[str]:
+        """
+        Get an environment variable with optional default value.
+        
+        Args:
+            var_name: Environment variable name
+            default: Default value if variable not found
+            
+        Returns:
+            Environment variable value or default
+        """
+        return os.getenv(var_name, default)
