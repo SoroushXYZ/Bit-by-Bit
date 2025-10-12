@@ -3,7 +3,7 @@ Bit-by-Bit Backend API
 FastAPI application for managing pipeline data from S3.
 """
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List
 import os
@@ -33,6 +33,40 @@ app.add_middleware(
 # Initialize S3 service (lazy initialization)
 s3_service = None
 local_sync_service = None
+
+# IP Whitelist configuration
+def get_allowed_ips():
+    """Get list of allowed IP addresses from environment."""
+    allowed_ips_str = os.getenv("ALLOWED_IPS", "0.0.0.0")
+    if not allowed_ips_str or allowed_ips_str.strip() == "":
+        return ["0.0.0.0"]  # Default to allow all
+    
+    # Split by comma and clean up
+    allowed_ips = [ip.strip() for ip in allowed_ips_str.split(",") if ip.strip()]
+    
+    # If empty after cleaning, default to allow all
+    if not allowed_ips:
+        return ["0.0.0.0"]
+    
+    return allowed_ips
+
+def check_ip_whitelist(request: Request):
+    """Check if client IP is in whitelist."""
+    client_ip = request.client.host
+    allowed_ips = get_allowed_ips()
+    
+    # Allow all if 0.0.0.0 is in the list
+    if "0.0.0.0" in allowed_ips:
+        return True
+    
+    # Check if client IP is in allowed list
+    if client_ip not in allowed_ips:
+        raise HTTPException(
+            status_code=403, 
+            detail=f"Access denied. IP {client_ip} not in whitelist. Allowed IPs: {', '.join(allowed_ips)}"
+        )
+    
+    return True
 
 def get_s3_service():
     """Get S3 service instance (lazy initialization)."""
@@ -81,7 +115,7 @@ async def health_check():
         }
 
 @app.get("/data/runs")
-async def get_runs():
+async def get_runs(request: Request, _: bool = Depends(check_ip_whitelist)):
     """Get all available pipeline runs."""
     try:
         s3 = get_s3_service()
@@ -95,7 +129,7 @@ async def get_runs():
         raise HTTPException(status_code=500, detail=f"Failed to fetch runs: {str(e)}")
 
 @app.get("/data/runs/{run_id}")
-async def get_run_data(run_id: str, summary: bool = Query(False, description="Return summary only")):
+async def get_run_data(run_id: str, request: Request, summary: bool = Query(False, description="Return summary only"), _: bool = Depends(check_ip_whitelist)):
     """Get data for a specific pipeline run."""
     try:
         s3 = get_s3_service()
@@ -117,7 +151,7 @@ async def get_run_data(run_id: str, summary: bool = Query(False, description="Re
         raise HTTPException(status_code=500, detail=f"Failed to fetch run data: {str(e)}")
 
 @app.get("/data/runs/latest")
-async def get_latest_run():
+async def get_latest_run(request: Request, _: bool = Depends(check_ip_whitelist)):
     """Get the most recent pipeline run."""
     try:
         s3 = get_s3_service()
@@ -135,7 +169,7 @@ async def get_latest_run():
         raise HTTPException(status_code=500, detail=f"Failed to fetch latest run: {str(e)}")
 
 @app.post("/data/update")
-async def update_data():
+async def update_data(request: Request, _: bool = Depends(check_ip_whitelist)):
     """Update/sync data from S3 bucket."""
     try:
         s3 = get_s3_service()
@@ -149,7 +183,7 @@ async def update_data():
         raise HTTPException(status_code=500, detail=f"Failed to sync data: {str(e)}")
 
 @app.get("/data/stats")
-async def get_stats():
+async def get_stats(request: Request, _: bool = Depends(check_ip_whitelist)):
     """Get overall statistics about pipeline runs."""
     try:
         s3 = get_s3_service()
@@ -182,7 +216,7 @@ async def get_stats():
 
 # Local sync endpoints
 @app.post("/sync/local")
-async def sync_local_data():
+async def sync_local_data(request: Request, _: bool = Depends(check_ip_whitelist)):
     """Sync all data from S3 to local storage."""
     try:
         sync_service = get_local_sync_service()
