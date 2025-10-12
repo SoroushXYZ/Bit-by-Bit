@@ -27,12 +27,37 @@ uvicorn main:app --reload
 
 ## API Endpoints
 
-- `GET /` - Root endpoint
-- `GET /health` - Health check
+### Core Endpoints
+- `GET /` - Root endpoint with basic info
+- `GET /health` - Health check with S3 connection status
+
+### Data Management
 - `GET /data/runs` - List all pipeline runs
-- `POST /data/update` - Update data from S3
+- `GET /data/runs/{run_id}` - Get specific run data (full or summary)
+- `GET /data/runs/latest` - Get the most recent run
+- `GET /data/stats` - Get overall statistics
+- `POST /data/update` - Sync/update data from S3
+
+### Query Parameters
+- `?summary=true` - Return summary only for run data
+
+## Testing
+
+Run the test script:
+```bash
+python test_api.py
+```
 
 ## Configuration
 
 See `.env.example` for available configuration options.
+
+## Features
+
+- ✅ S3 data fetching and management
+- ✅ Environment-aware bucket selection
+- ✅ Run metadata and file content retrieval
+- ✅ Statistics and health monitoring
+- ✅ Public endpoints (no authentication)
+- ✅ CORS enabled for frontend integration
 
