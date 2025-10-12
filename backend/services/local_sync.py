@@ -16,9 +16,9 @@ from botocore.exceptions import ClientError, NoCredentialsError
 class LocalSyncService:
     """Service for syncing data between S3 and local storage."""
     
-    def __init__(self, s3_service, local_data_dir: str = "data"):
+    def __init__(self, s3_service):
         self.s3_service = s3_service
-        self.local_data_dir = local_data_dir
+        self.local_data_dir = "data"
         self.s3_client = s3_service.s3_client
         self.bucket_name = s3_service.bucket_name
         
