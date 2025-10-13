@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 from services.s3_service import S3Service
 from services.local_sync import LocalSyncService
+from services.newsletter_service import NewsletterService
 
 # Load environment variables
 load_dotenv()
@@ -30,9 +31,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize S3 service (lazy initialization)
+# Initialize services (lazy initialization)
 s3_service = None
 local_sync_service = None
+newsletter_service = None
 
 # IP Whitelist configuration
 def get_allowed_ips():
@@ -83,6 +85,13 @@ def get_local_sync_service():
         local_sync_service = LocalSyncService(s3)
     return local_sync_service
 
+def get_newsletter_service():
+    """Get newsletter service instance (lazy initialization)."""
+    global newsletter_service
+    if newsletter_service is None:
+        newsletter_service = NewsletterService()
+    return newsletter_service
+
 @app.get("/")
 async def root():
     """Root endpoint."""
@@ -127,6 +136,20 @@ async def sync_data(request: Request, _: bool = Depends(check_ip_whitelist)):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to sync data: {str(e)}")
+
+@app.get("/newsletter/dates")
+async def get_newsletter_dates():
+    """Get all available newsletter dates from local data folder."""
+    try:
+        newsletter_service = get_newsletter_service()
+        dates = newsletter_service.get_available_dates()
+        return {
+            "status": "success",
+            "total_dates": len(dates),
+            "dates": dates
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get newsletter dates: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
