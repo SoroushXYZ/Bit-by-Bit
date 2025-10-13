@@ -158,6 +158,7 @@ export const mockNewsletterLayout: NewsletterLayout = {
         "height": 2
       },
       "clickable": false,
+      "url": null,
       "text": "BIT",
       "variant": "bit"
     },
@@ -171,6 +172,7 @@ export const mockNewsletterLayout: NewsletterLayout = {
         "height": 2
       },
       "clickable": false,
+      "url": null,
       "text": "BY",
       "variant": "by"
     },
@@ -184,6 +186,7 @@ export const mockNewsletterLayout: NewsletterLayout = {
         "height": 2
       },
       "clickable": false,
+      "url": null,
       "text": "BIT",
       "variant": "bit-final"
     },
