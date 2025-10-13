@@ -10,7 +10,7 @@ export interface BaseComponent {
   type: 'headline' | 'secondary' | 'quickLink' | 'branding' | 'gitRepo' | 'stock' | 'image' | 'icon' | 'bit' | 'day';
   position: GridPosition;
   clickable: boolean;
-  url?: string;
+  url?: string | null;
 }
 
 export interface HeadlineComponent extends BaseComponent {
