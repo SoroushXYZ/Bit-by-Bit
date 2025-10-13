@@ -229,18 +229,93 @@ class LocalSyncService:
             }
     
     def _sync_run(self, run_id: str) -> Dict[str, Any]:
-        """Sync an existing run (check if S3 is newer)."""
+        """Sync an existing run with file-level timestamp comparison."""
         try:
-            # For now, just re-download to ensure sync
-            # In the future, we could compare timestamps
             local_run_dir = os.path.join(self.local_data_dir, run_id)
             
-            if os.path.exists(local_run_dir):
-                # Remove existing local files
-                shutil.rmtree(local_run_dir)
+            if not os.path.exists(local_run_dir):
+                # Local run doesn't exist, download it
+                return self._download_run(run_id)
             
-            # Download fresh from S3
-            return self._download_run(run_id)
+            # Get S3 run data
+            run_data = self.s3_service.get_run_data(run_id)
+            if not run_data:
+                return {
+                    'run_id': run_id,
+                    'status': 'error',
+                    'error': 'No data found in S3 run'
+                }
+            
+            # Get categorized files from S3
+            categorized_files = {
+                'raw': run_data.get('raw_data', {}).get('files', []),
+                'processed': run_data.get('processed_data', {}).get('files', []),
+                'output': run_data.get('output_data', {}).get('files', []),
+                'logs': run_data.get('logs', {}).get('files', [])
+            }
+            
+            # Track sync results
+            files_downloaded = 0
+            files_skipped = 0
+            files_updated = 0
+            
+            # Ensure folder structure exists
+            folders = ['raw', 'processed', 'output', 'logs']
+            for folder in folders:
+                os.makedirs(os.path.join(local_run_dir, folder), exist_ok=True)
+            
+            # Sync each category
+            for category, s3_files in categorized_files.items():
+                for s3_file in s3_files:
+                    local_file_path = os.path.join(local_run_dir, category, s3_file['name'])
+                    
+                    # Check if file needs updating
+                    should_download = self._should_download_file(s3_file, local_file_path)
+                    
+                    if should_download:
+                        # Download file from S3
+                        self.s3_client.download_file(
+                            self.bucket_name,
+                            s3_file['key'],
+                            local_file_path
+                        )
+                        files_downloaded += 1
+                        
+                        # Check if this was an update or new file
+                        if os.path.exists(local_file_path):
+                            files_updated += 1
+                    else:
+                        files_skipped += 1
+            
+            # Update local metadata
+            metadata = {
+                'run_id': run_id,
+                'last_synced_at': datetime.now().isoformat(),
+                'files_downloaded': files_downloaded,
+                'files_skipped': files_skipped,
+                'files_updated': files_updated,
+                'source': 's3_incremental_sync',
+                'folder_structure': {
+                    'raw': len(categorized_files.get('raw', [])),
+                    'processed': len(categorized_files.get('processed', [])),
+                    'output': len(categorized_files.get('output', [])),
+                    'logs': len(categorized_files.get('logs', []))
+                }
+            }
+            
+            metadata_path = os.path.join(local_run_dir, 'local_metadata.json')
+            with open(metadata_path, 'w') as f:
+                json.dump(metadata, f, indent=2)
+            
+            return {
+                'run_id': run_id,
+                'status': 'synced',
+                'files_downloaded': files_downloaded,
+                'files_skipped': files_skipped,
+                'files_updated': files_updated,
+                'local_path': local_run_dir,
+                'folder_structure': metadata['folder_structure']
+            }
             
         except Exception as e:
             return {
@@ -248,6 +323,29 @@ class LocalSyncService:
                 'status': 'error',
                 'error': str(e)
             }
+    
+    def _should_download_file(self, s3_file: Dict[str, Any], local_file_path: str) -> bool:
+        """Check if a file should be downloaded based on timestamp comparison."""
+        try:
+            # If local file doesn't exist, download it
+            if not os.path.exists(local_file_path):
+                return True
+            
+            # Get S3 file timestamp
+            s3_timestamp = datetime.fromisoformat(s3_file['last_modified'].replace('Z', '+00:00'))
+            
+            # Get local file timestamp
+            local_timestamp = datetime.fromtimestamp(os.path.getmtime(local_file_path))
+            
+            # Convert S3 timestamp to local timezone for comparison
+            s3_timestamp_local = s3_timestamp.replace(tzinfo=None)
+            
+            # Download if S3 file is newer
+            return s3_timestamp_local > local_timestamp
+            
+        except Exception:
+            # If we can't compare timestamps, download the file
+            return True
     
     def get_local_run_data(self, run_id: str) -> Optional[Dict[str, Any]]:
         """Get data for a local run."""
