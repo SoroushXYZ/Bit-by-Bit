@@ -151,6 +151,39 @@ async def get_newsletter_dates():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get newsletter dates: {str(e)}")
 
+@app.get("/newsletter/grid")
+async def get_newsletter_grid(date: Optional[str] = Query(None, description="Date in YYYY-MM-DD format. If not provided, returns latest")):
+    """Get filled grid blueprint for newsletter."""
+    try:
+        newsletter_service = get_newsletter_service()
+        
+        if date:
+            # Get latest run for specific date
+            run_data = newsletter_service.get_latest_run_for_date(date)
+            if not run_data:
+                raise HTTPException(status_code=404, detail=f"No data found for date: {date}")
+        else:
+            # Get latest run overall
+            run_data = newsletter_service.get_latest_run()
+            if not run_data:
+                raise HTTPException(status_code=404, detail="No newsletter data found")
+        
+        # Get the filled grid blueprint from output folder
+        grid_data = newsletter_service.get_filled_grid_blueprint(run_data['run_id'])
+        if not grid_data:
+            raise HTTPException(status_code=404, detail="Filled grid blueprint not found")
+        
+        return {
+            "status": "success",
+            "run_id": run_data['run_id'],
+            "date": run_data.get('date'),
+            "grid_data": grid_data
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get newsletter grid: {str(e)}")
+
 if __name__ == "__main__":
     import uvicorn
     
