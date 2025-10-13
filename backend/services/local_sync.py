@@ -417,36 +417,3 @@ class LocalSyncService:
         except Exception as e:
             return None
     
-    def _categorize_files(self, files: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
-        """Categorize files based on their names (same as S3Service)."""
-        categories = {
-            'raw': [],
-            'processed': [],
-            'output': [],
-            'logs': []
-        }
-        
-        for file_info in files:
-            file_name = file_info['name']
-            
-            # Categorize based on file name patterns
-            if file_name.endswith('.log'):
-                categories['logs'].append(file_info)
-            elif any(pattern in file_name for pattern in ['rss_raw', 'github_trending', 'grid_blueprint']):
-                categories['raw'].append(file_info)
-            elif any(pattern in file_name for pattern in ['newsletter_output', 'filled_grid']):
-                categories['output'].append(file_info)
-            else:
-                # Most other files are processed
-                categories['processed'].append(file_info)
-        
-        # Convert to the expected format
-        result = {}
-        for category, file_list in categories.items():
-            result[category] = {
-                'folder': category,
-                'files': file_list,
-                'total_files': len(file_list)
-            }
-        
-        return result

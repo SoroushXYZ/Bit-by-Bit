@@ -190,7 +190,7 @@ class S3Service:
             return []
     
     def _categorize_files(self, files: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
-        """Categorize files based on their names."""
+        """Categorize files based on their S3 folder structure."""
         categories = {
             'raw': [],
             'processed': [],
@@ -199,17 +199,22 @@ class S3Service:
         }
         
         for file_info in files:
-            file_name = file_info['name']
+            s3_key = file_info['key']
             
-            # Categorize based on file name patterns
-            if file_name.endswith('.log'):
-                categories['logs'].append(file_info)
-            elif any(pattern in file_name for pattern in ['rss_raw', 'github_trending', 'grid_blueprint']):
-                categories['raw'].append(file_info)
-            elif any(pattern in file_name for pattern in ['newsletter_output', 'filled_grid']):
-                categories['output'].append(file_info)
+            # Extract folder from S3 key path: runs/{run_id}/{folder}/{filename}
+            # Expected format: runs/20251013_155733/raw/file.json
+            key_parts = s3_key.split('/')
+            if len(key_parts) >= 3:
+                folder_name = key_parts[2]  # This should be 'raw', 'processed', 'output', or 'logs'
+                
+                # Only categorize if it's one of our expected folders
+                if folder_name in categories:
+                    categories[folder_name].append(file_info)
+                else:
+                    # If folder doesn't match expected categories, put in processed as fallback
+                    categories['processed'].append(file_info)
             else:
-                # Most other files are processed
+                # If key structure is unexpected, put in processed as fallback
                 categories['processed'].append(file_info)
         
         # Convert to the expected format
