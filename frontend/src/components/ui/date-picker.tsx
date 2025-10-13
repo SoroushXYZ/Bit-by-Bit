@@ -21,7 +21,13 @@ export default function DatePicker({
   // Format date for display
   const formatDisplayDate = (dateStr: string | null) => {
     if (!dateStr) return 'Latest Newsletter';
-    const date = new Date(dateStr);
+    // Parse date in local timezone to avoid timezone issues
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    
+    // Debug logging (remove in production)
+    console.log('Formatting date:', { dateStr, year, month, day, date: date.toISOString() });
+    
     return date.toLocaleDateString('en-US', { 
       weekday: 'long', 
       year: 'numeric', 
