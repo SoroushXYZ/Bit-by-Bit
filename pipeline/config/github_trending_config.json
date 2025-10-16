@@ -15,7 +15,7 @@
   },
   "filtering": {
     "english_only": true,
-    "min_stars": 10,
+    "min_stars": 0,
     "exclude_patterns": [
       "test",
       "example",
