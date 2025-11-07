@@ -3,15 +3,12 @@ import {
   Toolbar,
   Typography,
   Box,
-  Button,
   Container,
   useTheme,
   alpha,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import ThemeToggle from '@/components/theme/ThemeToggle';
-import DatePicker from '@/components/ui/DatePicker';
-import { useNewsletterContext } from '@/contexts/NewsletterContext';
 
 /**
  * Desktop-optimized navbar with horizontal navigation
@@ -19,13 +16,6 @@ import { useNewsletterContext } from '@/contexts/NewsletterContext';
 export default function DesktopNavbar() {
   const router = useRouter();
   const theme = useTheme();
-  const { selectedDate, availableDates, newsletterDate, selectDate } = useNewsletterContext();
-
-  const menuItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Newsletters', href: '/newsletters' },
-    { label: 'About', href: '/about' },
-  ];
 
   return (
     <AppBar
@@ -68,43 +58,7 @@ export default function DesktopNavbar() {
             Bit-by-Bit
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-            <DatePicker
-              selectedDate={selectedDate}
-              availableDates={availableDates}
-              newsletterDate={newsletterDate}
-              onDateSelect={selectDate}
-            />
-          </Box>
-
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            {menuItems.map((item) => {
-              const isActive = router.pathname === item.href;
-              return (
-                <Button
-                  key={item.label}
-                  onClick={() => router.push(item.href)}
-                  sx={{
-                    color: isActive ? 'primary.main' : 'text.secondary',
-                    fontWeight: isActive ? 600 : 400,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    px: 2,
-                    py: 1,
-                    borderRadius: 2,
-                    '&:hover': {
-                      backgroundColor: alpha(theme.palette.primary.main, 0.08),
-                      color: 'primary.main',
-                    },
-                    ...(isActive && {
-                      backgroundColor: alpha(theme.palette.primary.main, 0.12),
-                    }),
-                  }}
-                >
-                  {item.label}
-                </Button>
-              );
-            })}
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', flex: 1, justifyContent: 'flex-end' }}>
             <ThemeToggle />
           </Box>
         </Toolbar>

@@ -1,13 +1,25 @@
 import { Box, Typography, Paper, Stack } from '@mui/material';
+import DatePicker from '@/components/ui/DatePicker';
+import { useNewsletterContext } from '@/contexts/NewsletterContext';
 
 /**
  * Mobile-specific home page component
  * Completely different UI/UX from desktop
  */
 export default function MobileHome() {
+  const { selectedDate, availableDates, newsletterDate, selectDate } = useNewsletterContext();
+
   return (
     <Box sx={{ p: 2 }}>
       <Stack spacing={2}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+          <DatePicker
+            selectedDate={selectedDate}
+            availableDates={availableDates}
+            newsletterDate={newsletterDate}
+            onDateSelect={selectDate}
+          />
+        </Box>
         <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
           <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
             Bit-by-Bit
