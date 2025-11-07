@@ -1,22 +1,28 @@
-import { Container, Typography, Box, Paper } from '@mui/material';
+import { useDevice } from '@/hooks/useDevice';
+import MobileLayout from '@/components/layout/MobileLayout';
+import DesktopLayout from '@/components/layout/DesktopLayout';
+import MobileHome from '@/components/mobile/MobileHome';
+import DesktopHome from '@/components/desktop/DesktopHome';
 
+/**
+ * Home page with completely different mobile and desktop experiences
+ * Uses device detection to render appropriate layout and content
+ */
 export default function Home() {
+  const { isMobile } = useDevice();
+
+  // Completely separate experiences based on device type
+  if (isMobile) {
+    return (
+      <MobileLayout>
+        <MobileHome />
+      </MobileLayout>
+    );
+  }
+
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ my: 4 }}>
-        <Paper elevation={3} sx={{ p: 4 }}>
-          <Typography variant="h3" component="h1" gutterBottom>
-            Bit-by-Bit Newsletter
-          </Typography>
-          <Typography variant="h5" component="h2" gutterBottom>
-            Frontend V2
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Welcome to the new frontend built with Next.js, TypeScript, and Material UI.
-          </Typography>
-        </Paper>
-      </Box>
-    </Container>
+    <DesktopLayout>
+      <DesktopHome />
+    </DesktopLayout>
   );
 }
-
