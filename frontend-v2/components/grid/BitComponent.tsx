@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BitComponent as BitComponentType } from '@/types/components';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Theme } from '@mui/material';
 
 interface Props {
   component: BitComponentType;
@@ -44,7 +44,7 @@ export default function BitComponent({ component }: Props) {
         sx={{
           fontSize: '3rem',
           lineHeight: 1,
-          color: 'grey.300',
+          color: (theme: Theme) => theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'grey.300',
           fontFamily: '"Pixelify Sans", system-ui, sans-serif',
           opacity: isVisible ? 1 : 0,
           transition: `opacity ${animationDuration}ms ease`,

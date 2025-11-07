@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseGridComponent from './BaseGridComponent';
 import { BrandingComponent as BrandingComponentType } from '@/types/components';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Theme } from '@mui/material';
 
 interface Props {
   component: BrandingComponentType;
@@ -14,7 +14,7 @@ export default function BrandingComponent({ component }: Props) {
     <BaseGridComponent 
       component={component} 
       sx={{ 
-        bgcolor: 'grey.800', 
+        bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? 'primary.dark' : 'grey.800',
         color: 'white',
         '&:hover': {
           transform: 'scale(1.05)',

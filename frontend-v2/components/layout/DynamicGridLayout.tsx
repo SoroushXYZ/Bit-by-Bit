@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Theme } from '@mui/material';
 import ComponentRenderer from '@/components/grid/ComponentRenderer';
 import { NewsletterLayout } from '@/types/components';
 
@@ -22,7 +22,7 @@ export default function DynamicGridLayout({ layout }: Props) {
         border: 1,
         borderColor: 'divider',
         borderRadius: 2,
-        boxShadow: 3,
+        boxShadow: (theme: Theme) => theme.palette.mode === 'dark' ? 6 : 3,
         p: 2,
         display: 'grid',
         gridTemplateColumns: `repeat(${gridConfig.columns}, minmax(0, 1fr))`,

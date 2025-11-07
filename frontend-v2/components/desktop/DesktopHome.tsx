@@ -17,15 +17,6 @@ export default function DesktopHome({ layout, isLoading, error, onRetry }: Deskt
   return (
     <Box>
       <Stack spacing={3}>
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-          <Typography variant="h2" component="h1" gutterBottom>
-            Bit-by-Bit Newsletter
-          </Typography>
-          <Typography variant="h5" component="h2" gutterBottom color="text.secondary">
-            Frontend V2
-          </Typography>
-        </Paper>
-
         {isLoading && (
           <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
             <CircularProgress />

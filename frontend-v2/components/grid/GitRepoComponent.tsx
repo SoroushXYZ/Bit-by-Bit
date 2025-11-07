@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseGridComponent from './BaseGridComponent';
 import { GitRepoComponent as GitRepoComponentType } from '@/types/components';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Theme } from '@mui/material';
 
 interface Props {
   component: GitRepoComponentType;
@@ -20,7 +20,10 @@ export default function GitRepoComponent({ component }: Props) {
   return (
     <BaseGridComponent
       component={component}
-      sx={{ bgcolor: 'grey.50', borderColor: 'grey.200' }}
+      sx={{ 
+        bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'grey.50',
+        borderColor: 'divider',
+      }}
     >
       <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 0.5 }}>

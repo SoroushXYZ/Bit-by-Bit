@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseGridComponent from './BaseGridComponent';
 import { QuickLinkComponent as QuickLinkComponentType } from '@/types/components';
-import { Typography } from '@mui/material';
+import { Typography, Theme } from '@mui/material';
 
 interface Props {
   component: QuickLinkComponentType;
@@ -13,7 +13,10 @@ export default function QuickLinkComponent({ component }: Props) {
   return (
     <BaseGridComponent 
       component={component} 
-      sx={{ bgcolor: 'grey.50', borderColor: 'grey.200' }}
+      sx={{ 
+        bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'grey.50',
+        borderColor: 'divider',
+      }}
     >
       <Typography 
         variant="body2" 
