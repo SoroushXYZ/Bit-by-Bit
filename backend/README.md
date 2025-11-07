@@ -4,6 +4,29 @@ FastAPI backend service for managing newsletter pipeline data from S3.
 
 ## Setup
 
+### Docker (Recommended)
+
+1. Install Docker (if not already installed):
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+```
+
+2. Configure environment:
+```bash
+cp .env.example .env
+# Edit .env with your AWS credentials
+```
+
+3. Build and run with Docker Compose:
+```bash
+docker-compose up -d
+```
+
+The API will be available at `http://localhost:8000`
+
+### Local Development
+
 1. Install dependencies:
 ```bash
 pip install -r requirements.txt
