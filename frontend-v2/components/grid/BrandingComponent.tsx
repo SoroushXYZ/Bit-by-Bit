@@ -14,7 +14,7 @@ export default function BrandingComponent({ component }: Props) {
     <BaseGridComponent 
       component={component} 
       sx={{ 
-        bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? 'primary.dark' : 'grey.800',
+        bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? '#1565c0' : 'grey.800',
         color: 'white',
         '&:hover': {
           transform: 'scale(1.05)',

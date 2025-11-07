@@ -14,7 +14,7 @@ export default function HeadlineComponent({ component }: Props) {
     <BaseGridComponent 
       component={component} 
       sx={{ 
-        bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'grey.50',
+        bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? 'rgba(100, 120, 150, 0.1)' : 'grey.50',
         borderColor: 'divider',
       }}
     >

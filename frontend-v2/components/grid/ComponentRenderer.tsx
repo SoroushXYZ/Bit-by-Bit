@@ -47,7 +47,7 @@ export default function ComponentRenderer({ component }: Props) {
         <Box
           sx={{
             gridArea: `${unknownComponent.position.row} / ${unknownComponent.position.column} / ${unknownComponent.position.row + unknownComponent.position.height} / ${unknownComponent.position.column + unknownComponent.position.width}`,
-            bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'grey.200',
+            bgcolor: (theme: Theme) => theme.palette.mode === 'dark' ? 'rgba(100, 120, 150, 0.12)' : 'grey.200',
             border: 1,
             borderColor: 'divider',
             p: 2,

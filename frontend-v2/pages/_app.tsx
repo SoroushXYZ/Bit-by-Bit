@@ -24,14 +24,14 @@ function ThemedApp({ Component, pageProps }: AppProps) {
             dark: resolvedMode === 'dark' ? '#c2185b' : '#9a0036',
           },
           background: {
-            default: resolvedMode === 'dark' ? '#121212' : '#f5f5f5',
-            paper: resolvedMode === 'dark' ? '#1e1e1e' : '#ffffff',
+            default: resolvedMode === 'dark' ? '#1a1d24' : '#f5f5f5',
+            paper: resolvedMode === 'dark' ? '#23262d' : '#ffffff',
           },
           text: {
-            primary: resolvedMode === 'dark' ? '#ffffff' : 'rgba(0, 0, 0, 0.87)',
-            secondary: resolvedMode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)',
+            primary: resolvedMode === 'dark' ? '#e4e6eb' : 'rgba(0, 0, 0, 0.87)',
+            secondary: resolvedMode === 'dark' ? 'rgba(228, 230, 235, 0.65)' : 'rgba(0, 0, 0, 0.6)',
           },
-          divider: resolvedMode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)',
+          divider: resolvedMode === 'dark' ? 'rgba(144, 202, 249, 0.12)' : 'rgba(0, 0, 0, 0.12)',
         },
         transitions: {
           duration: {
