@@ -4,7 +4,11 @@ import {
   Typography,
   Box,
   useTheme,
+  IconButton,
+  Tooltip,
+  alpha,
 } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import ThemeToggle from '@/components/theme/ThemeToggle';
 
 /**
@@ -41,6 +45,22 @@ export default function MobileNavbar() {
           </Typography>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flex: 1, justifyContent: 'flex-end' }}>
+            <Tooltip title="View on GitHub">
+              <IconButton
+                component="a"
+                href="https://github.com/SoroushXYZ/Bit-by-Bit"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: 'text.primary',
+                  '&:hover': {
+                    backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                  },
+                }}
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Tooltip>
             <ThemeToggle />
           </Box>
         </Toolbar>
