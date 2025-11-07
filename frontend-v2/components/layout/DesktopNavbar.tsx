@@ -9,6 +9,7 @@ import {
   alpha,
 } from '@mui/material';
 import { useRouter } from 'next/router';
+import ThemeToggle from '@/components/theme/ThemeToggle';
 
 /**
  * Desktop-optimized navbar with horizontal navigation
@@ -92,6 +93,7 @@ export default function DesktopNavbar() {
                 </Button>
               );
             })}
+            <ThemeToggle />
           </Box>
         </Toolbar>
       </Container>
