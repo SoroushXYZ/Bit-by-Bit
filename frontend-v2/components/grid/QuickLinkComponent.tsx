@@ -23,15 +23,15 @@ export default function QuickLinkComponent({ component }: Props) {
         fontWeight="bold"
         sx={{ 
           fontSize: '0.75rem',
-          lineHeight: 1.2,
+          lineHeight: 1.3,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
           flex: 1,
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
           overflow: 'hidden',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
         }}
       >
         {title}

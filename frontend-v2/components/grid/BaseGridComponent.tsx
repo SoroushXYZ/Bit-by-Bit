@@ -41,7 +41,7 @@ export default function BaseGridComponent({
       onClick={handleClick}
       className={className}
     >
-      <CardContent sx={{ px: 0.5, pt: 0.5, pb: 0, height: '100%', display: 'flex', flexDirection: 'column', '&:last-child': { pb: 0 } }}>
+      <CardContent sx={{ px: 0.75, pt: 0.75, pb: 0, height: '100%', display: 'flex', flexDirection: 'column', '&:last-child': { pb: 0 } }}>
         {children}
       </CardContent>
     </Card>

@@ -22,13 +22,12 @@ export default function HeadlineComponent({ component }: Props) {
         variant="body2" 
         fontWeight="bold" 
         sx={{ 
-          mb: 0.25, 
-          fontSize: '0.75rem',
-          lineHeight: 1.2,
-          display: '-webkit-box',
-          WebkitLineClamp: 3,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
+          mb: 0.5,
+          py: 0.5,
+          fontSize: '0.9rem',
+          lineHeight: 1.3,
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
         }}
       >
         {title}
@@ -39,28 +38,27 @@ export default function HeadlineComponent({ component }: Props) {
         color="text.secondary"
         sx={{ 
           mb: 0, 
-          fontSize: '0.625rem',
-          lineHeight: 1.2,
-          display: '-webkit-box',
-          WebkitLineClamp: 3,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
+          fontSize: '0.75rem',
+          lineHeight: 1.3,
           flex: 1,
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
+          overflow: 'hidden',
         }}
       >
         {description}
       </Typography>
       
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 'auto', mb: 0.5 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 'auto', pt: 0.25 }}>
         <Typography 
           variant="caption" 
           color="text.secondary"
           sx={{ 
-            fontSize: '0.75rem',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            lineHeight: 1,
+            fontSize: '0.7rem',
+            lineHeight: 1.2,
+            textAlign: 'right',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
           }}
         >
           {source}

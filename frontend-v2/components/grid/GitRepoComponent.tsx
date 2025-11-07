@@ -2,6 +2,7 @@ import React from 'react';
 import BaseGridComponent from './BaseGridComponent';
 import { GitRepoComponent as GitRepoComponentType } from '@/types/components';
 import { Box, Typography, Theme } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 interface Props {
   component: GitRepoComponentType;
@@ -27,26 +28,25 @@ export default function GitRepoComponent({ component }: Props) {
     >
       <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 0.25 }}>
-          <Box
-            component="img"
-            src="/icons/github.svg"
-            alt="GitHub"
-            sx={{ width: 16, height: 16, mr: 0.5, flexShrink: 0 }}
-            onError={(e: any) => {
-              e.target.style.display = 'none';
-            }}
+          <GitHubIcon 
+            sx={{ 
+              width: 16, 
+              height: 16, 
+              mr: 0.5, 
+              flexShrink: 0,
+              color: 'text.primary',
+            }} 
           />
           <Typography 
             variant="body2" 
             fontWeight="bold"
             sx={{ 
-              fontSize: '0.75rem',
-              lineHeight: 1.2,
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
+              fontSize: '0.8rem',
+              lineHeight: 1.3,
               textAlign: 'left',
+              wordBreak: 'break-word',
+              overflowWrap: 'break-word',
+              overflow: 'hidden',
             }}
           >
             {name}
@@ -64,10 +64,12 @@ export default function GitRepoComponent({ component }: Props) {
           variant="caption" 
           color="text.secondary"
           sx={{ 
-            fontSize: '0.625rem',
+            fontSize: '0.7rem',
             flex: 1,
             overflow: 'hidden',
             wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+            lineHeight: 1.3,
           }}
         >
           {description}
