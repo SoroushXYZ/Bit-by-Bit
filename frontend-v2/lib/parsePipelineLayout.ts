@@ -85,7 +85,8 @@ function transformBackendComponent(backendComp: BackendComponent): Component {
       return {
         ...baseComponent,
         type: 'quickLink',
-        title: backendComp.data.title || ''
+        title: backendComp.data.title || '',
+        summary: backendComp.data.summary || backendComp.data.description || undefined
       } as QuickLinkComponent;
 
     case 'branding':
