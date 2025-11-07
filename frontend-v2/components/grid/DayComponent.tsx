@@ -20,7 +20,15 @@ export default function DayComponent({ component }: Props) {
         alignItems: 'center', 
         justifyContent: 'center' 
       }}>
-        <Typography variant="h6" fontWeight="bold" sx={{ lineHeight: 1 }}>
+        <Typography 
+          variant="h6" 
+          fontWeight="bold" 
+          sx={{ 
+            lineHeight: 1,
+            fontFamily: '"Press Start 2P", monospace',
+            fontSize: '0.9rem',
+          }}
+        >
           Day {number}
         </Typography>
       </Box>

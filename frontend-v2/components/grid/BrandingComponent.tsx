@@ -30,7 +30,10 @@ export default function BrandingComponent({ component }: Props) {
         <Typography 
           variant="h4" 
           fontWeight="bold"
-          sx={{ fontSize: '2rem' }}
+          sx={{ 
+            fontSize: '2rem',
+            fontFamily: '"Press Start 2P", monospace',
+          }}
         >
           {text}
         </Typography>
