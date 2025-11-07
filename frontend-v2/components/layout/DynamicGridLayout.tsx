@@ -11,7 +11,7 @@ export default function DynamicGridLayout({ layout }: Props) {
   const { gridConfig, components } = layout;
   
   // Scale factor to increase tile sizes
-  const scaleFactor = 1.1;
+  const scaleFactor = 1.2;
   const scaledCellSize = gridConfig.cellSize * scaleFactor;
   
   const gap = 6; // 0.375rem = 6px
