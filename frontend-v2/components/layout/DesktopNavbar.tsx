@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import ThemeToggle from '@/components/theme/ThemeToggle';
+import DatePicker from '@/components/ui/DatePicker';
+import { useNewsletterData } from '@/hooks/useNewsletterData';
 
 /**
  * Desktop-optimized navbar with horizontal navigation
@@ -17,6 +19,7 @@ import ThemeToggle from '@/components/theme/ThemeToggle';
 export default function DesktopNavbar() {
   const router = useRouter();
   const theme = useTheme();
+  const { selectedDate, availableDates, selectDate } = useNewsletterData();
 
   const menuItems = [
     { label: 'Home', href: '/' },
@@ -64,6 +67,14 @@ export default function DesktopNavbar() {
           >
             Bit-by-Bit
           </Typography>
+
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+            <DatePicker
+              selectedDate={selectedDate}
+              availableDates={availableDates}
+              onDateSelect={selectDate}
+            />
+          </Box>
 
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             {menuItems.map((item) => {

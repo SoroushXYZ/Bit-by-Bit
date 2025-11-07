@@ -11,7 +11,7 @@ import { useNewsletterData } from '@/hooks/useNewsletterData';
  */
 export default function Home() {
   const { isMobile } = useDevice();
-  const { layout, isLoading, error, refreshData } = useNewsletterData();
+  const { layout, isLoading, error, refreshData, selectedDate, selectDate } = useNewsletterData();
 
   // Completely separate experiences based on device type
   if (isMobile) {
