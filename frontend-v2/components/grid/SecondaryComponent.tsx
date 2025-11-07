@@ -22,7 +22,7 @@ export default function SecondaryComponent({ component }: Props) {
         variant="body2" 
         fontWeight={600}
         sx={{ 
-          mb: 0.5, 
+          mb: 0.25, 
           fontSize: '0.875rem',
           lineHeight: 1.2,
           display: '-webkit-box',
@@ -38,7 +38,7 @@ export default function SecondaryComponent({ component }: Props) {
         variant="caption" 
         color="text.secondary"
         sx={{ 
-          mb: 1, 
+          mb: 0, 
           fontSize: '0.75rem',
           lineHeight: 1.2,
           display: '-webkit-box',
@@ -51,7 +51,7 @@ export default function SecondaryComponent({ component }: Props) {
         {description}
       </Typography>
       
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 'auto' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 'auto', mb: 0.5 }}>
         <Typography 
           variant="caption" 
           color="text.secondary"
@@ -60,6 +60,7 @@ export default function SecondaryComponent({ component }: Props) {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
+            lineHeight: 1,
           }}
         >
           {source}

@@ -10,10 +10,14 @@ interface Props {
 export default function DynamicGridLayout({ layout }: Props) {
   const { gridConfig, components } = layout;
   
+  // Scale factor to increase tile sizes
+  const scaleFactor = 1.1;
+  const scaledCellSize = gridConfig.cellSize * scaleFactor;
+  
   const gap = 6; // 0.375rem = 6px
   const padding = 16; // 1rem = 16px
-  const totalWidth = gridConfig.columns * gridConfig.cellSize + (gridConfig.columns - 1) * gap + padding * 2;
-  const totalHeight = gridConfig.rows * gridConfig.cellSize + (gridConfig.rows - 1) * gap + padding * 2;
+  const totalWidth = gridConfig.columns * scaledCellSize + (gridConfig.columns - 1) * gap + padding * 2;
+  const totalHeight = gridConfig.rows * scaledCellSize + (gridConfig.rows - 1) * gap + padding * 2;
 
   return (
     <Box

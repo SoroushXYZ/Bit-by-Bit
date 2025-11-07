@@ -26,7 +26,7 @@ export default function GitRepoComponent({ component }: Props) {
       }}
     >
       <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 0.25 }}>
           <Box
             component="img"
             src="/icons/github.svg"
@@ -53,7 +53,7 @@ export default function GitRepoComponent({ component }: Props) {
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 0.25 }}>
           <Typography variant="caption" sx={{ fontSize: '0.75rem', mr: 0.5 }}>⭐</Typography>
           <Typography variant="caption" sx={{ fontSize: '0.75rem' }}>
             {formatStars(stars)}

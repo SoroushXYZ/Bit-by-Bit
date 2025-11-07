@@ -22,13 +22,13 @@ export default function StockComponent({ component }: Props) {
         flexDirection: 'column', 
         alignItems: 'center', 
         justifyContent: 'center',
-        gap: 0.5,
+        gap: 0.25,
       }}>
         <Box
           component="img"
           src={iconPath}
           alt={symbol}
-          sx={{ width: 32, height: 32, mb: 0.5 }}
+          sx={{ width: 32, height: 32, mb: 0.25 }}
           onError={(e: any) => {
             e.target.style.display = 'none';
           }}
