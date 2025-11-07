@@ -1,10 +1,19 @@
-import { Box, Typography, Paper, Stack } from '@mui/material';
+import { Box, Typography, Paper, Stack, CircularProgress, Alert, Button } from '@mui/material';
+import DynamicGridLayout from '@/components/layout/DynamicGridLayout';
+import { NewsletterLayout } from '@/types/components';
+
+interface DesktopHomeProps {
+  layout: NewsletterLayout | null;
+  isLoading: boolean;
+  error: string | null;
+  onRetry: () => void;
+}
 
 /**
  * Desktop-specific home page component
  * Completely different UI/UX from mobile
  */
-export default function DesktopHome() {
+export default function DesktopHome({ layout, isLoading, error, onRetry }: DesktopHomeProps) {
   return (
     <Box>
       <Stack spacing={3}>
@@ -15,36 +24,40 @@ export default function DesktopHome() {
           <Typography variant="h5" component="h2" gutterBottom color="text.secondary">
             Frontend V2
           </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-            Desktop Experience - Optimized for larger screens with grid layouts
-          </Typography>
         </Paper>
 
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
-            gap: 3,
-          }}
-        >
-          <Paper elevation={2} sx={{ p: 3, borderRadius: 2, height: '100%' }}>
-            <Typography variant="h6" gutterBottom>
-              Grid Layout
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Desktop-optimized grid-based newsletter layout
-            </Typography>
-          </Paper>
+        {isLoading && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+            <CircularProgress />
+          </Box>
+        )}
 
-          <Paper elevation={2} sx={{ p: 3, borderRadius: 2, height: '100%' }}>
-            <Typography variant="h6" gutterBottom>
-              Rich Content
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              More space for detailed content and interactions
+        {error && (
+          <Alert 
+            severity="error" 
+            action={
+              <Button color="inherit" size="small" onClick={onRetry}>
+                Retry
+              </Button>
+            }
+          >
+            {error}
+          </Alert>
+        )}
+
+        {layout && !isLoading && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+            <DynamicGridLayout layout={layout} />
+          </Box>
+        )}
+
+        {!layout && !isLoading && !error && (
+          <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
+            <Typography variant="body2" color="text.secondary" textAlign="center">
+              No newsletter data available
             </Typography>
           </Paper>
-        </Box>
+        )}
       </Stack>
     </Box>
   );

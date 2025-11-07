@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { NewsletterLayout } from '@/types/components';
+import { parsePipelineLayout } from '@/lib/parsePipelineLayout';
 
 interface NewsletterData {
   status: string;
@@ -9,6 +11,7 @@ interface NewsletterData {
 
 interface UseNewsletterDataReturn {
   data: NewsletterData | null;
+  layout: NewsletterLayout | null;
   isLoading: boolean;
   error: string | null;
   refreshData: () => void;
@@ -19,6 +22,7 @@ interface UseNewsletterDataReturn {
  */
 export function useNewsletterData(): UseNewsletterDataReturn {
   const [data, setData] = useState<NewsletterData | null>(null);
+  const [layout, setLayout] = useState<NewsletterLayout | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,6 +42,17 @@ export function useNewsletterData(): UseNewsletterDataReturn {
       
       const backendData = await response.json();
       setData(backendData);
+      
+      // Parse the layout if grid_data exists
+      if (backendData.grid_data) {
+        try {
+          const parsedLayout = parsePipelineLayout(backendData);
+          setLayout(parsedLayout);
+        } catch (parseError) {
+          console.error('Failed to parse layout:', parseError);
+          setError('Failed to parse newsletter layout');
+        }
+      }
     } catch (err) {
       console.error('Failed to fetch newsletter data:', err);
       setError(err instanceof Error ? err.message : 'Unknown error occurred');
@@ -53,6 +68,7 @@ export function useNewsletterData(): UseNewsletterDataReturn {
 
   return {
     data,
+    layout,
     isLoading,
     error,
     refreshData: fetchNewsletterData,
