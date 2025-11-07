@@ -14,6 +14,7 @@ interface UseNewsletterDataReturn {
   layout: NewsletterLayout | null;
   availableDates: string[];
   selectedDate: string | null;
+  newsletterDate: string | null; // The actual date of the current newsletter
   isLoading: boolean;
   error: string | null;
   selectDate: (date: string | null) => void;
@@ -28,6 +29,7 @@ export function useNewsletterData(): UseNewsletterDataReturn {
   const [layout, setLayout] = useState<NewsletterLayout | null>(null);
   const [availableDates, setAvailableDates] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [newsletterDate, setNewsletterDate] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -66,6 +68,11 @@ export function useNewsletterData(): UseNewsletterDataReturn {
       
       const backendData = await response.json();
       setData(backendData);
+      
+      // Store the newsletter date from the response
+      if (backendData.date) {
+        setNewsletterDate(backendData.date);
+      }
       
       // Parse the layout if grid_data exists
       if (backendData.grid_data) {
@@ -111,6 +118,7 @@ export function useNewsletterData(): UseNewsletterDataReturn {
     layout,
     availableDates,
     selectedDate,
+    newsletterDate,
     isLoading,
     error,
     selectDate,

@@ -11,7 +11,7 @@ import {
 import { useRouter } from 'next/router';
 import ThemeToggle from '@/components/theme/ThemeToggle';
 import DatePicker from '@/components/ui/DatePicker';
-import { useNewsletterData } from '@/hooks/useNewsletterData';
+import { useNewsletterContext } from '@/contexts/NewsletterContext';
 
 /**
  * Desktop-optimized navbar with horizontal navigation
@@ -19,7 +19,7 @@ import { useNewsletterData } from '@/hooks/useNewsletterData';
 export default function DesktopNavbar() {
   const router = useRouter();
   const theme = useTheme();
-  const { selectedDate, availableDates, selectDate } = useNewsletterData();
+  const { selectedDate, availableDates, newsletterDate, selectDate } = useNewsletterContext();
 
   const menuItems = [
     { label: 'Home', href: '/' },
@@ -72,6 +72,7 @@ export default function DesktopNavbar() {
             <DatePicker
               selectedDate={selectedDate}
               availableDates={availableDates}
+              newsletterDate={newsletterDate}
               onDateSelect={selectDate}
             />
           </Box>

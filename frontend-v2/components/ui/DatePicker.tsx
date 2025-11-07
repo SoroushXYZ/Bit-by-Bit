@@ -21,24 +21,30 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 interface DatePickerProps {
   selectedDate: string | null;
   availableDates: string[];
+  newsletterDate: string | null; // The actual date of the current newsletter
   onDateSelect: (date: string | null) => void;
 }
 
 export default function DatePicker({
   selectedDate,
   availableDates,
+  newsletterDate,
   onDateSelect,
 }: DatePickerProps) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
   const theme = useTheme();
 
-  // Convert string date to Date object
-  const value = selectedDate ? new Date(selectedDate + 'T00:00:00') : null;
+  // Convert string date to Date object for calendar
+  // If selectedDate is null (Latest), use newsletterDate to highlight the actual date in calendar
+  const calendarValue = selectedDate 
+    ? new Date(selectedDate + 'T00:00:00') 
+    : (newsletterDate ? new Date(newsletterDate + 'T00:00:00') : null);
 
-  // Format date for display
-  const formatDisplayDate = (date: Date | null) => {
-    if (!date) return 'Latest Newsletter';
+  // Format date for display - only show date if selectedDate is explicitly set
+  const formatDisplayDate = () => {
+    if (!selectedDate) return 'Latest Newsletter';
+    const date = new Date(selectedDate + 'T00:00:00');
     return date.toLocaleDateString('en-US', {
       weekday: 'short',
       month: 'short',
@@ -63,20 +69,17 @@ export default function DatePicker({
     return !availableDates.includes(dateStr);
   };
 
-  const [calendarValue, setCalendarValue] = useState<Date | null>(value);
-
-  useEffect(() => {
-    setCalendarValue(value);
-  }, [value]);
-
   const handleCalendarChange = (newValue: Date | null) => {
-    setCalendarValue(newValue);
     if (newValue) {
       const dateStr = newValue.toISOString().split('T')[0];
       if (availableDates.includes(dateStr)) {
         onDateSelect(dateStr);
         setOpen(false);
       }
+      // Don't update calendar value if date is not available - let it stay on current selection
+    } else {
+      onDateSelect(null);
+      setOpen(false);
     }
   };
 
@@ -101,7 +104,7 @@ export default function DatePicker({
           },
         }}
       >
-        {formatDisplayDate(value)}
+        {formatDisplayDate()}
       </Button>
 
       <Popper
@@ -151,6 +154,26 @@ export default function DatePicker({
               value={calendarValue}
               onChange={handleCalendarChange}
               shouldDisableDate={isDateDisabled}
+              slotProps={{
+                day: (ownerState) => {
+                  const dayDate = ownerState.day;
+                  const dayDateStr = dayDate.toISOString().split('T')[0];
+                  // Highlight if it's the newsletter date when selectedDate is null (Latest)
+                  // Only highlight if it's not already selected by the calendar
+                  const isNewsletterDate = !selectedDate && newsletterDate && dayDateStr === newsletterDate;
+                  const isSelectedByCalendar = calendarValue && dayDateStr === calendarValue.toISOString().split('T')[0];
+                  
+                  return {
+                    sx: {
+                      ...(isNewsletterDate && !isSelectedByCalendar && {
+                        border: `2px solid ${theme.palette.primary.main}`,
+                        bgcolor: alpha(theme.palette.primary.main, 0.1),
+                        fontWeight: 600,
+                      }),
+                    },
+                  };
+                },
+              }}
               sx={{
                 width: '100%',
                 '& .MuiPickersCalendarHeader-root': {

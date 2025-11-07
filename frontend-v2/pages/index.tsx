@@ -3,7 +3,7 @@ import MobileLayout from '@/components/layout/MobileLayout';
 import DesktopLayout from '@/components/layout/DesktopLayout';
 import MobileHome from '@/components/mobile/MobileHome';
 import DesktopHome from '@/components/desktop/DesktopHome';
-import { useNewsletterData } from '@/hooks/useNewsletterData';
+import { useNewsletterContext } from '@/contexts/NewsletterContext';
 
 /**
  * Home page with completely different mobile and desktop experiences
@@ -11,7 +11,7 @@ import { useNewsletterData } from '@/hooks/useNewsletterData';
  */
 export default function Home() {
   const { isMobile } = useDevice();
-  const { layout, isLoading, error, refreshData, selectedDate, selectDate } = useNewsletterData();
+  const { layout, isLoading, error, refreshData } = useNewsletterContext();
 
   // Completely separate experiences based on device type
   if (isMobile) {

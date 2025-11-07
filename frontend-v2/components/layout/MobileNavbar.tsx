@@ -16,7 +16,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import ThemeToggle from '@/components/theme/ThemeToggle';
 import DatePicker from '@/components/ui/DatePicker';
-import { useNewsletterData } from '@/hooks/useNewsletterData';
+import { useNewsletterContext } from '@/contexts/NewsletterContext';
 
 /**
  * Mobile-optimized navbar with drawer menu
@@ -24,7 +24,7 @@ import { useNewsletterData } from '@/hooks/useNewsletterData';
 export default function MobileNavbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
-  const { selectedDate, availableDates, selectDate } = useNewsletterData();
+  const { selectedDate, availableDates, newsletterDate, selectDate } = useNewsletterContext();
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
@@ -67,6 +67,7 @@ export default function MobileNavbar() {
             <DatePicker
               selectedDate={selectedDate}
               availableDates={availableDates}
+              newsletterDate={newsletterDate}
               onDateSelect={selectDate}
             />
           </Box>

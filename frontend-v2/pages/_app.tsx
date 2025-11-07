@@ -3,6 +3,7 @@ import { ThemeProvider as MUIThemeProvider, createTheme, CssBaseline } from '@mu
 import { useMemo } from 'react';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { useThemeContext } from '@/contexts/ThemeContext';
+import { NewsletterProvider } from '@/contexts/NewsletterContext';
 import '@/styles/globals.css';
 
 function ThemedApp({ Component, pageProps }: AppProps) {
@@ -109,7 +110,9 @@ function ThemedApp({ Component, pageProps }: AppProps) {
 export default function App(props: AppProps) {
   return (
     <ThemeProvider>
-      <ThemedApp {...props} />
+      <NewsletterProvider>
+        <ThemedApp {...props} />
+      </NewsletterProvider>
     </ThemeProvider>
   );
 }
