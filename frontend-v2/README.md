@@ -17,6 +17,22 @@ A modern frontend for the Bit-by-Bit AI Newsletter built with Next.js, TypeScrip
 npm install
 ```
 
+### Environment Setup
+
+Create a `.env.local` file in the `frontend-v2` directory:
+
+```bash
+cp .env.example .env.local
+```
+
+Or manually create `.env.local` with:
+
+```
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+```
+
+This sets the backend API URL (defaults to `http://localhost:8000` if not set).
+
 ### Development
 
 ```bash
