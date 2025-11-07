@@ -4,7 +4,7 @@ import { useNewsletterContext } from '@/contexts/NewsletterContext';
 import MobileNewsCard from './MobileNewsCard';
 import MobileGitRepoCard from './MobileGitRepoCard';
 import MobileStockCard from './MobileStockCard';
-import { Component } from '@/types/components';
+import { Component, HeadlineComponent, SecondaryComponent, QuickLinkComponent, GitRepoComponent, StockComponent } from '@/types/components';
 
 /**
  * Mobile-specific home page component
@@ -79,18 +79,18 @@ export default function MobileHome() {
         {!isLoading && !error && (
           <Box>
             {/* Headlines and Secondary Articles */}
-            {headlinesAndSecondary.map((component) => (
-              <MobileNewsCard key={component.id} component={component as any} />
+            {headlinesAndSecondary.map((component: Component) => (
+              <MobileNewsCard key={component.id} component={component as HeadlineComponent | SecondaryComponent | QuickLinkComponent} />
             ))}
 
             {/* Git Repos */}
-            {gitRepos.map((component) => (
-              <MobileGitRepoCard key={component.id} component={component as any} />
+            {gitRepos.map((component: Component) => (
+              <MobileGitRepoCard key={component.id} component={component as GitRepoComponent} />
             ))}
 
             {/* Quick Links */}
-            {quickLinks.map((component) => (
-              <MobileNewsCard key={component.id} component={component as any} />
+            {quickLinks.map((component: Component) => (
+              <MobileNewsCard key={component.id} component={component as QuickLinkComponent} />
             ))}
 
             {/* Stocks Section */}
@@ -117,7 +117,7 @@ export default function MobileHome() {
                     mb: 2,
                   }}
                 >
-                  {stocks.map((component) => (
+                  {stocks.map((component: Component) => (
                     <Box 
                       key={component.id} 
                       sx={{ 
@@ -126,7 +126,7 @@ export default function MobileHome() {
                         maxWidth: { xs: '200px', sm: '180px' },
                       }}
                     >
-                      <MobileStockCard component={component as any} />
+                      <MobileStockCard component={component as StockComponent} />
                     </Box>
                   ))}
                 </Box>
