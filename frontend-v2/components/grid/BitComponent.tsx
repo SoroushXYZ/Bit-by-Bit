@@ -45,7 +45,7 @@ export default function BitComponent({ component }: Props) {
           fontSize: '3rem',
           lineHeight: 1,
           color: (theme: Theme) => theme.palette.mode === 'dark' ? 'rgba(120, 140, 170, 0.3)' : 'grey.300',
-          fontFamily: '"Pixelify Sans", system-ui, sans-serif',
+          fontFamily: '"Press Start 2P", monospace',
           opacity: isVisible ? 1 : 0,
           transition: `opacity ${animationDuration}ms ease`,
           transitionDelay: `${animationDelay}ms`,

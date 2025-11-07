@@ -45,8 +45,10 @@ export default function DesktopNavbar() {
             variant="h4"
             component="div"
             sx={{
-              fontWeight: 800,
-              letterSpacing: '-0.02em',
+              fontFamily: '"Press Start 2P", monospace',
+              fontWeight: 400,
+              fontSize: '1.25rem',
+              letterSpacing: '0.05em',
               background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',

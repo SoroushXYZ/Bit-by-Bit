@@ -34,7 +34,10 @@ export default function MobileNavbar() {
             variant="h5"
             component="div"
             sx={{
-              fontWeight: 700,
+              fontFamily: '"Press Start 2P", monospace',
+              fontWeight: 400,
+              fontSize: '1rem',
+              letterSpacing: '0.05em',
               background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
