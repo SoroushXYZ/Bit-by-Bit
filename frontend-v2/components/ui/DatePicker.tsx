@@ -234,7 +234,7 @@ export default function DatePicker({
             <Box
               sx={{
                 px: 3,
-                py: 2,
+                py: 0.5,
                 borderTop: 1,
                 borderColor: 'divider',
                 bgcolor: alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.08 : 0.04),
