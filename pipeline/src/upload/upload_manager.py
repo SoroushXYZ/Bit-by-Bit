@@ -4,6 +4,7 @@ Orchestrates S3 uploads and backend integration.
 """
 
 import json
+import requests
 from pathlib import Path
 from typing import Dict, Any, Optional
 from datetime import datetime
@@ -36,6 +37,7 @@ class UploadManager:
         self.s3_uploader = S3Uploader(config_loader)
         
         # Backend configuration
+        self.notify_backend = self.env_loader.get_env_var('NOTIFY_BACKEND', 'false').lower() == 'true'
         self.backend_url = self._get_backend_url()
         self.backend_api_key = self.env_loader.get_env_var('BACKEND_API_KEY')
     
@@ -98,7 +100,9 @@ class UploadManager:
     
     def _notify_backend(self, run_id: str, s3_result: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Notify backend about successful upload.
+        Notify backend about successful upload and trigger sync.
+        
+        Calls the backend /sync endpoint to force a sync of data from S3 to local storage.
         
         Args:
             run_id: Pipeline run identifier
@@ -107,43 +111,94 @@ class UploadManager:
         Returns:
             Dictionary with backend notification results
         """
-        if not self.backend_url or not self.backend_api_key:
-            self.logger.warning("⚠️ Backend URL or API key not configured - skipping backend notification")
+        # Check if backend notification is enabled
+        if not self.notify_backend:
+            self.logger.info("⏭️ Backend notification disabled (NOTIFY_BACKEND=false)")
             return {
                 'success': True,
                 'skipped': True,
-                'message': 'Backend notification skipped - not configured'
+                'message': 'Backend notification disabled'
+            }
+        
+        # Check if backend URL is configured
+        if not self.backend_url:
+            self.logger.warning("⚠️ Backend URL not configured - skipping backend notification")
+            return {
+                'success': True,
+                'skipped': True,
+                'message': 'Backend notification skipped - URL not configured'
             }
         
         try:
-            # Prepare backend payload
-            payload = {
-                'run_id': run_id,
-                'environment': self.environment,
-                'uploaded_at': datetime.now().isoformat(),
-                's3_bucket': s3_result.get('bucket'),
-                'total_files': s3_result.get('total_files_uploaded', 0),
-                'upload_results': s3_result.get('upload_results', {}),
-                'metadata_uploaded': s3_result.get('metadata_uploaded', False)
+            # Prepare sync endpoint URL
+            sync_url = f"{self.backend_url.rstrip('/')}/sync"
+            self.logger.info(f"📡 Notifying backend at {sync_url}")
+            
+            # Prepare headers
+            # Note: Backend currently uses IP whitelisting, not API key authentication
+            # API key is optional and can be used if backend adds authentication later
+            headers = {
+                'Content-Type': 'application/json'
             }
+            if self.backend_api_key:
+                headers['Authorization'] = f'Bearer {self.backend_api_key}'
             
-            # TODO: Implement actual backend API call
-            # This is a placeholder for now
-            self.logger.info(f"📡 Would notify backend at {self.backend_url}")
-            self.logger.debug(f"Backend payload: {json.dumps(payload, indent=2)}")
+            # Make POST request to trigger sync
+            response = requests.post(
+                sync_url,
+                headers=headers,
+                json={
+                    'run_id': run_id,
+                    'environment': self.environment,
+                    'uploaded_at': datetime.now().isoformat(),
+                    's3_bucket': s3_result.get('bucket'),
+                    'total_files': s3_result.get('total_files_uploaded', 0)
+                },
+                timeout=30  # 30 second timeout
+            )
             
-            # For now, just return success
-            return {
-                'success': True,
-                'backend_url': self.backend_url,
-                'message': 'Backend notification (placeholder)'
-            }
+            # Check response
+            if response.status_code == 200:
+                response_data = response.json()
+                self.logger.info(f"✅ Backend sync triggered successfully")
+                self.logger.debug(f"Backend response: {json.dumps(response_data, indent=2)}")
+                return {
+                    'success': True,
+                    'backend_url': sync_url,
+                    'status_code': response.status_code,
+                    'response': response_data,
+                    'message': 'Backend sync triggered successfully'
+                }
+            else:
+                error_msg = f"Backend returned status {response.status_code}: {response.text}"
+                self.logger.error(f"❌ {error_msg}")
+                return {
+                    'success': False,
+                    'backend_url': sync_url,
+                    'status_code': response.status_code,
+                    'error': error_msg
+                }
             
-        except Exception as e:
-            self.logger.error(f"❌ Backend notification failed: {e}")
+        except requests.exceptions.Timeout:
+            error_msg = "Backend request timed out after 30 seconds"
+            self.logger.error(f"❌ {error_msg}")
             return {
                 'success': False,
-                'error': str(e)
+                'error': error_msg
+            }
+        except requests.exceptions.ConnectionError as e:
+            error_msg = f"Failed to connect to backend: {e}"
+            self.logger.error(f"❌ {error_msg}")
+            return {
+                'success': False,
+                'error': error_msg
+            }
+        except Exception as e:
+            error_msg = f"Backend notification failed: {e}"
+            self.logger.error(f"❌ {error_msg}")
+            return {
+                'success': False,
+                'error': error_msg
             }
     
     def upload_single_file(self, file_path: str, s3_key: str, 
@@ -201,7 +256,8 @@ class UploadManager:
         return {
             **s3_status,
             'backend_url': self.backend_url,
-            'backend_configured': bool(self.backend_url and self.backend_api_key),
+            'notify_backend': self.notify_backend,
+            'backend_configured': bool(self.backend_url),
             'environment': self.environment
         }
     
@@ -246,13 +302,19 @@ class UploadManager:
         if not s3_status['bucket_name']:
             validation_results['overall_success'] = False
         
-        # Check backend configuration
-        validation_results['checks']['backend_config'] = {
-            'status': bool(self.backend_url and self.backend_api_key),
-            'message': f"Backend configured: {self.backend_url}" if self.backend_url else 'Backend not configured'
+        # Check backend notification configuration
+        validation_results['checks']['backend_notification'] = {
+            'status': self.notify_backend,
+            'message': 'Backend notification enabled' if self.notify_backend else 'Backend notification disabled'
         }
         
-        if not self.backend_url:
-            validation_results['checks']['backend_config']['warning'] = 'Backend notification will be skipped'
+        validation_results['checks']['backend_config'] = {
+            'status': bool(self.backend_url),
+            'message': f"Backend URL configured: {self.backend_url}" if self.backend_url else 'Backend URL not configured'
+        }
+        
+        if self.notify_backend and not self.backend_url:
+            validation_results['checks']['backend_config']['warning'] = 'Backend notification enabled but URL not configured - notification will be skipped'
+            validation_results['overall_success'] = False
         
         return validation_results
