@@ -8,7 +8,7 @@
   "llm": {
     "provider": "together_ai",
     "together_ai": {
-      "model": "meta-llama/Meta-Llama-3-8B-Instruct-Lite",
+      "model": "Qwen/Qwen3.5-9B",
       "temperature": 0.3,
       "max_tokens": 2000,
       "max_retries": 3,
