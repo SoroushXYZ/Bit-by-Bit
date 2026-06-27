@@ -44,7 +44,7 @@ class GitHubTrendingProcessor:
         if self.provider == 'together_ai':
             self.llm_client = create_together_client(llm_config['together_ai'])
             # Set attributes for compatibility
-            self.model_name = llm_config['together_ai'].get('model', 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo')
+            self.model_name = llm_config['together_ai'].get('model', 'Qwen/Qwen3.5-9B')
         else:
             # Fallback to Ollama configuration
             self.ollama_host = llm_config.get('ollama', {}).get('server_url', 'http://172.22.128.1:11434').replace('http://', '').replace(':11434', '')

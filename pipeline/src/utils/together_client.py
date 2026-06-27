@@ -28,7 +28,7 @@ class TogetherAIClient:
         
         Args:
             api_key: Together AI API key
-            model: Model name (e.g., "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo")
+            model: Model name (e.g., "Qwen/Qwen3.5-9B")
             temperature: Sampling temperature (0.0 to 1.0)
             max_tokens: Maximum tokens to generate
             max_retries: Maximum number of retry attempts

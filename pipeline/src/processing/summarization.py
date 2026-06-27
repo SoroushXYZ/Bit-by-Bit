@@ -51,7 +51,7 @@ class SummarizationStep:
         if self.provider == 'together_ai':
             self.llm_client = create_together_client(self.llm_config['together_ai'])
             # Set attributes for compatibility
-            self.model_name = self.llm_config['together_ai'].get('model', 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo')
+            self.model_name = self.llm_config['together_ai'].get('model', 'Qwen/Qwen3.5-9B')
         else:
             # Fallback to Ollama configuration
             self.ollama_endpoint = self.llm_config['ollama']['server_url']
